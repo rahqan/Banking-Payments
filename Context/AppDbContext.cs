@@ -20,6 +20,7 @@ namespace dummy_api.Context
         public virtual DbSet<Payment> Payments { get; set; }
         //public virtual DbSet<Report> Reports { get; set; }
         public virtual DbSet<SalaryDisbursement> SalaryDisbursements { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Client>()
