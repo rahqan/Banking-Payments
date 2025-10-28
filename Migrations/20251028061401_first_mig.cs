@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace dummy_api.Migrations
 {
     /// <inheritdoc />
-    public partial class firstmig : Migration
+    public partial class first_mig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Admin",
+                name: "Admins",
                 columns: table => new
                 {
                     AdminId = table.Column<int>(type: "int", nullable: false)
@@ -24,7 +24,7 @@ namespace dummy_api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Admin", x => x.AdminId);
+                    table.PrimaryKey("PK_Admins", x => x.AdminId);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,9 +48,9 @@ namespace dummy_api.Migrations
                 {
                     table.PrimaryKey("PK_Banks", x => x.BankId);
                     table.ForeignKey(
-                        name: "FK_Banks_Admin_AdminId",
+                        name: "FK_Banks_Admins_AdminId",
                         column: x => x.AdminId,
-                        principalTable: "Admin",
+                        principalTable: "Admins",
                         principalColumn: "AdminId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -111,13 +111,37 @@ namespace dummy_api.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Beneficiaries",
+                columns: table => new
+                {
+                    BeneficiaryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IfscCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Beneficiaries", x => x.BeneficiaryId);
+                    table.ForeignKey(
+                        name: "FK_Beneficiaries_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Documents",
                 columns: table => new
                 {
                     DocumentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BankUserId = table.Column<int>(type: "int", nullable: false)
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BankUserId = table.Column<int>(type: "int", nullable: false),
+                    ClientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -128,6 +152,11 @@ namespace dummy_api.Migrations
                         principalTable: "BankUsers",
                         principalColumn: "BankUserId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Documents_Clients_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId");
                 });
 
             migrationBuilder.CreateTable(
@@ -139,6 +168,8 @@ namespace dummy_api.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IfscCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -220,6 +251,11 @@ namespace dummy_api.Migrations
                 column: "BankId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Beneficiaries_ClientId",
+                table: "Beneficiaries",
+                column: "ClientId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clients_BankId",
                 table: "Clients",
                 column: "BankId");
@@ -233,6 +269,11 @@ namespace dummy_api.Migrations
                 name: "IX_Documents_BankUserId",
                 table: "Documents",
                 column: "BankUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Documents_ClientId",
+                table: "Documents",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Employees_ClientId",
@@ -264,6 +305,9 @@ namespace dummy_api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Beneficiaries");
+
+            migrationBuilder.DropTable(
                 name: "Documents");
 
             migrationBuilder.DropTable(
@@ -285,7 +329,7 @@ namespace dummy_api.Migrations
                 name: "Banks");
 
             migrationBuilder.DropTable(
-                name: "Admin");
+                name: "Admins");
         }
     }
 }

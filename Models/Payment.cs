@@ -10,7 +10,7 @@ namespace dummy_api.Models
     {
         public int PaymentId { get; set; }
         public Decimal Amount { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public DateTime PaymentDate { get; set; } = DateTime.Now;
         public int status { get; set; } = 0;
 
         public PaymentType Type { get; set; }

@@ -6,9 +6,15 @@ namespace dummy_api.Models
     {
         public int DocumentId { get; set; }
         public string Name { get; set; }
+        public string Url { get; set; }
+
         [ForeignKey("BankUser")]
         public int BankUserId { get; set; }
         public BankUser? UploadedBy { get; set; }
+
+        [ForeignKey("Client")]
+        public int ClientId { get; set; }
+        public Client? Client { get; set; } = new Client();
 
     }
 }

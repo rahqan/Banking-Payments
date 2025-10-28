@@ -12,8 +12,8 @@ using dummy_api.Context;
 namespace dummy_api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251021140603_first-mig")]
-    partial class firstmig
+    [Migration("20251028061401_first_mig")]
+    partial class first_mig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace dummy_api.Migrations
 
                     b.HasKey("AdminId");
 
-                    b.ToTable("Admin");
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("dummy_api.Models.Bank", b =>
@@ -144,6 +144,36 @@ namespace dummy_api.Migrations
                     b.ToTable("BankUsers");
                 });
 
+            modelBuilder.Entity("dummy_api.Models.Beneficiary", b =>
+                {
+                    b.Property<int>("BeneficiaryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BeneficiaryId"));
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IfscCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BeneficiaryId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Beneficiaries");
+                });
+
             modelBuilder.Entity("dummy_api.Models.Client", b =>
                 {
                     b.Property<int>("ClientId")
@@ -201,13 +231,22 @@ namespace dummy_api.Migrations
                     b.Property<int>("BankUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DocumentId");
 
                     b.HasIndex("BankUserId");
+
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Documents");
                 });
@@ -220,12 +259,20 @@ namespace dummy_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
 
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("IfscCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -330,6 +377,17 @@ namespace dummy_api.Migrations
                     b.Navigation("Bank");
                 });
 
+            modelBuilder.Entity("dummy_api.Models.Beneficiary", b =>
+                {
+                    b.HasOne("dummy_api.Models.Client", "client")
+                        .WithMany("Beneficiaries")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("client");
+                });
+
             modelBuilder.Entity("dummy_api.Models.Client", b =>
                 {
                     b.HasOne("dummy_api.Models.Bank", "Bank")
@@ -356,6 +414,14 @@ namespace dummy_api.Migrations
                         .HasForeignKey("BankUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("dummy_api.Models.Client", "Client")
+                        .WithMany("Documents")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Client");
 
                     b.Navigation("UploadedBy");
                 });
@@ -432,6 +498,10 @@ namespace dummy_api.Migrations
 
             modelBuilder.Entity("dummy_api.Models.Client", b =>
                 {
+                    b.Navigation("Beneficiaries");
+
+                    b.Navigation("Documents");
+
                     b.Navigation("Employees");
 
                     b.Navigation("Payments");

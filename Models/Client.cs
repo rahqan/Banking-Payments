@@ -23,8 +23,10 @@ namespace dummy_api.Models
         public int BankUserId { get; set; }
         public virtual BankUser? BankUser { get; set; } = new BankUser();
         public virtual ICollection<Employee>? Employees { get; set; }
-        public ICollection<SalaryDisbursement>? SalaryDisbursement { get; set; }
-        public ICollection<Payment> Payments { get; set; }
+        public virtual ICollection<SalaryDisbursement>? SalaryDisbursement { get; set; }
+        public virtual ICollection<Payment>? Payments { get; set; }
+        public virtual ICollection<Beneficiary>? Beneficiaries { get; set; }
+        public virtual ICollection<Document>? Documents { get; set; }
 
     }
 }
