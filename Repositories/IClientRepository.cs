@@ -1,6 +1,6 @@
-﻿using dummy_api.Models;
+﻿using Banking_Payments.Models;
 
-namespace dummy_api.Repositories
+namespace Banking_Payments.Repositories
 {
     public interface IClientRepository
     {

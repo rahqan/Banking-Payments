@@ -1,7 +1,7 @@
-﻿using dummy_api.Models;
-using dummy_api.Repositories;
+﻿using Banking_Payments.Models;
+using Banking_Payments.Repositories;
 
-namespace dummy_api.Services
+namespace Banking_Payments.Services
 {
     public class ClientService : IClientService
     {

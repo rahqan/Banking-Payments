@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace dummy_api.Models
+namespace Banking_Payments.Models
 {
     public class Document
     {
@@ -14,7 +14,8 @@ namespace dummy_api.Models
 
         [ForeignKey("Client")]
         public int ClientId { get; set; }
-        public Client? Client { get; set; } = new Client();
+        //public Client? Client { get; set; } = new Client();
+        public Client? Client { get; set; }
 
     }
 }

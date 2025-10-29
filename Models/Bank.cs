@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace dummy_api.Models
+namespace Banking_Payments.Models
 {
     public class Bank
     {

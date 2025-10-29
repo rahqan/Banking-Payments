@@ -1,9 +1,9 @@
-﻿using dummy_api.Models;
-using dummy_api.Services;
+﻿using Banking_Payments.Models;
+using Banking_Payments.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-namespace dummy_api.Controllers
+namespace Banking_Payments.Controllers
 {
     [ApiController]
     [Route("api/v1")]

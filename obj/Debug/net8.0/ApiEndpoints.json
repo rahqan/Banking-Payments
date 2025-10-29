@@ -1,6 +1,198 @@
 [
   {
-    "ContainingType": "dummy_api.Controllers.ClientController",
+    "ContainingType": "Banking_Payments.Controllers.BankUserController",
+    "Method": "CreateClientAsync",
+    "RelativePath": "api/BankUser/clients",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientCreationDTO",
+        "Type": "Banking_Payments.Models.DTO.ClientCreationDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Banking_Payments.Models.DTO.ClientDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.BankUserController",
+    "Method": "GetAllClients",
+    "RelativePath": "api/BankUser/clients",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bankId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Banking_Payments.Models.DTO.ClientDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.BankUserController",
+    "Method": "GetClientById",
+    "RelativePath": "api/BankUser/clients/{clientId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Banking_Payments.Models.DTO.ClientDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.BankUserController",
+    "Method": "UpdateClient",
+    "RelativePath": "api/BankUser/clients/{clientId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "clientDTO",
+        "Type": "Banking_Payments.Models.DTO.ClientDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Banking_Payments.Models.DTO.ClientDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.BankUserController",
+    "Method": "DeleteClient",
+    "RelativePath": "api/BankUser/clients/{clientId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.BankUserController",
+    "Method": "VerifyClient",
+    "RelativePath": "api/BankUser/clients/{clientId}/verify",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "Banking_Payments.Models.DTO.ClientVerificationRequestDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Banking_Payments.Models.DTO.ClientDTO",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.BankUserController",
+    "Method": "GetClientsByVerificationStatus",
+    "RelativePath": "api/BankUser/clients/verification-status/{status}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Banking_Payments.Models.DTO.ClientDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.ClientController",
     "Method": "AddBeneficiary",
     "RelativePath": "api/v1/add-beneficiary",
     "HttpMethod": "POST",
@@ -9,13 +201,13 @@
     "Parameters": [
       {
         "Name": "beneficiary",
-        "Type": "dummy_api.Models.Beneficiary",
+        "Type": "Banking_Payments.Models.Beneficiary",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "dummy_api.Models.Beneficiary",
+        "Type": "Banking_Payments.Models.Beneficiary",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -26,7 +218,7 @@
     ]
   },
   {
-    "ContainingType": "dummy_api.Controllers.ClientController",
+    "ContainingType": "Banking_Payments.Controllers.ClientController",
     "Method": "AddPayment",
     "RelativePath": "api/v1/add-payment",
     "HttpMethod": "POST",
@@ -35,13 +227,13 @@
     "Parameters": [
       {
         "Name": "payment",
-        "Type": "dummy_api.Models.Payment",
+        "Type": "Banking_Payments.Models.Payment",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "dummy_api.Models.Payment",
+        "Type": "Banking_Payments.Models.Payment",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -52,7 +244,7 @@
     ]
   },
   {
-    "ContainingType": "dummy_api.Controllers.ClientController",
+    "ContainingType": "Banking_Payments.Controllers.ClientController",
     "Method": "ShowBeneficiaries",
     "RelativePath": "api/v1/all-beneficiaries",
     "HttpMethod": "GET",
@@ -61,7 +253,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[dummy_api.Models.Beneficiary, dummy_api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Banking_Payments.Models.Beneficiary, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -81,7 +273,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[dummy_api.WeatherForecast, dummy_api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[dummy_api.WeatherForecast, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

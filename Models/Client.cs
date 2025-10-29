@@ -1,19 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Banking_Payments.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace dummy_api.Models
+namespace Banking_Payments.Models
 {
     public class Client
     {
         [Key]
         public int ClientId { get; set; }
-        public string Code { get; set; }
 
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string BusinessType { get; set; }
-        public string Address { get; set; }
+
+        public string Password { get; set; }
+        public string ClientCode { get; set; }
+
+       
+
+        public string ClientName { get; set; }
+        public string ClientEmail { get; set; }
+        public string ClientBusinessType { get; set; }
+        public string ClientAddress { get; set; }
+        public VerificationStatus ClientVerificationStatus { get; set; }
         public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         [ForeignKey("Bank")]
         public int BankId { get; set; }
@@ -21,7 +29,10 @@ namespace dummy_api.Models
 
         [ForeignKey("BankUser")]
         public int BankUserId { get; set; }
-        public virtual BankUser? BankUser { get; set; } = new BankUser();
+
+        public virtual BankUser? BankUser { get; set; }
+
+       // public virtual BankUser? BankUser { get; set; } = new BankUser();
         public virtual ICollection<Employee>? Employees { get; set; }
         public virtual ICollection<SalaryDisbursement>? SalaryDisbursement { get; set; }
         public virtual ICollection<Payment>? Payments { get; set; }

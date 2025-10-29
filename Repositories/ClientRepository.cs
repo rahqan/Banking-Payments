@@ -1,8 +1,8 @@
-﻿using dummy_api.Context;
-using dummy_api.Models;
+﻿using Banking_Payments.Models;
+using dummy_api.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace dummy_api.Repositories
+namespace Banking_Payments.Repositories
 {
     public class ClientRepository : IClientRepository
     {
