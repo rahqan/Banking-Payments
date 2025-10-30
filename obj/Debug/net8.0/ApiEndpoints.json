@@ -16,6 +16,54 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Banking_Payments.Controllers.AuthController",
+    "Method": "RegisterAdmin",
+    "RelativePath": "api/Auth/register/admin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Banking_Payments.Models.DTO.RegisterAdminDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.AuthController",
+    "Method": "RegisterBankUser",
+    "RelativePath": "api/Auth/register/bankuser",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Banking_Payments.Models.DTO.RegisterBankUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.AuthController",
+    "Method": "RegisterClient",
+    "RelativePath": "api/Auth/register/client",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Banking_Payments.Models.DTO.RegisterClientDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Banking_Payments.Controllers.BankUserController",
     "Method": "CreateClientAsync",
     "RelativePath": "api/BankUser/clients",
