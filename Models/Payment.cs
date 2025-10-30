@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Banking_Payments.Models.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Banking_Payments.Models
 {
@@ -11,11 +12,13 @@ namespace Banking_Payments.Models
         public int PaymentId { get; set; }
         public Decimal Amount { get; set; }
         public DateTime PaymentDate { get; set; } = DateTime.Now;
-        public int status { get; set; } = 0;
+        public VerificationStatus status { get; set; } = 0;
 
         public PaymentType Type { get; set; }
 
         public int BeneficiaryId { get; set; }
+
+        public Beneficiary? Beneficiary { get; set; }
 
         [ForeignKey("Client")]
         public int ClientId { get; set; }

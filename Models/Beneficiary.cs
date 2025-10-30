@@ -12,6 +12,6 @@ namespace Banking_Payments.Models
         [ForeignKey("Client")]
         public int ClientId { get; set; }
 
-        public virtual Client? client { get; set; }
+        public virtual Client? Client { get; set; }
     }
 }

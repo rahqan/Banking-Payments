@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Banking_Payments.Migrations
 {
     /// <inheritdoc />
-    public partial class SeedReInitialData : Migration
+    public partial class MigrationFixes : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -147,7 +147,8 @@ namespace Banking_Payments.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IfscCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    ClientId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -156,8 +157,12 @@ namespace Banking_Payments.Migrations
                         name: "FK_Beneficiaries_Clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Clients",
-                        principalColumn: "ClientId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ClientId");
+                    table.ForeignKey(
+                        name: "FK_Beneficiaries_Clients_ClientId1",
+                        column: x => x.ClientId1,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId");
                 });
 
             migrationBuilder.CreateTable(
@@ -195,7 +200,7 @@ namespace Banking_Payments.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Salary = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IfscCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false)
@@ -217,7 +222,7 @@ namespace Banking_Payments.Migrations
                 {
                     PaymentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
@@ -235,6 +240,12 @@ namespace Banking_Payments.Migrations
                         principalColumn: "BankUserId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Payments_Beneficiaries_BeneficiaryId",
+                        column: x => x.BeneficiaryId,
+                        principalTable: "Beneficiaries",
+                        principalColumn: "BeneficiaryId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Payments_Clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Clients",
@@ -248,7 +259,7 @@ namespace Banking_Payments.Migrations
                     SalaryDisbursementId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -320,12 +331,12 @@ namespace Banking_Payments.Migrations
 
             migrationBuilder.InsertData(
                 table: "Beneficiaries",
-                columns: new[] { "BeneficiaryId", "AccountNumber", "ClientId", "IfscCode", "Name" },
+                columns: new[] { "BeneficiaryId", "AccountNumber", "ClientId", "ClientId1", "IfscCode", "Name" },
                 values: new object[,]
                 {
-                    { 1, "1234567890", 1, "FNB0001", "John Doe" },
-                    { 2, "2345678901", 2, "GTB0002", "Mary Jane" },
-                    { 3, "3456789012", 3, "MFB0003", "Peter Parker" }
+                    { 1, "1234567890", 1, null, "FNB0001", "John Doe" },
+                    { 2, "2345678901", 2, null, "GTB0002", "Mary Jane" },
+                    { 3, "3456789012", 3, null, "MFB0003", "Peter Parker" }
                 });
 
             migrationBuilder.InsertData(
@@ -384,6 +395,11 @@ namespace Banking_Payments.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Beneficiaries_ClientId1",
+                table: "Beneficiaries",
+                column: "ClientId1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Clients_BankId",
                 table: "Clients",
                 column: "BankId");
@@ -419,6 +435,11 @@ namespace Banking_Payments.Migrations
                 column: "BankUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payments_BeneficiaryId",
+                table: "Payments",
+                column: "BeneficiaryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payments_ClientId",
                 table: "Payments",
                 column: "ClientId");
@@ -438,9 +459,6 @@ namespace Banking_Payments.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Beneficiaries");
-
-            migrationBuilder.DropTable(
                 name: "ContactDetails");
 
             migrationBuilder.DropTable(
@@ -451,6 +469,9 @@ namespace Banking_Payments.Migrations
 
             migrationBuilder.DropTable(
                 name: "SalaryDisbursements");
+
+            migrationBuilder.DropTable(
+                name: "Beneficiaries");
 
             migrationBuilder.DropTable(
                 name: "Employees");

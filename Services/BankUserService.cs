@@ -296,7 +296,6 @@
 //    }
 //}
 
-
 using Banking_Payments.Models.DTO;
 using Banking_Payments.Models;
 using Banking_Payments.Repositories;
@@ -340,6 +339,7 @@ namespace Banking_Payments.Services
             {
                 ClientCode = clientCode,
                 ClientName = clientCreationDTO.ClientName,
+                Password=clientCreationDTO.ClientPassword,
                 ClientEmail = clientCreationDTO.ClientEmail,
                 BankId = clientCreationDTO.BankId,
                 ClientAddress = clientCreationDTO.Address ?? string.Empty,
@@ -367,20 +367,36 @@ namespace Banking_Payments.Services
             return clientDTOs;
         }
 
-        public async Task<ClientDTO?> GetClientByIdAsync(int clientId)
+        public async Task<ClientDTO?> GetClientByIdAsync(int clientId, int bankId)
         {
             var client = await _bankUserRepository.GetClientByIdAsync(clientId);
             if (client == null)
                 return null;
 
+            // Verify the client belongs to the bank user's bank
+            if (client.BankId != bankId)
+            {
+                _logger.LogWarning("Unauthorized access attempt: BankId {BankId} tried to access Client {ClientId} belonging to BankId {ClientBankId}",
+                    bankId, clientId, client.BankId);
+                throw new UnauthorizedAccessException("You can only access clients from your own bank");
+            }
+
             return MapToClientDTO(client);
         }
 
-        public async Task<ClientDTO> UpdateClientAsync(int clientId, ClientDTO clientDTO)
+        public async Task<ClientDTO> UpdateClientAsync(int clientId, ClientDTO clientDTO, int bankId)
         {
             var existingClient = await _bankUserRepository.GetClientByIdAsync(clientId);
             if (existingClient == null)
                 throw new KeyNotFoundException("Client not found");
+
+            // Verify the client belongs to the bank user's bank
+            if (existingClient.BankId != bankId)
+            {
+                _logger.LogWarning("Unauthorized update attempt: BankId {BankId} tried to update Client {ClientId} belonging to BankId {ClientBankId}",
+                    bankId, clientId, existingClient.BankId);
+                throw new UnauthorizedAccessException("You can only update clients from your own bank");
+            }
 
             // Update only allowed fields
             existingClient.ClientName = clientDTO.ClientName;
@@ -398,11 +414,19 @@ namespace Banking_Payments.Services
             return MapToClientDTO(existingClient);
         }
 
-        public async Task<bool> DeleteClientAsync(int clientId)
+        public async Task<bool> DeleteClientAsync(int clientId, int bankId)
         {
             var existingClient = await _bankUserRepository.GetClientByIdAsync(clientId);
             if (existingClient == null)
                 throw new KeyNotFoundException("Client not found");
+
+            // Verify the client belongs to the bank user's bank
+            if (existingClient.BankId != bankId)
+            {
+                _logger.LogWarning("Unauthorized delete attempt: BankId {BankId} tried to delete Client {ClientId} belonging to BankId {ClientBankId}",
+                    bankId, clientId, existingClient.BankId);
+                throw new UnauthorizedAccessException("You can only delete clients from your own bank");
+            }
 
             var result = await _bankUserRepository.DeleteClientAsync(existingClient);
 
@@ -424,7 +448,11 @@ namespace Banking_Payments.Services
                 throw new KeyNotFoundException("Client not found");
 
             if (client.BankId != bankId)
+            {
+                _logger.LogWarning("Unauthorized verification attempt: BankId {BankId} tried to verify Client {ClientId} belonging to BankId {ClientBankId}",
+                    bankId, clientId, client.BankId);
                 throw new UnauthorizedAccessException("You can only verify clients from your own bank");
+            }
 
             var oldStatus = client.ClientVerificationStatus;
 
@@ -446,13 +474,13 @@ namespace Banking_Payments.Services
             return clientDTO;
         }
 
-        public async Task<IEnumerable<ClientDTO>> GetClientsByVerificationStatusAsync(string status)
+        public async Task<IEnumerable<ClientDTO>> GetClientsByVerificationStatusAsync(string status, int bankId)
         {
             // Parse string to enum
             if (!Enum.TryParse<VerificationStatus>(status, true, out var verificationStatus))
                 throw new ArgumentException($"Invalid verification status: {status}");
 
-            var clients = await _bankUserRepository.GetClientsByVerificationStatusAsync(verificationStatus);
+            var clients = await _bankUserRepository.GetClientsByVerificationStatusAsync(verificationStatus, bankId);
 
             var clientDTOs = clients.Select(client => MapToClientDTO(client)).ToList();
 

@@ -1,5 +1,4 @@
 ﻿using Banking_Payments.Models;
-using Banking_Payments.Models.DTO;
 using Banking_Payments.Models.Enums;
 
 namespace Banking_Payments.Repositories
@@ -11,7 +10,7 @@ namespace Banking_Payments.Repositories
         Task<Client?> GetClientByIdAsync(int clientId);
         Task<bool> UpdateClientAsync(Client client);
         Task<bool> DeleteClientAsync(Client client);
-        Task<IEnumerable<Client>> GetClientsByVerificationStatusAsync(VerificationStatus status);
+        Task<IEnumerable<Client>> GetClientsByVerificationStatusAsync(VerificationStatus status, int bankId);
         Task<Bank?> GetBankByIdAsync(int bankId);
         Task<int> GetClientCountByBankIdAsync(int bankId);
         Task<Client?> GetClientByCodeAsync(string clientCode);

@@ -1,5 +1,5 @@
-﻿using Banking_Payments.Models;
-using dummy_api.Context;
+﻿using Banking_Payments.Context;
+using Banking_Payments.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Banking_Payments.Repositories

@@ -1,6 +1,6 @@
-﻿using Banking_Payments.Models;
+﻿using Banking_Payments.Context;
+using Banking_Payments.Models;
 using Banking_Payments.Models.Enums;
-using dummy_api.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace Banking_Payments.Repositories
@@ -21,7 +21,6 @@ namespace Banking_Payments.Repositories
 
             await _appDbContext.Clients.AddAsync(clientModel);
             await _appDbContext.SaveChangesAsync();
-
             return clientModel;
         }
 
@@ -51,7 +50,6 @@ namespace Banking_Payments.Repositories
 
             _appDbContext.Clients.Update(client);
             var result = await _appDbContext.SaveChangesAsync();
-
             return result > 0;
         }
 
@@ -64,14 +62,13 @@ namespace Banking_Payments.Repositories
             client.IsActive = false;
             _appDbContext.Clients.Update(client);
             var result = await _appDbContext.SaveChangesAsync();
-
             return result > 0;
         }
 
-        public async Task<IEnumerable<Client>> GetClientsByVerificationStatusAsync(VerificationStatus status)
+        public async Task<IEnumerable<Client>> GetClientsByVerificationStatusAsync(VerificationStatus status, int bankId)
         {
             return await _appDbContext.Clients
-                .Where(c => c.ClientVerificationStatus == status && c.IsActive)
+                .Where(c => c.ClientVerificationStatus == status && c.BankId == bankId && c.IsActive)
                 .Include(c => c.Employees)
                 .Include(c => c.Beneficiaries)
                 .Include(c => c.Payments)

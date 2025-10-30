@@ -13,7 +13,7 @@ namespace Banking_Payments.Models
         public string Password { get; set; }
         public string ClientCode { get; set; }
 
-       
+
 
         public string ClientName { get; set; }
         public string ClientEmail { get; set; }
@@ -32,7 +32,7 @@ namespace Banking_Payments.Models
 
         public virtual BankUser? BankUser { get; set; }
 
-       // public virtual BankUser? BankUser { get; set; } = new BankUser();
+        // public virtual BankUser? BankUser { get; set; } = new BankUser();
         public virtual ICollection<Employee>? Employees { get; set; }
         public virtual ICollection<SalaryDisbursement>? SalaryDisbursement { get; set; }
         public virtual ICollection<Payment>? Payments { get; set; }
