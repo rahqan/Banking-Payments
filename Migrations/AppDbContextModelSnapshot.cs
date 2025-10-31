@@ -48,7 +48,33 @@ namespace dummy_api.Migrations
 
                     b.HasKey("AdminId");
 
-                    b.ToTable("Admin");
+                    b.ToTable("Admins");
+
+                    b.HasData(
+                        new
+                        {
+                            AdminId = 1,
+                            Code = "ADM001",
+                            Email = "alice@banking.com",
+                            Name = "Alice Johnson",
+                            Password = "Pass@123"
+                        },
+                        new
+                        {
+                            AdminId = 2,
+                            Code = "ADM002",
+                            Email = "bob@banking.com",
+                            Name = "Bob Smith",
+                            Password = "Pass@123"
+                        },
+                        new
+                        {
+                            AdminId = 3,
+                            Code = "ADM003",
+                            Email = "charlie@banking.com",
+                            Name = "Charlie Brown",
+                            Password = "Pass@123"
+                        });
                 });
 
             modelBuilder.Entity("dummy_api.Models.Bank", b =>
@@ -101,6 +127,50 @@ namespace dummy_api.Migrations
                     b.HasIndex("AdminId");
 
                     b.ToTable("Banks");
+
+                    b.HasData(
+                        new
+                        {
+                            BankId = 1,
+                            Address = "123 Finance St",
+                            AdminId = 1,
+                            Code = "B001",
+                            ContactEmail = "info@fnb.com",
+                            ContactPhone = "1234567890",
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsActive = true,
+                            Name = "First National Bank",
+                            PanNumber = "AAAPL1234C",
+                            RegistrationNumber = "REG001"
+                        },
+                        new
+                        {
+                            BankId = 2,
+                            Address = "456 Trust Ave",
+                            AdminId = 2,
+                            Code = "B002",
+                            ContactEmail = "contact@gtb.com",
+                            ContactPhone = "9876543210",
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsActive = true,
+                            Name = "Global Trust Bank",
+                            PanNumber = "BBBTY4567P",
+                            RegistrationNumber = "REG002"
+                        },
+                        new
+                        {
+                            BankId = 3,
+                            Address = "789 Metro Rd",
+                            AdminId = 3,
+                            Code = "B003",
+                            ContactEmail = "support@mfb.com",
+                            ContactPhone = "5647382910",
+                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsActive = true,
+                            Name = "Metro Finance Bank",
+                            PanNumber = "CCCXY7890K",
+                            RegistrationNumber = "REG003"
+                        });
                 });
 
             modelBuilder.Entity("dummy_api.Models.BankUser", b =>
@@ -139,6 +209,73 @@ namespace dummy_api.Migrations
                     b.HasIndex("BankId");
 
                     b.ToTable("BankUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            BankUserId = 1,
+                            BankId = 1,
+                            Code = "BU001",
+                            Email = "emma@fnb.com",
+                            Name = "Emma Green",
+                            Password = "123456",
+                            PhoneNumber = "9876543210"
+                        },
+                        new
+                        {
+                            BankUserId = 2,
+                            BankId = 2,
+                            Code = "BU002",
+                            Email = "liam@gtb.com",
+                            Name = "Liam Gray",
+                            Password = "123456",
+                            PhoneNumber = "8765432109"
+                        },
+                        new
+                        {
+                            BankUserId = 3,
+                            BankId = 3,
+                            Code = "BU003",
+                            Email = "olivia@mfb.com",
+                            Name = "Olivia White",
+                            Password = "123456",
+                            PhoneNumber = "7654321098"
+                        });
+                });
+
+            modelBuilder.Entity("dummy_api.Models.Beneficiary", b =>
+                {
+                    b.Property<int>("BeneficiaryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BeneficiaryId"));
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ClientId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IfscCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BeneficiaryId");
+
+                    b.HasIndex("ClientId");
+
+                    b.HasIndex("ClientId1");
+
+                    b.ToTable("Beneficiaries");
                 });
 
             modelBuilder.Entity("dummy_api.Models.Client", b =>
@@ -167,6 +304,9 @@ namespace dummy_api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -175,6 +315,18 @@ namespace dummy_api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegisterationNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VerificationStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -198,13 +350,28 @@ namespace dummy_api.Migrations
                     b.Property<int>("BankUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("DocType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DocumentId");
 
                     b.HasIndex("BankUserId");
+
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Documents");
                 });
@@ -217,6 +384,10 @@ namespace dummy_api.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
 
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -224,11 +395,20 @@ namespace dummy_api.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("EmployeeCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IfscCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Salary")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("EmployeeId");
@@ -247,12 +427,16 @@ namespace dummy_api.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentId"));
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("BankUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("BeneficiaryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("BeneficiaryId1")
                         .HasColumnType("int");
 
                     b.Property<int>("ClientId")
@@ -271,6 +455,10 @@ namespace dummy_api.Migrations
 
                     b.HasIndex("BankUserId");
 
+                    b.HasIndex("BeneficiaryId");
+
+                    b.HasIndex("BeneficiaryId1");
+
                     b.HasIndex("ClientId");
 
                     b.ToTable("Payments");
@@ -285,6 +473,7 @@ namespace dummy_api.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SalaryDisbursementId"));
 
                     b.Property<decimal>("Amount")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("ClientId")
@@ -327,6 +516,21 @@ namespace dummy_api.Migrations
                     b.Navigation("Bank");
                 });
 
+            modelBuilder.Entity("dummy_api.Models.Beneficiary", b =>
+                {
+                    b.HasOne("dummy_api.Models.Client", "Client")
+                        .WithMany()
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("dummy_api.Models.Client", null)
+                        .WithMany("Beneficiaries")
+                        .HasForeignKey("ClientId1");
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("dummy_api.Models.Client", b =>
                 {
                     b.HasOne("dummy_api.Models.Bank", "Bank")
@@ -354,6 +558,14 @@ namespace dummy_api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("dummy_api.Models.Client", "Client")
+                        .WithMany("Documents")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
                     b.Navigation("UploadedBy");
                 });
 
@@ -376,6 +588,16 @@ namespace dummy_api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("dummy_api.Models.Beneficiary", "Beneficiary")
+                        .WithMany()
+                        .HasForeignKey("BeneficiaryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("dummy_api.Models.Beneficiary", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("BeneficiaryId1");
+
                     b.HasOne("dummy_api.Models.Client", "Client")
                         .WithMany("Payments")
                         .HasForeignKey("ClientId")
@@ -383,6 +605,8 @@ namespace dummy_api.Migrations
                         .IsRequired();
 
                     b.Navigation("ApprovedBy");
+
+                    b.Navigation("Beneficiary");
 
                     b.Navigation("Client");
                 });
@@ -427,8 +651,17 @@ namespace dummy_api.Migrations
                     b.Navigation("Payments");
                 });
 
+            modelBuilder.Entity("dummy_api.Models.Beneficiary", b =>
+                {
+                    b.Navigation("Payments");
+                });
+
             modelBuilder.Entity("dummy_api.Models.Client", b =>
                 {
+                    b.Navigation("Beneficiaries");
+
+                    b.Navigation("Documents");
+
                     b.Navigation("Employees");
 
                     b.Navigation("Payments");

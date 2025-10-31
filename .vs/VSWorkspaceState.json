@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Banking-Payments",
+    "\\Context",
+    "\\Controllers",
+    "\\Models",
+    "\\Models\\Enums",
+    "\\Services"
+  ],
+  "SelectedNode": "\\Models\\Document.cs",
+  "PreviewInSolutionExplorer": false
+}

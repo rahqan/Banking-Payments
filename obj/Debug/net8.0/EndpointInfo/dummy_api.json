@@ -1,0 +1,2562 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "First Api",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auth/register/admin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterAdminDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterAdminDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterAdminDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auth/register/bankuser": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterBankUserDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterBankUserDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterBankUserDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auth/register/client": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterClientDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterClientDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterClientDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/BankUser/clients": {
+      "post": {
+        "tags": [
+          "BankUser"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientCreationDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientCreationDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientCreationDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "BankUser"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUser/clients/{clientId}": {
+      "get": {
+        "tags": [
+          "BankUser"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "BankUser"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "BankUser"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUser/clients/{clientId}/verify": {
+      "put": {
+        "tags": [
+          "BankUser"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientVerificationRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientVerificationRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClientVerificationRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUser/clients/verification-status/{status}": {
+      "get": {
+        "tags": [
+          "BankUser"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUser/payments/pending": {
+      "get": {
+        "tags": [
+          "BankUser"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUser/payments/status/{status}": {
+      "get": {
+        "tags": [
+          "BankUser"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUser/payments/bank": {
+      "get": {
+        "tags": [
+          "BankUser"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PaymentDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUser/payments/{paymentId}": {
+      "get": {
+        "tags": [
+          "BankUser"
+        ],
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUser/payments/{paymentId}/approve": {
+      "put": {
+        "tags": [
+          "BankUser"
+        ],
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApprovePaymentRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApprovePaymentRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApprovePaymentRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUser/payments/{paymentId}/reject": {
+      "put": {
+        "tags": [
+          "BankUser"
+        ],
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApprovePaymentRequestDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApprovePaymentRequestDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApprovePaymentRequestDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-all-client-by-id": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-clients-all": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-client-by-registration": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "registerationNumber",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bankId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Client"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-client-with-status": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "bankId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Client"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/add-beneficiary": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Beneficiary"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Beneficiary"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Beneficiary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiary"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiary"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/update-beneficiary": {
+      "put": {
+        "tags": [
+          "Client"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Beneficiary"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Beneficiary"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Beneficiary"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiary"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiary"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/delete-beneficiary": {
+      "delete": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-beneficiary-by-id/{id}": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiary"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiary"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Beneficiary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-all-beneficiaries/{clientId}": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Beneficiary"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Beneficiary"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Beneficiary"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/add-payment": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Payment"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Payment"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Payment"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-payment-by-id/{id}": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Payment"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-all-payment/{clientId}": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Payment"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Payment"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Payment"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/add-employee": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Employee"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Employee"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Employee"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-employee-by-id/{id}": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Employee"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-all-employee/{clientId}": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Employee"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-salary-disbursement-by-employee-id/{empId}": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "empId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SalaryDisbursement"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SalaryDisbursement"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SalaryDisbursement"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-salary-disbursement-by-client-id/{clientId}": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SalaryDisbursement"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SalaryDisbursement"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SalaryDisbursement"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/salary-disbursement-by-batch/{clientId}": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "batchSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Document/upload": {
+      "post": {
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "docType",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Document/{documentId}": {
+      "get": {
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "name": "documentId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Document/client/{clientId}": {
+      "get": {
+        "tags": [
+          "Document"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "operationId": "GetWeatherForecast",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/WeatherForecast"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Admin": {
+        "type": "object",
+        "properties": {
+          "adminId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "banks": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Bank"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApprovePaymentRequestDTO": {
+        "type": "object",
+        "properties": {
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Bank": {
+        "required": [
+          "address",
+          "name",
+          "panNumber",
+          "registrationNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "address": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "panNumber": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "registrationNumber": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "contactEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "adminId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "admin": {
+            "$ref": "#/components/schemas/Admin"
+          },
+          "clients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Client"
+            },
+            "nullable": true
+          },
+          "bankUsers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankUser"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BankUser": {
+        "type": "object",
+        "properties": {
+          "bankUserId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bank": {
+            "$ref": "#/components/schemas/Bank"
+          },
+          "clients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Client"
+            },
+            "nullable": true
+          },
+          "payments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Payment"
+            },
+            "nullable": true
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Document"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Beneficiary": {
+        "type": "object",
+        "properties": {
+          "beneficiaryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "ifscCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "client": {
+            "$ref": "#/components/schemas/Client"
+          },
+          "payments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Payment"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Client": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessType": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "registerationNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "verificationStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bank": {
+            "$ref": "#/components/schemas/Bank"
+          },
+          "bankUserId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankUser": {
+            "$ref": "#/components/schemas/BankUser"
+          },
+          "employees": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Employee"
+            },
+            "nullable": true
+          },
+          "salaryDisbursement": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SalaryDisbursement"
+            },
+            "nullable": true
+          },
+          "payments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Payment"
+            },
+            "nullable": true
+          },
+          "beneficiaries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Beneficiary"
+            },
+            "nullable": true
+          },
+          "documents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Document"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientCreationDTO": {
+        "type": "object",
+        "properties": {
+          "clientName": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientPassword": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankUserId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientBusinessType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientDTO": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "clientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientName": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankUserId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clientAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientBusinessType": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientVerificationStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "verifiedBy": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true
+          },
+          "verifiedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "totalEmployees": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalBeneficiaries": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPayments": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientVerificationRequestDTO": {
+        "required": [
+          "verificationStatus"
+        ],
+        "type": "object",
+        "properties": {
+          "verificationStatus": {
+            "$ref": "#/components/schemas/VerificationStatus"
+          },
+          "notes": {
+            "maxLength": 500,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Document": {
+        "type": "object",
+        "properties": {
+          "documentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankUserId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "uploadedBy": {
+            "$ref": "#/components/schemas/BankUser"
+          },
+          "clientId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "client": {
+            "$ref": "#/components/schemas/Client"
+          },
+          "uploadedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "docType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Employee": {
+        "type": "object",
+        "properties": {
+          "employeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "employeeCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "salary": {
+            "type": "number",
+            "format": "double"
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "ifscCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "client": {
+            "$ref": "#/components/schemas/Client"
+          },
+          "salaryDisbursements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SalaryDisbursement"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LoginRequestDTO": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "$ref": "#/components/schemas/Role"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Payment": {
+        "type": "object",
+        "properties": {
+          "paymentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/VerificationStatus"
+          },
+          "type": {
+            "$ref": "#/components/schemas/PaymentType"
+          },
+          "beneficiaryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "beneficiary": {
+            "$ref": "#/components/schemas/Beneficiary"
+          },
+          "clientId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "client": {
+            "$ref": "#/components/schemas/Client"
+          },
+          "bankUserId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "approvedBy": {
+            "$ref": "#/components/schemas/BankUser"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentDTO": {
+        "type": "object",
+        "properties": {
+          "paymentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/VerificationStatus"
+          },
+          "type": {
+            "$ref": "#/components/schemas/PaymentType"
+          },
+          "beneficiaryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "beneficiaryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clientName": {
+            "type": "string",
+            "nullable": true
+          },
+          "approvedById": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "approvedByName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentType": {
+        "enum": [
+          "RTGS",
+          "IMPS",
+          "NEFT"
+        ],
+        "type": "string"
+      },
+      "RegisterAdminDTO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterBankUserDTO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RegisterClientDTO": {
+        "type": "object",
+        "properties": {
+          "clientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientName": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientBusinessType": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Role": {
+        "enum": [
+          "SuperAdmin",
+          "BankUser",
+          "Client"
+        ],
+        "type": "string"
+      },
+      "SalaryDisbursement": {
+        "type": "object",
+        "properties": {
+          "salaryDisbursementId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "employeeId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "employee": {
+            "$ref": "#/components/schemas/Employee"
+          },
+          "clientId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "client": {
+            "$ref": "#/components/schemas/Client"
+          }
+        },
+        "additionalProperties": false
+      },
+      "VerificationStatus": {
+        "enum": [
+          "Pending",
+          "Verified",
+          "Rejected"
+        ],
+        "type": "string"
+      },
+      "WeatherForecast": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "temperatureC": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "temperatureF": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "summary": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Enter JWT Bearer Token only",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+﻿using dummy_api.Models.DTO;
+using dummy_api.Models.Enums;
+
+namespace dummy_api.Services
+{
+    public interface IBankUserService
+    {
+        Task<ClientDTO> CreateClientAsync(ClientCreationDTO clientCreationDTO);
+        Task<IEnumerable<ClientDTO>> GetAllClientsAsync(int bankId);
+        Task<ClientDTO?> GetClientByIdAsync(int clientId, int bankId);
+        Task<ClientDTO> UpdateClientAsync(int clientId, ClientDTO clientDTO, int bankId);
+        Task<bool> DeleteClientAsync(int clientId, int bankId);
+        Task<ClientDTO> VerifyClientAsync(int clientId, int verifiedBy, int bankId, string verificationStatus, string? notes);
+        Task<IEnumerable<ClientDTO>> GetClientsByVerificationStatusAsync(string status, int bankId);
+    }
+}

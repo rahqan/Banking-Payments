@@ -1,9 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dummy_api.Models
 {
     public class BankUser
     {
+        [Key]
         public int BankUserId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
