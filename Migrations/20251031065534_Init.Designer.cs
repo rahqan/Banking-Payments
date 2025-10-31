@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Banking_Payments.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251030084718_MigrationFixes")]
-    partial class MigrationFixes
+    [Migration("20251031065534_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -486,9 +486,15 @@ namespace Banking_Payments.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("DocType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Url")
                         .IsRequired()
@@ -509,6 +515,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 1,
                             ClientId = 1,
                             Name = "PAN Proof",
+                            UploadedAt = new DateTime(2025, 10, 31, 6, 55, 34, 221, DateTimeKind.Utc).AddTicks(8622),
                             Url = "/docs/pan1.pdf"
                         },
                         new
@@ -517,6 +524,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 2,
                             ClientId = 2,
                             Name = "Registration Cert",
+                            UploadedAt = new DateTime(2025, 10, 31, 6, 55, 34, 221, DateTimeKind.Utc).AddTicks(9913),
                             Url = "/docs/reg2.pdf"
                         },
                         new
@@ -525,6 +533,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 3,
                             ClientId = 3,
                             Name = "Address Proof",
+                            UploadedAt = new DateTime(2025, 10, 31, 6, 55, 34, 221, DateTimeKind.Utc).AddTicks(9915),
                             Url = "/docs/address3.pdf"
                         });
                 });

@@ -9,6 +9,7 @@ namespace Banking_Payments.Context
         public AppDbContext() { }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
         public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<Bank> Banks { get; set; }
         public virtual DbSet<BankUser> BankUsers { get; set; }
@@ -18,6 +19,13 @@ namespace Banking_Payments.Context
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<SalaryDisbursement> SalaryDisbursements { get; set; }
+
+        // ADDED: This will suppress the warning temporarily
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.ConfigureWarnings(warnings =>
+                warnings.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -82,9 +90,9 @@ namespace Banking_Payments.Context
             );
 
             modelBuilder.Entity<Bank>().HasData(
-                new Bank { BankId = 1, Code = "B001", Name = "First National Bank", Address = "123 Finance St", PanNumber = "AAAPL1234C", RegistrationNumber = "REG001", ContactEmail = "info@fnb.com", ContactPhone = "1234567890", IsActive = true, CreatedAt = new DateTime(2025, 01, 01), AdminId = 1 },
-                new Bank { BankId = 2, Code = "B002", Name = "Global Trust Bank", Address = "456 Trust Ave", PanNumber = "BBBTY4567P", RegistrationNumber = "REG002", ContactEmail = "contact@gtb.com", ContactPhone = "9876543210", IsActive = true, CreatedAt = new DateTime(2025, 01, 01), AdminId = 2 },
-                new Bank { BankId = 3, Code = "B003", Name = "Metro Finance Bank", Address = "789 Metro Rd", PanNumber = "CCCXY7890K", RegistrationNumber = "REG003", ContactEmail = "support@mfb.com", ContactPhone = "5647382910", IsActive = true, CreatedAt = new DateTime(2025, 01, 01), AdminId = 3 }
+                new Bank { BankId = 1, Code = "B001", Name = "First National Bank", Address = "123 Finance St", PanNumber = "AAAPL1234C", RegistrationNumber = "REG001", ContactEmail = "info@fnb.com", ContactPhone = "1234567890", IsActive = true, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), AdminId = 1 },
+                new Bank { BankId = 2, Code = "B002", Name = "Global Trust Bank", Address = "456 Trust Ave", PanNumber = "BBBTY4567P", RegistrationNumber = "REG002", ContactEmail = "contact@gtb.com", ContactPhone = "9876543210", IsActive = true, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), AdminId = 2 },
+                new Bank { BankId = 3, Code = "B003", Name = "Metro Finance Bank", Address = "789 Metro Rd", PanNumber = "CCCXY7890K", RegistrationNumber = "REG003", ContactEmail = "support@mfb.com", ContactPhone = "5647382910", IsActive = true, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), AdminId = 3 }
             );
 
             modelBuilder.Entity<BankUser>().HasData(
@@ -94,9 +102,9 @@ namespace Banking_Payments.Context
             );
 
             modelBuilder.Entity<Client>().HasData(
-                new Client { ClientId = 1, Password = "client123", ClientCode = "C001", ClientName = "TechWave Ltd", ClientEmail = "hr@techwave.com", ClientBusinessType = "IT Services", ClientAddress = "12 Silicon Ave", ClientVerificationStatus = VerificationStatus.Verified, IsActive = true, CreatedAt = new DateTime(2025, 01, 01), BankId = 1, BankUserId = 1 },
-                new Client { ClientId = 2, Password = "client123", ClientCode = "C002", ClientName = "GreenFoods Inc", ClientEmail = "admin@greenfoods.com", ClientBusinessType = "Food Manufacturing", ClientAddress = "45 Organic Rd", ClientVerificationStatus = VerificationStatus.Pending, IsActive = true, CreatedAt = new DateTime(2025, 01, 01), BankId = 2, BankUserId = 2 },
-                new Client { ClientId = 3, Password = "client123", ClientCode = "C003", ClientName = "Urban Builders", ClientEmail = "info@urbanbuilders.com", ClientBusinessType = "Construction", ClientAddress = "78 Brick Lane", ClientVerificationStatus = VerificationStatus.Verified, IsActive = true, CreatedAt = new DateTime(2025, 01, 01), BankId = 3, BankUserId = 3 }
+                new Client { ClientId = 1, Password = "client123", ClientCode = "C001", ClientName = "TechWave Ltd", ClientEmail = "hr@techwave.com", ClientBusinessType = "IT Services", ClientAddress = "12 Silicon Ave", ClientVerificationStatus = VerificationStatus.Verified, IsActive = true, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), BankId = 1, BankUserId = 1 },
+                new Client { ClientId = 2, Password = "client123", ClientCode = "C002", ClientName = "GreenFoods Inc", ClientEmail = "admin@greenfoods.com", ClientBusinessType = "Food Manufacturing", ClientAddress = "45 Organic Rd", ClientVerificationStatus = VerificationStatus.Pending, IsActive = true, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), BankId = 2, BankUserId = 2 },
+                new Client { ClientId = 3, Password = "client123", ClientCode = "C003", ClientName = "Urban Builders", ClientEmail = "info@urbanbuilders.com", ClientBusinessType = "Construction", ClientAddress = "78 Brick Lane", ClientVerificationStatus = VerificationStatus.Verified, IsActive = true, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), BankId = 3, BankUserId = 3 }
             );
 
             modelBuilder.Entity<Beneficiary>().HasData(
@@ -112,21 +120,48 @@ namespace Banking_Payments.Context
             );
 
             modelBuilder.Entity<Payment>().HasData(
-                new Payment { PaymentId = 1, Amount = 10000, PaymentDate = new DateTime(2025, 01, 01), status = VerificationStatus.Verified, Type = PaymentType.NEFT, BeneficiaryId = 1, ClientId = 1, BankUserId = 1 },
-                new Payment { PaymentId = 2, Amount = 25000, PaymentDate = new DateTime(2025, 01, 01), status = VerificationStatus.Verified, Type = PaymentType.RTGS, BeneficiaryId = 2, ClientId = 2, BankUserId = 2 },
-                new Payment { PaymentId = 3, Amount = 5000, PaymentDate = new DateTime(2025, 01, 01), status = VerificationStatus.Pending, Type = PaymentType.IMPS, BeneficiaryId = 3, ClientId = 3, BankUserId = 3 }
+                new Payment { PaymentId = 1, Amount = 10000, PaymentDate = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), status = VerificationStatus.Verified, Type = PaymentType.NEFT, BeneficiaryId = 1, ClientId = 1, BankUserId = 1 },
+                new Payment { PaymentId = 2, Amount = 25000, PaymentDate = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), status = VerificationStatus.Verified, Type = PaymentType.RTGS, BeneficiaryId = 2, ClientId = 2, BankUserId = 2 },
+                new Payment { PaymentId = 3, Amount = 5000, PaymentDate = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), status = VerificationStatus.Pending, Type = PaymentType.IMPS, BeneficiaryId = 3, ClientId = 3, BankUserId = 3 }
             );
 
             modelBuilder.Entity<SalaryDisbursement>().HasData(
-                new SalaryDisbursement { SalaryDisbursementId = 1, CreatedAt = new DateTime(2025, 01, 01), Amount = 50000, EmployeeId = 1, ClientId = 1 },
-                new SalaryDisbursement { SalaryDisbursementId = 2, CreatedAt = new DateTime(2025, 01, 01), Amount = 45000, EmployeeId = 2, ClientId = 2 },
-                new SalaryDisbursement { SalaryDisbursementId = 3, CreatedAt = new DateTime(2025, 01, 01), Amount = 55000, EmployeeId = 3, ClientId = 3 }
+                new SalaryDisbursement { SalaryDisbursementId = 1, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), Amount = 50000, EmployeeId = 1, ClientId = 1 },
+                new SalaryDisbursement { SalaryDisbursementId = 2, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), Amount = 45000, EmployeeId = 2, ClientId = 2 },
+                new SalaryDisbursement { SalaryDisbursementId = 3, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), Amount = 55000, EmployeeId = 3, ClientId = 3 }
             );
 
             modelBuilder.Entity<Document>().HasData(
-                new Document { DocumentId = 1, Name = "PAN Proof", Url = "/docs/pan1.pdf", BankUserId = 1, ClientId = 1 },
-                new Document { DocumentId = 2, Name = "Registration Cert", Url = "/docs/reg2.pdf", BankUserId = 2, ClientId = 2 },
-                new Document { DocumentId = 3, Name = "Address Proof", Url = "/docs/address3.pdf", BankUserId = 3, ClientId = 3 }
+                new Document
+                {
+                    DocumentId = 1,
+                    Name = "PAN Proof",
+                    Url = "/docs/pan1.pdf",
+                    BankUserId = 1,
+                    ClientId = 1,
+                    UploadedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    DocType = "KYC"
+                },
+                new Document
+                {
+                    DocumentId = 2,
+                    Name = "Registration Cert",
+                    Url = "/docs/reg2.pdf",
+                    BankUserId = 2,
+                    ClientId = 2,
+                    UploadedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    DocType = "Registration"
+                },
+                new Document
+                {
+                    DocumentId = 3,
+                    Name = "Address Proof",
+                    Url = "/docs/address3.pdf",
+                    BankUserId = 3,
+                    ClientId = 3,
+                    UploadedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc),
+                    DocType = "Address"
+                }
             );
 
             modelBuilder.Entity<ContactDetails>().HasData(

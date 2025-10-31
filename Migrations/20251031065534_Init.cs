@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Banking_Payments.Migrations
 {
     /// <inheritdoc />
-    public partial class MigrationFixes : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -174,7 +174,9 @@ namespace Banking_Payments.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BankUserId = table.Column<int>(type: "int", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    UploadedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DocType = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -341,12 +343,12 @@ namespace Banking_Payments.Migrations
 
             migrationBuilder.InsertData(
                 table: "Documents",
-                columns: new[] { "DocumentId", "BankUserId", "ClientId", "Name", "Url" },
+                columns: new[] { "DocumentId", "BankUserId", "ClientId", "DocType", "Name", "UploadedAt", "Url" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, "PAN Proof", "/docs/pan1.pdf" },
-                    { 2, 2, 2, "Registration Cert", "/docs/reg2.pdf" },
-                    { 3, 3, 3, "Address Proof", "/docs/address3.pdf" }
+                    { 1, 1, 1, null, "PAN Proof", new DateTime(2025, 10, 31, 6, 55, 34, 221, DateTimeKind.Utc).AddTicks(8622), "/docs/pan1.pdf" },
+                    { 2, 2, 2, null, "Registration Cert", new DateTime(2025, 10, 31, 6, 55, 34, 221, DateTimeKind.Utc).AddTicks(9913), "/docs/reg2.pdf" },
+                    { 3, 3, 3, null, "Address Proof", new DateTime(2025, 10, 31, 6, 55, 34, 221, DateTimeKind.Utc).AddTicks(9915), "/docs/address3.pdf" }
                 });
 
             migrationBuilder.InsertData(

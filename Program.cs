@@ -1,5 +1,6 @@
 
 using Banking_Payments.Context;
+using Banking_Payments.Models;
 using Banking_Payments.Repositories;
 using Banking_Payments.Repositories.Interfaces;
 using Banking_Payments.Services;
@@ -71,6 +72,17 @@ namespace Banking_Payments
 
 
             // Add services to the container.
+
+
+
+            builder.Services.Configure<CloudinarySettings>(
+             builder.Configuration.GetSection("CloudinarySettings"));
+
+
+
+            builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
+            builder.Services.AddScoped<IDocumentService, DocumentService>();
+
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
