@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Banking-Payments",
+    "\\Context",
+    "\\Controllers",
+    "\\Models",
+    "\\Models\\Enums",
+    "\\Services"
   ],
-  "SelectedNode": "\\C:\\Users\\rahqan.shaikh\\Desktop\\CapstoneProject\\Banking-Payments\\Banking-PaymentsProject2",
+  "SelectedNode": "\\Models\\Document.cs",
   "PreviewInSolutionExplorer": false
 }

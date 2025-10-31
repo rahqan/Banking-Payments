@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using dummy_api.Models.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dummy_api.Models
 {
@@ -11,7 +12,7 @@ namespace dummy_api.Models
         public int PaymentId { get; set; }
         public Decimal Amount { get; set; }
         public DateTime PaymentDate { get; set; } = DateTime.Now;
-        public int status { get; set; } = 0;
+        public VerificationStatus status { get; set; } = 0;
 
         public PaymentType Type { get; set; }
 

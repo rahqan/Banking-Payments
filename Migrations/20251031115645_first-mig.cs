@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace dummy_api.Migrations
 {
     /// <inheritdoc />
-    public partial class updatedmig : Migration
+    public partial class firstmig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -90,6 +92,7 @@ namespace dummy_api.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BusinessType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RegisterationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     VerificationStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -122,7 +125,8 @@ namespace dummy_api.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IfscCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    ClientId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -131,8 +135,12 @@ namespace dummy_api.Migrations
                         name: "FK_Beneficiaries_Clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Clients",
-                        principalColumn: "ClientId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ClientId");
+                    table.ForeignKey(
+                        name: "FK_Beneficiaries_Clients_ClientId1",
+                        column: x => x.ClientId1,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId");
                 });
 
             migrationBuilder.CreateTable(
@@ -144,7 +152,9 @@ namespace dummy_api.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BankUserId = table.Column<int>(type: "int", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ClientId = table.Column<int>(type: "int", nullable: false),
+                    UploadedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DocType = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -171,7 +181,7 @@ namespace dummy_api.Migrations
                     EmployeeCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Salary = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IfscCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false)
@@ -193,13 +203,14 @@ namespace dummy_api.Migrations
                 {
                     PaymentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     status = table.Column<int>(type: "int", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     BeneficiaryId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
-                    BankUserId = table.Column<int>(type: "int", nullable: false)
+                    BankUserId = table.Column<int>(type: "int", nullable: false),
+                    BeneficiaryId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -213,6 +224,12 @@ namespace dummy_api.Migrations
                     table.ForeignKey(
                         name: "FK_Payments_Beneficiaries_BeneficiaryId",
                         column: x => x.BeneficiaryId,
+                        principalTable: "Beneficiaries",
+                        principalColumn: "BeneficiaryId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payments_Beneficiaries_BeneficiaryId1",
+                        column: x => x.BeneficiaryId1,
                         principalTable: "Beneficiaries",
                         principalColumn: "BeneficiaryId");
                     table.ForeignKey(
@@ -229,7 +246,7 @@ namespace dummy_api.Migrations
                     SalaryDisbursementId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -249,6 +266,36 @@ namespace dummy_api.Migrations
                         principalColumn: "EmployeeId");
                 });
 
+            migrationBuilder.InsertData(
+                table: "Admins",
+                columns: new[] { "AdminId", "Code", "Email", "Name", "Password" },
+                values: new object[,]
+                {
+                    { 1, "ADM001", "alice@banking.com", "Alice Johnson", "Pass@123" },
+                    { 2, "ADM002", "bob@banking.com", "Bob Smith", "Pass@123" },
+                    { 3, "ADM003", "charlie@banking.com", "Charlie Brown", "Pass@123" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Banks",
+                columns: new[] { "BankId", "Address", "AdminId", "Code", "ContactEmail", "ContactPhone", "CreatedAt", "IsActive", "Name", "PanNumber", "RegistrationNumber" },
+                values: new object[,]
+                {
+                    { 1, "123 Finance St", 1, "B001", "info@fnb.com", "1234567890", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), true, "First National Bank", "AAAPL1234C", "REG001" },
+                    { 2, "456 Trust Ave", 2, "B002", "contact@gtb.com", "9876543210", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), true, "Global Trust Bank", "BBBTY4567P", "REG002" },
+                    { 3, "789 Metro Rd", 3, "B003", "support@mfb.com", "5647382910", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), true, "Metro Finance Bank", "CCCXY7890K", "REG003" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "BankUsers",
+                columns: new[] { "BankUserId", "BankId", "Code", "Email", "Name", "Password", "PhoneNumber" },
+                values: new object[,]
+                {
+                    { 1, 1, "BU001", "emma@fnb.com", "Emma Green", "123456", "9876543210" },
+                    { 2, 2, "BU002", "liam@gtb.com", "Liam Gray", "123456", "8765432109" },
+                    { 3, 3, "BU003", "olivia@mfb.com", "Olivia White", "123456", "7654321098" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Banks_AdminId",
                 table: "Banks",
@@ -263,6 +310,11 @@ namespace dummy_api.Migrations
                 name: "IX_Beneficiaries_ClientId",
                 table: "Beneficiaries",
                 column: "ClientId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Beneficiaries_ClientId1",
+                table: "Beneficiaries",
+                column: "ClientId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clients_BankId",
@@ -298,6 +350,11 @@ namespace dummy_api.Migrations
                 name: "IX_Payments_BeneficiaryId",
                 table: "Payments",
                 column: "BeneficiaryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Payments_BeneficiaryId1",
+                table: "Payments",
+                column: "BeneficiaryId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_ClientId",

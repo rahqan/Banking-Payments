@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using dummy_api.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dummy_api.Models
@@ -12,6 +13,7 @@ namespace dummy_api.Models
         public string Email { get; set; }
         public string BusinessType { get; set; }
         public string Address { get; set; }
+        public string Password { get; set; }
         public string RegisterationNumber { get; set; }
         public string VerificationStatus { get; set; } = "Pending";
         public DateTime CreatedAt { get; set; } = DateTime.Now;
