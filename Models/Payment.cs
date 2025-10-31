@@ -15,7 +15,9 @@ namespace dummy_api.Models
 
         public PaymentType Type { get; set; }
 
+        [ForeignKey("Beneficiary")]
         public int BeneficiaryId { get; set; }
+        public Beneficiary? Beneficiary { get; set; }
 
         [ForeignKey("Client")]
         public int ClientId { get; set; }

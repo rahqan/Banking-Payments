@@ -172,3 +172,7 @@ C:\Users\jatin.pandey\Desktop\swabhav-dotnet\dotnet\dummy_api\dummy_api\obj\Debu
 C:\Users\jatin.pandey\Desktop\swabhav-dotnet\dotnet\dummy_api\dummy_api\obj\Debug\net8.0\dummy_api.sourcelink.json
 C:\Users\jatin.pandey\Desktop\swabhav-dotnet\dotnet\dummy_api\dummy_api\bin\Debug\net8.0\CloudinaryDotNet.dll
 C:\Users\jatin.pandey\Desktop\swabhav-dotnet\dotnet\dummy_api\dummy_api\bin\Debug\net8.0\Newtonsoft.Json.dll
+C:\Users\jatin.pandey\Desktop\swabhav-dotnet\dotnet\dummy_api\dummy_api\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+C:\Users\jatin.pandey\Desktop\swabhav-dotnet\dotnet\dummy_api\dummy_api\bin\Debug\net8.0\DocumentFormat.OpenXml.Framework.dll
+C:\Users\jatin.pandey\Desktop\swabhav-dotnet\dotnet\dummy_api\dummy_api\bin\Debug\net8.0\OfficeOpenXml.Core.ExcelPackage.dll
+C:\Users\jatin.pandey\Desktop\swabhav-dotnet\dotnet\dummy_api\dummy_api\bin\Debug\net8.0\System.IO.Packaging.dll

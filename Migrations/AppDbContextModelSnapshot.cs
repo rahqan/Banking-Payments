@@ -197,6 +197,9 @@ namespace dummy_api.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -205,6 +208,14 @@ namespace dummy_api.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegisterationNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VerificationStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -267,6 +278,10 @@ namespace dummy_api.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
+                    b.Property<string>("EmployeeCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("IfscCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -317,6 +332,8 @@ namespace dummy_api.Migrations
                     b.HasKey("PaymentId");
 
                     b.HasIndex("BankUserId");
+
+                    b.HasIndex("BeneficiaryId");
 
                     b.HasIndex("ClientId");
 
@@ -376,13 +393,13 @@ namespace dummy_api.Migrations
 
             modelBuilder.Entity("dummy_api.Models.Beneficiary", b =>
                 {
-                    b.HasOne("dummy_api.Models.Client", "client")
+                    b.HasOne("dummy_api.Models.Client", "Client")
                         .WithMany("Beneficiaries")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("client");
+                    b.Navigation("Client");
                 });
 
             modelBuilder.Entity("dummy_api.Models.Client", b =>
@@ -442,6 +459,12 @@ namespace dummy_api.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("dummy_api.Models.Beneficiary", "Beneficiary")
+                        .WithMany("Payments")
+                        .HasForeignKey("BeneficiaryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("dummy_api.Models.Client", "Client")
                         .WithMany("Payments")
                         .HasForeignKey("ClientId")
@@ -449,6 +472,8 @@ namespace dummy_api.Migrations
                         .IsRequired();
 
                     b.Navigation("ApprovedBy");
+
+                    b.Navigation("Beneficiary");
 
                     b.Navigation("Client");
                 });
@@ -490,6 +515,11 @@ namespace dummy_api.Migrations
 
                     b.Navigation("Documents");
 
+                    b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("dummy_api.Models.Beneficiary", b =>
+                {
                     b.Navigation("Payments");
                 });
 

@@ -9,11 +9,11 @@ using dummy_api.Context;
 
 #nullable disable
 
-namespace Banking_Payments.Migrations
+namespace dummy_api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251026120543_Init")]
-    partial class Init
+    [Migration("20251031081241_updated-mig")]
+    partial class updatedmig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,7 +51,7 @@ namespace Banking_Payments.Migrations
 
                     b.HasKey("AdminId");
 
-                    b.ToTable("Admin");
+                    b.ToTable("Admins");
                 });
 
             modelBuilder.Entity("dummy_api.Models.Bank", b =>
@@ -144,6 +144,36 @@ namespace Banking_Payments.Migrations
                     b.ToTable("BankUsers");
                 });
 
+            modelBuilder.Entity("dummy_api.Models.Beneficiary", b =>
+                {
+                    b.Property<int>("BeneficiaryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BeneficiaryId"));
+
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IfscCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BeneficiaryId");
+
+                    b.HasIndex("ClientId");
+
+                    b.ToTable("Beneficiaries");
+                });
+
             modelBuilder.Entity("dummy_api.Models.Client", b =>
                 {
                     b.Property<int>("ClientId")
@@ -170,6 +200,9 @@ namespace Banking_Payments.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -178,6 +211,14 @@ namespace Banking_Payments.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RegisterationNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VerificationStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -201,13 +242,22 @@ namespace Banking_Payments.Migrations
                     b.Property<int>("BankUserId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Url")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DocumentId");
 
                     b.HasIndex("BankUserId");
+
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Documents");
                 });
@@ -220,12 +270,24 @@ namespace Banking_Payments.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
 
+                    b.Property<string>("AccountNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("EmployeeCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IfscCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -273,6 +335,8 @@ namespace Banking_Payments.Migrations
                     b.HasKey("PaymentId");
 
                     b.HasIndex("BankUserId");
+
+                    b.HasIndex("BeneficiaryId");
 
                     b.HasIndex("ClientId");
 
@@ -330,6 +394,17 @@ namespace Banking_Payments.Migrations
                     b.Navigation("Bank");
                 });
 
+            modelBuilder.Entity("dummy_api.Models.Beneficiary", b =>
+                {
+                    b.HasOne("dummy_api.Models.Client", "Client")
+                        .WithMany("Beneficiaries")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+                });
+
             modelBuilder.Entity("dummy_api.Models.Client", b =>
                 {
                     b.HasOne("dummy_api.Models.Bank", "Bank")
@@ -357,6 +432,14 @@ namespace Banking_Payments.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("dummy_api.Models.Client", "Client")
+                        .WithMany("Documents")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
                     b.Navigation("UploadedBy");
                 });
 
@@ -379,6 +462,12 @@ namespace Banking_Payments.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("dummy_api.Models.Beneficiary", "Beneficiary")
+                        .WithMany("Payments")
+                        .HasForeignKey("BeneficiaryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.HasOne("dummy_api.Models.Client", "Client")
                         .WithMany("Payments")
                         .HasForeignKey("ClientId")
@@ -386,6 +475,8 @@ namespace Banking_Payments.Migrations
                         .IsRequired();
 
                     b.Navigation("ApprovedBy");
+
+                    b.Navigation("Beneficiary");
 
                     b.Navigation("Client");
                 });
@@ -430,8 +521,17 @@ namespace Banking_Payments.Migrations
                     b.Navigation("Payments");
                 });
 
+            modelBuilder.Entity("dummy_api.Models.Beneficiary", b =>
+                {
+                    b.Navigation("Payments");
+                });
+
             modelBuilder.Entity("dummy_api.Models.Client", b =>
                 {
+                    b.Navigation("Beneficiaries");
+
+                    b.Navigation("Documents");
+
                     b.Navigation("Employees");
 
                     b.Navigation("Payments");

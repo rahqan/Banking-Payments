@@ -43,6 +43,11 @@ namespace dummy_api.Context
                 .WithMany(d => d.Documents)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Payment>()
+                .HasOne(b => b.Beneficiary)
+                .WithMany(p => p.Payments)
+                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

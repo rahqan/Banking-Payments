@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace dummy_api.Migrations
 {
     /// <inheritdoc />
-    public partial class first_mig : Migration
+    public partial class updatedmig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -90,6 +90,9 @@ namespace dummy_api.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BusinessType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RegisterationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    VerificationStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     BankId = table.Column<int>(type: "int", nullable: false),
                     BankUserId = table.Column<int>(type: "int", nullable: false)
@@ -165,6 +168,7 @@ namespace dummy_api.Migrations
                 {
                     EmployeeId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Salary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -206,6 +210,11 @@ namespace dummy_api.Migrations
                         principalTable: "BankUsers",
                         principalColumn: "BankUserId",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Payments_Beneficiaries_BeneficiaryId",
+                        column: x => x.BeneficiaryId,
+                        principalTable: "Beneficiaries",
+                        principalColumn: "BeneficiaryId");
                     table.ForeignKey(
                         name: "FK_Payments_Clients_ClientId",
                         column: x => x.ClientId,
@@ -286,6 +295,11 @@ namespace dummy_api.Migrations
                 column: "BankUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payments_BeneficiaryId",
+                table: "Payments",
+                column: "BeneficiaryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payments_ClientId",
                 table: "Payments",
                 column: "ClientId");
@@ -305,9 +319,6 @@ namespace dummy_api.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Beneficiaries");
-
-            migrationBuilder.DropTable(
                 name: "Documents");
 
             migrationBuilder.DropTable(
@@ -315,6 +326,9 @@ namespace dummy_api.Migrations
 
             migrationBuilder.DropTable(
                 name: "SalaryDisbursements");
+
+            migrationBuilder.DropTable(
+                name: "Beneficiaries");
 
             migrationBuilder.DropTable(
                 name: "Employees");

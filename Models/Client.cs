@@ -8,11 +8,13 @@ namespace dummy_api.Models
         [Key]
         public int ClientId { get; set; }
         public string Code { get; set; }
-
         public string Name { get; set; }
         public string Email { get; set; }
         public string BusinessType { get; set; }
         public string Address { get; set; }
+        public string RegisterationNumber { get; set; }
+        public string VerificationStatus { get; set; } = "Pending";
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public bool IsActive { get; set; }
 
         [ForeignKey("Bank")]
