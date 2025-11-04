@@ -64,6 +64,85 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetAll",
+    "RelativePath": "api/Bank",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "Create",
+    "RelativePath": "api/Bank",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Banking_Payments.Models.DTOs.CreateBankDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetBankById",
+    "RelativePath": "api/Bank/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "UpdateBank",
+    "RelativePath": "api/Bank/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Banking_Payments.Models.DTOs.UpdateBankDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "SoftDeleteBank",
+    "RelativePath": "api/Bank/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Banking_Payments.Controllers.BankUserController",
     "Method": "CreateClientAsync",
     "RelativePath": "api/BankUser/clients",

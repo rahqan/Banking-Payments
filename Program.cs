@@ -32,6 +32,10 @@ namespace Banking_Payments
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 
+            builder.Services.AddScoped<IBankRepository, BankRepository>();
+            builder.Services.AddScoped<IBankService, BankService>();
+
+
             //builder.Services.AddScoped<IAuthService, AuthService>();
             //builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             builder.Services.AddScoped<IJwtService, JwtService>();

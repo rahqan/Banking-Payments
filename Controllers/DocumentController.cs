@@ -10,6 +10,7 @@ namespace Banking_Payments.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "BankUser")]
+
     public class DocumentController : ControllerBase
     {
         private readonly IDocumentService _documentService;

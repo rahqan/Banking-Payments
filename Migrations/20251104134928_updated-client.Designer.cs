@@ -4,6 +4,7 @@ using Banking_Payments.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Banking_Payments.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251104134928_updated-client")]
+    partial class updatedclient
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,6 +148,9 @@ namespace Banking_Payments.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("AdminId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -159,9 +165,6 @@ namespace Banking_Payments.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("CreatedByAdminId")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -180,7 +183,7 @@ namespace Banking_Payments.Migrations
 
                     b.HasKey("BankId");
 
-                    b.HasIndex("CreatedByAdminId");
+                    b.HasIndex("AdminId");
 
                     b.ToTable("Banks");
 
@@ -189,11 +192,11 @@ namespace Banking_Payments.Migrations
                         {
                             BankId = 1,
                             Address = "123 Finance St",
+                            AdminId = 1,
                             Code = "B001",
                             ContactEmail = "info@fnb.com",
                             ContactPhone = "1234567890",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 461, DateTimeKind.Utc).AddTicks(8338),
-                            CreatedByAdminId = 1,
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(825),
                             IsActive = true,
                             Name = "First National Bank",
                             PanNumber = "AAAPL1234C",
@@ -203,11 +206,11 @@ namespace Banking_Payments.Migrations
                         {
                             BankId = 2,
                             Address = "456 Trust Ave",
+                            AdminId = 2,
                             Code = "B002",
                             ContactEmail = "contact@gtb.com",
                             ContactPhone = "9876543210",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 461, DateTimeKind.Utc).AddTicks(8682),
-                            CreatedByAdminId = 2,
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(1132),
                             IsActive = true,
                             Name = "Global Trust Bank",
                             PanNumber = "BBBTY4567P",
@@ -217,11 +220,11 @@ namespace Banking_Payments.Migrations
                         {
                             BankId = 3,
                             Address = "789 Metro Rd",
+                            AdminId = 3,
                             Code = "B003",
                             ContactEmail = "support@mfb.com",
                             ContactPhone = "5647382910",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 461, DateTimeKind.Utc).AddTicks(8685),
-                            CreatedByAdminId = 3,
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(1135),
                             IsActive = true,
                             Name = "Metro Finance Bank",
                             PanNumber = "CCCXY7890K",
@@ -231,11 +234,11 @@ namespace Banking_Payments.Migrations
                         {
                             BankId = 4,
                             Address = "88 Liberty Ln",
+                            AdminId = 4,
                             Code = "B004",
                             ContactEmail = "help@unity.com",
                             ContactPhone = "9898989898",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 461, DateTimeKind.Utc).AddTicks(8687),
-                            CreatedByAdminId = 4,
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(1137),
                             IsActive = true,
                             Name = "Unity Bank",
                             PanNumber = "DDDPL2234J",
@@ -245,11 +248,11 @@ namespace Banking_Payments.Migrations
                         {
                             BankId = 5,
                             Address = "22 Market Rd",
+                            AdminId = 5,
                             Code = "B005",
                             ContactEmail = "info@ccb.com",
                             ContactPhone = "9000090000",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 461, DateTimeKind.Utc).AddTicks(8689),
-                            CreatedByAdminId = 5,
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(1139),
                             IsActive = true,
                             Name = "Central Credit Bank",
                             PanNumber = "EEERW5567L",
@@ -259,11 +262,11 @@ namespace Banking_Payments.Migrations
                         {
                             BankId = 6,
                             Address = "47 Prime Blvd",
+                            AdminId = 6,
                             Code = "B006",
                             ContactEmail = "contact@prime.com",
                             ContactPhone = "8765432190",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 461, DateTimeKind.Utc).AddTicks(8691),
-                            CreatedByAdminId = 6,
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(1164),
                             IsActive = true,
                             Name = "Prime Finance Corp",
                             PanNumber = "FFFTR2233N",
@@ -273,11 +276,11 @@ namespace Banking_Payments.Migrations
                         {
                             BankId = 7,
                             Address = "12 Green St",
+                            AdminId = 7,
                             Code = "B007",
                             ContactEmail = "eco@esb.com",
                             ContactPhone = "9123456789",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 461, DateTimeKind.Utc).AddTicks(8693),
-                            CreatedByAdminId = 7,
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(1166),
                             IsActive = true,
                             Name = "Eco Savings Bank",
                             PanNumber = "GGGTY8907M",
@@ -287,11 +290,11 @@ namespace Banking_Payments.Migrations
                         {
                             BankId = 8,
                             Address = "7 Freedom Way",
+                            AdminId = 8,
                             Code = "B008",
                             ContactEmail = "info@liberty.com",
                             ContactPhone = "9234567890",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 461, DateTimeKind.Utc).AddTicks(8695),
-                            CreatedByAdminId = 8,
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(1168),
                             IsActive = true,
                             Name = "Liberty Bank",
                             PanNumber = "HHHPL5678V",
@@ -301,11 +304,11 @@ namespace Banking_Payments.Migrations
                         {
                             BankId = 9,
                             Address = "4 Heritage Square",
+                            AdminId = 9,
                             Code = "B009",
                             ContactEmail = "support@heritage.com",
                             ContactPhone = "9345678901",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 461, DateTimeKind.Utc).AddTicks(8697),
-                            CreatedByAdminId = 9,
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(1170),
                             IsActive = true,
                             Name = "Heritage Finance",
                             PanNumber = "IIIWR3456C",
@@ -315,11 +318,11 @@ namespace Banking_Payments.Migrations
                         {
                             BankId = 10,
                             Address = "55 Moonlight Rd",
+                            AdminId = 10,
                             Code = "B010",
                             ContactEmail = "hello@crescent.com",
                             ContactPhone = "9456789012",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 461, DateTimeKind.Utc).AddTicks(8699),
-                            CreatedByAdminId = 10,
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(1172),
                             IsActive = true,
                             Name = "Crescent Capital Bank",
                             PanNumber = "JJJER5647R",
@@ -667,7 +670,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 1,
                             BusinessType = "IT Services",
                             Code = "C001",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(2197),
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(4456),
                             Email = "hr@techwave.com",
                             IsActive = true,
                             Name = "TechWave Ltd",
@@ -683,7 +686,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 2,
                             BusinessType = "Food Manufacturing",
                             Code = "C002",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(2700),
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(4847),
                             Email = "admin@greenfoods.com",
                             IsActive = true,
                             Name = "GreenFoods Inc",
@@ -699,7 +702,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 3,
                             BusinessType = "Construction",
                             Code = "C003",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(2703),
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(4849),
                             Email = "info@urbanbuilders.com",
                             IsActive = true,
                             Name = "Urban Builders",
@@ -715,7 +718,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 4,
                             BusinessType = "Travel Agency",
                             Code = "C004",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(2705),
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(4852),
                             Email = "info@blueocean.com",
                             IsActive = true,
                             Name = "BlueOcean Travels",
@@ -731,7 +734,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 5,
                             BusinessType = "Pharmaceuticals",
                             Code = "C005",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(2720),
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(4854),
                             Email = "contact@healthplus.com",
                             IsActive = true,
                             Name = "HealthPlus Pharma",
@@ -747,7 +750,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 6,
                             BusinessType = "Education",
                             Code = "C006",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(2722),
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(4855),
                             Email = "hello@brightfuture.com",
                             IsActive = true,
                             Name = "BrightFuture EdTech",
@@ -763,7 +766,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 7,
                             BusinessType = "Agriculture",
                             Code = "C007",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(2724),
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(4857),
                             Email = "info@ecofarm.com",
                             IsActive = true,
                             Name = "EcoFarm Pvt Ltd",
@@ -779,7 +782,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 8,
                             BusinessType = "Interior Design",
                             Code = "C008",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(2726),
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(4859),
                             Email = "contact@skyline.com",
                             IsActive = true,
                             Name = "Skyline Interiors",
@@ -795,7 +798,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 9,
                             BusinessType = "Data Analytics",
                             Code = "C009",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(2727),
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(4861),
                             Email = "admin@fincore.com",
                             IsActive = true,
                             Name = "FinCore Analytics",
@@ -811,7 +814,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 10,
                             BusinessType = "Retail Chain",
                             Code = "C010",
-                            CreatedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(2729),
+                            CreatedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(4863),
                             Email = "info@novaretail.com",
                             IsActive = true,
                             Name = "Nova Retail",
@@ -864,7 +867,7 @@ namespace Banking_Payments.Migrations
                             ClientId = 1,
                             DocType = "KYC",
                             Name = "PAN Proof",
-                            UploadedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(6930),
+                            UploadedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(9040),
                             Url = "/docs/pan1.pdf"
                         },
                         new
@@ -874,7 +877,7 @@ namespace Banking_Payments.Migrations
                             ClientId = 2,
                             DocType = "Registration",
                             Name = "Registration Cert",
-                            UploadedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(7237),
+                            UploadedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(9366),
                             Url = "/docs/reg2.pdf"
                         },
                         new
@@ -884,7 +887,7 @@ namespace Banking_Payments.Migrations
                             ClientId = 3,
                             DocType = "Address",
                             Name = "Address Proof",
-                            UploadedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(7239),
+                            UploadedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(9368),
                             Url = "/docs/address3.pdf"
                         },
                         new
@@ -894,7 +897,7 @@ namespace Banking_Payments.Migrations
                             ClientId = 4,
                             DocType = "Business License",
                             Name = "License",
-                            UploadedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(7241),
+                            UploadedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(9374),
                             Url = "/docs/license4.pdf"
                         },
                         new
@@ -904,7 +907,7 @@ namespace Banking_Payments.Migrations
                             ClientId = 5,
                             DocType = "Tax",
                             Name = "GST Certificate",
-                            UploadedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(7242),
+                            UploadedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(9376),
                             Url = "/docs/gst5.pdf"
                         },
                         new
@@ -914,7 +917,7 @@ namespace Banking_Payments.Migrations
                             ClientId = 6,
                             DocType = "Insurance",
                             Name = "Insurance Proof",
-                            UploadedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(7244),
+                            UploadedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(9377),
                             Url = "/docs/ins6.pdf"
                         },
                         new
@@ -924,7 +927,7 @@ namespace Banking_Payments.Migrations
                             ClientId = 7,
                             DocType = "Property",
                             Name = "Office Lease",
-                            UploadedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(7245),
+                            UploadedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(9379),
                             Url = "/docs/lease7.pdf"
                         },
                         new
@@ -934,7 +937,7 @@ namespace Banking_Payments.Migrations
                             ClientId = 8,
                             DocType = "KYC",
                             Name = "PAN Proof",
-                            UploadedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(7247),
+                            UploadedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(9380),
                             Url = "/docs/pan8.pdf"
                         },
                         new
@@ -944,7 +947,7 @@ namespace Banking_Payments.Migrations
                             ClientId = 9,
                             DocType = "Financial",
                             Name = "Audit Report",
-                            UploadedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(7248),
+                            UploadedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(9382),
                             Url = "/docs/audit9.pdf"
                         },
                         new
@@ -954,7 +957,7 @@ namespace Banking_Payments.Migrations
                             ClientId = 10,
                             DocType = "Tax",
                             Name = "Tax Return",
-                            UploadedAt = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(7249),
+                            UploadedAt = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(9383),
                             Url = "/docs/tax10.pdf"
                         });
                 });
@@ -1054,7 +1057,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 1,
                             BeneficiaryId = 1,
                             ClientId = 1,
-                            PaymentDate = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(4768),
+                            PaymentDate = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(7057),
                             Type = 2,
                             status = 1
                         },
@@ -1065,7 +1068,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 2,
                             BeneficiaryId = 2,
                             ClientId = 2,
-                            PaymentDate = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(5576),
+                            PaymentDate = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(7859),
                             Type = 0,
                             status = 1
                         },
@@ -1076,7 +1079,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 3,
                             BeneficiaryId = 3,
                             ClientId = 3,
-                            PaymentDate = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(5579),
+                            PaymentDate = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(7862),
                             Type = 1,
                             status = 0
                         },
@@ -1087,7 +1090,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 4,
                             BeneficiaryId = 4,
                             ClientId = 4,
-                            PaymentDate = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(5581),
+                            PaymentDate = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(7864),
                             Type = 0,
                             status = 1
                         },
@@ -1098,7 +1101,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 5,
                             BeneficiaryId = 5,
                             ClientId = 5,
-                            PaymentDate = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(5583),
+                            PaymentDate = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(7866),
                             Type = 2,
                             status = -1
                         },
@@ -1109,7 +1112,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 6,
                             BeneficiaryId = 6,
                             ClientId = 6,
-                            PaymentDate = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(5631),
+                            PaymentDate = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(7868),
                             Type = 1,
                             status = 0
                         },
@@ -1120,7 +1123,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 7,
                             BeneficiaryId = 7,
                             ClientId = 7,
-                            PaymentDate = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(5633),
+                            PaymentDate = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(7895),
                             Type = 0,
                             status = 1
                         },
@@ -1131,7 +1134,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 8,
                             BeneficiaryId = 8,
                             ClientId = 8,
-                            PaymentDate = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(5636),
+                            PaymentDate = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(7897),
                             Type = 2,
                             status = 1
                         },
@@ -1142,7 +1145,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 9,
                             BeneficiaryId = 9,
                             ClientId = 9,
-                            PaymentDate = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(5638),
+                            PaymentDate = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(7899),
                             Type = 1,
                             status = 0
                         },
@@ -1153,7 +1156,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 10,
                             BeneficiaryId = 10,
                             ClientId = 10,
-                            PaymentDate = new DateTime(2025, 11, 4, 14, 14, 13, 462, DateTimeKind.Utc).AddTicks(5639),
+                            PaymentDate = new DateTime(2025, 11, 4, 13, 49, 28, 260, DateTimeKind.Utc).AddTicks(7900),
                             Type = 0,
                             status = 1
                         },
@@ -1303,7 +1306,7 @@ namespace Banking_Payments.Migrations
                 {
                     b.HasOne("Banking_Payments.Models.Admin", "Admin")
                         .WithMany("Banks")
-                        .HasForeignKey("CreatedByAdminId")
+                        .HasForeignKey("AdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

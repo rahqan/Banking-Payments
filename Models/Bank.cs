@@ -7,6 +7,7 @@ namespace Banking_Payments.Models
     {
         [Key]
         public int BankId { get; set; }
+
         public string Code { get; set; }
 
         [Required(ErrorMessage = "Bank Name is Required")]
@@ -24,13 +25,15 @@ namespace Banking_Payments.Models
         public string ContactEmail { get; set; }
         public string ContactPhone { get; set; }
 
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
+
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [ForeignKey("Admin")]
-        public int AdminId { get; set; }
+        public int CreatedByAdminId { get; set; }
 
         public virtual Admin? Admin { get; set; }
+
         public virtual ICollection<Client>? Clients { get; set; }
         public virtual ICollection<BankUser>? BankUsers { get; set; }
     }

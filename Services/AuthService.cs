@@ -67,13 +67,33 @@ namespace Banking_Payments.Services
             };
         }
 
+        //private async Task<LoginResponseDTO?> LoginAdminAsync(LoginRequestDTO request)
+        //{
+        //    var admin = await _authRepo.GetAdminByEmailAsync(request.Username);
+        //    if (admin == null || !BCrypt.Net.BCrypt.Verify(request.Password, admin.Password))
+        //        return null;
+
+        //    var token = _jwtService.GenerateToken(admin.AdminId, Role.SuperAdmin.ToString());
+
+        //    return new LoginResponseDTO
+        //    {
+        //        Token = token,
+        //        Role = Role.SuperAdmin,
+        //        UserId = admin.AdminId
+        //    };
+        //}
+
         private async Task<LoginResponseDTO?> LoginAdminAsync(LoginRequestDTO request)
         {
             var admin = await _authRepo.GetAdminByEmailAsync(request.Username);
             if (admin == null || !BCrypt.Net.BCrypt.Verify(request.Password, admin.Password))
                 return null;
 
+            // Add AdminId claim explicitly
+            //var token = _jwtService.GenerateToken(admin.AdminId, Role.SuperAdmin.ToString(), null);
+
             var token = _jwtService.GenerateToken(admin.AdminId, Role.SuperAdmin.ToString());
+
 
             return new LoginResponseDTO
             {
@@ -82,6 +102,10 @@ namespace Banking_Payments.Services
                 UserId = admin.AdminId
             };
         }
+
+
+
+
 
         // Registration methods
         public async Task<RegistrationResponseDTO> RegisterAdminAsync(RegisterAdminDTO request)
