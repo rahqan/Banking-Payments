@@ -18,47 +18,47 @@ namespace Banking_Payments.Services
             _logger = logger;
         }
 
-        public async Task<ClientDTO> CreateClientAsync(ClientCreationDTO clientCreationDTO)
-        {
-            if (clientCreationDTO == null)
-                throw new ArgumentNullException(nameof(clientCreationDTO), "Client data cannot be null");
+        //public async Task<ClientDTO> CreateClientAsync(ClientCreationDTO clientCreationDTO)
+        //{
+        //    if (clientCreationDTO == null)
+        //        throw new ArgumentNullException(nameof(clientCreationDTO), "Client data cannot be null");
 
-            if (clientCreationDTO.BankId <= 0)
-                throw new ArgumentException("Valid Bank ID is required");
+        //    if (clientCreationDTO.BankId <= 0)
+        //        throw new ArgumentException("Valid Bank ID is required");
 
-            if (clientCreationDTO.BankUserId <= 0)
-                throw new ArgumentException("Valid Bank User ID is required");
+        //    if (clientCreationDTO.BankUserId <= 0)
+        //        throw new ArgumentException("Valid Bank User ID is required");
 
-            // Generate unique client code
-            var clientCode = await GenerateClientCodeAsync(clientCreationDTO.BankId);
+        //    // Generate unique client code
+        //    var clientCode = await GenerateClientCodeAsync(clientCreationDTO.BankId);
 
-            // Check if code already exists (unlikely but safety check)
-            var existingClient = await _bankUserRepository.GetClientByCodeAsync(clientCode);
-            if (existingClient != null)
-                throw new InvalidOperationException("Generated client code already exists");
+        //    // Check if code already exists (unlikely but safety check)
+        //    var existingClient = await _bankUserRepository.GetClientByCodeAsync(clientCode);
+        //    if (existingClient != null)
+        //        throw new InvalidOperationException("Generated client code already exists");
 
-            var clientModel = new Client
-            {
-                Code = clientCode,
-                Name = clientCreationDTO.ClientName,
-                Password = clientCreationDTO.ClientPassword,
-                Email = clientCreationDTO.ClientEmail,
-                BankId = clientCreationDTO.BankId,
-                Address = clientCreationDTO.Address ?? string.Empty,
-                BusinessType = clientCreationDTO.ClientBusinessType ?? string.Empty,
-                VerificationStatus = "Pending",
-                IsActive = true,
-                CreatedAt = DateTime.UtcNow,
-                BankUserId = clientCreationDTO.BankUserId
-            };
+        //    var clientModel = new Client
+        //    {
+        //        Code = clientCode,
+        //        Name = clientCreationDTO.ClientName,
+        //        Password = clientCreationDTO.ClientPassword,
+        //        Email = clientCreationDTO.ClientEmail,
+        //        BankId = clientCreationDTO.BankId,
+        //        Address = clientCreationDTO.Address ?? string.Empty,
+        //        BusinessType = clientCreationDTO.ClientBusinessType ?? string.Empty,
+        //        VerificationStatus = "Pending",
+        //        IsActive = true,
+        //        CreatedAt = DateTime.UtcNow,
+        //        BankUserId = clientCreationDTO.BankUserId
+        //    };
 
-            var createdClient = await _bankUserRepository.CreateClientAsync(clientModel);
+        //    var createdClient = await _bankUserRepository.CreateClientAsync(clientModel);
 
-            var clientDTO = MapToClientDTO(createdClient);
+        //    var clientDTO = MapToClientDTO(createdClient);
 
-            _logger.LogInformation("Client created successfully with Code: {ClientCode}", clientCode);
-            return clientDTO;
-        }
+        //    _logger.LogInformation("Client created successfully with Code: {ClientCode}", clientCode);
+        //    return clientDTO;
+        //}
 
         public async Task<IEnumerable<ClientDTO>> GetAllClientsAsync(int bankId)
         {
@@ -138,43 +138,43 @@ namespace Banking_Payments.Services
             return result;
         }
 
-        public async Task<ClientDTO> VerifyClientAsync(
-            int clientId,
-            int verifiedBy,
-            int bankId,
-            string verificationStatus,
-            string? notes)
-        {
-            var client = await _bankUserRepository.GetClientByIdAsync(clientId);
-            if (client == null)
-                throw new KeyNotFoundException("Client not found");
+        //public async Task<ClientDTO> VerifyClientAsync(
+        //    int clientId,
+        //    int verifiedBy,
+        //    int bankId,
+        //    string verificationStatus,
+        //    string? notes)
+        //{
+        //    var client = await _bankUserRepository.GetClientByIdAsync(clientId);
+        //    if (client == null)
+        //        throw new KeyNotFoundException("Client not found");
 
-            if (client.BankId != bankId)
-            {
-                _logger.LogWarning("Unauthorized verification attempt: BankId {BankId} tried to verify Client {ClientId} belonging to BankId {ClientBankId}",
-                    bankId, clientId, client.BankId);
-                throw new UnauthorizedAccessException("You can only verify clients from your own bank");
-            }
+        //    if (client.BankId != bankId)
+        //    {
+        //        _logger.LogWarning("Unauthorized verification attempt: BankId {BankId} tried to verify Client {ClientId} belonging to BankId {ClientBankId}",
+        //            bankId, clientId, client.BankId);
+        //        throw new UnauthorizedAccessException("You can only verify clients from your own bank");
+        //    }
 
-            var oldStatus = client.VerificationStatus;
+        //    var oldStatus = client.VerificationStatus;
 
-            if (!IsValidTransition(oldStatus, verificationStatus))
-                throw new InvalidOperationException($"Invalid status transition from {oldStatus} to {verificationStatus}");
+        //    if (!IsValidTransition(oldStatus, verificationStatus))
+        //        throw new InvalidOperationException($"Invalid status transition from {oldStatus} to {verificationStatus}");
 
-            client.VerificationStatus = verificationStatus;
-            client.BankUserId = verifiedBy; // Storing who verified
+        //    client.VerificationStatus = verificationStatus;
+        //    client.BankUserId = verifiedBy; // Storing who verified
 
-            var result = await _bankUserRepository.UpdateClientAsync(client);
+        //    var result = await _bankUserRepository.UpdateClientAsync(client);
 
-            if (!result)
-                throw new InvalidOperationException("Failed to update client verification status");
+        //    if (!result)
+        //        throw new InvalidOperationException("Failed to update client verification status");
 
-            var clientDTO = MapToClientDTO(client);
-            _logger.LogInformation("Client verification status updated: Client ID: {ClientId}, From: {OldStatus}, To: {NewStatus}",
-                clientId, oldStatus, verificationStatus);
+        //    var clientDTO = MapToClientDTO(client);
+        //    _logger.LogInformation("Client verification status updated: Client ID: {ClientId}, From: {OldStatus}, To: {NewStatus}",
+        //        clientId, oldStatus, verificationStatus);
 
-            return clientDTO;
-        }
+        //    return clientDTO;
+        //}
 
         public async Task<IEnumerable<ClientDTO>> GetClientsByVerificationStatusAsync(string status, int bankId)
         {
@@ -217,6 +217,136 @@ namespace Banking_Payments.Services
             return false;
         }
 
+        //private ClientDTO MapToClientDTO(Client client)
+        //{
+        //    // Get counts for related entities
+        //    int totalEmployees = 0;
+        //    int totalBeneficiaries = 0;
+        //    int totalPayments = 0;
+
+        //    // If collections are loaded, use them
+        //    if (client.Employees != null)
+        //        totalEmployees = client.Employees.Count;
+
+        //    if (client.Beneficiaries != null)
+        //        totalBeneficiaries = client.Beneficiaries.Count;
+
+        //    if (client.Payments != null)
+        //        totalPayments = client.Payments.Count;
+
+        //    return new ClientDTO
+        //    {
+        //        ClientId = client.ClientId,
+        //        ClientCode = client.Code,
+        //        ClientName = client.Name,
+        //        ClientEmail = client.Email,
+        //        ClientBusinessType = client.BusinessType,
+        //        ClientAddress = client.Address,
+        //        ClientVerificationStatus = client.VerificationStatus,
+        //        BankId = client.BankId,
+        //        BankUserId = client.BankUserId,
+        //        VerifiedBy = client.BankUserId, // Using BankUserId as VerifiedBy
+        //        VerifiedAt = client.VerificationStatus == "Verified" ? client.CreatedAt : null,
+        //        TotalEmployees = totalEmployees,
+        //        TotalBeneficiaries = totalBeneficiaries,
+        //        TotalPayments = totalPayments
+        //    };
+
+
+
+        //}
+
+        public async Task<ClientDTO> CreateClientAsync(ClientCreationDTO clientCreationDTO, int bankId, int bankUserId)
+        {
+            if (clientCreationDTO == null)
+                throw new ArgumentNullException(nameof(clientCreationDTO), "Client data cannot be null");
+
+            if (bankId <= 0)
+                throw new ArgumentException("Valid Bank ID is required");
+
+            if (bankUserId <= 0)
+                throw new ArgumentException("Valid Bank User ID is required");
+
+            // Generate unique client code
+            var clientCode = await GenerateClientCodeAsync(bankId);
+
+            // Check if code already exists (unlikely but safety check)
+            var existingClient = await _bankUserRepository.GetClientByCodeAsync(clientCode);
+            if (existingClient != null)
+                throw new InvalidOperationException("Generated client code already exists");
+
+            var clientModel = new Client
+            {
+                Code = clientCode,
+                Name = clientCreationDTO.ClientName,
+                Password = clientCreationDTO.ClientPassword,
+                Email = clientCreationDTO.ClientEmail,
+                BankId = bankId,
+                Address = clientCreationDTO.Address ?? string.Empty,
+                BusinessType = clientCreationDTO.ClientBusinessType ?? string.Empty,
+                VerificationStatus = "Pending",
+                IsActive = true,
+                CreatedAt = DateTime.UtcNow,
+                BankUserId = bankUserId, // Keep for backward compatibility
+                ApprovedBy = null // Will be set during verification
+            };
+
+            var createdClient = await _bankUserRepository.CreateClientAsync(clientModel);
+
+            var clientDTO = MapToClientDTO(createdClient);
+
+            _logger.LogInformation("Client created successfully with Code: {ClientCode} by BankUser: {BankUserId}",
+                clientCode, bankUserId);
+            return clientDTO;
+        }
+
+        // Updated VerifyClientAsync method
+        public async Task<ClientDTO> VerifyClientAsync(
+            int clientId,
+            int verifiedBy,
+            int bankId,
+            string verificationStatus,
+            string? notes)
+        {
+            var client = await _bankUserRepository.GetClientByIdAsync(clientId);
+            if (client == null)
+                throw new KeyNotFoundException("Client not found");
+
+            if (client.BankId != bankId)
+            {
+                _logger.LogWarning("Unauthorized verification attempt: BankId {BankId} tried to verify Client {ClientId} belonging to BankId {ClientBankId}",
+                    bankId, clientId, client.BankId);
+                throw new UnauthorizedAccessException("You can only verify clients from your own bank");
+            }
+
+            var oldStatus = client.VerificationStatus;
+
+            if (!IsValidTransition(oldStatus, verificationStatus))
+                throw new InvalidOperationException($"Invalid status transition from {oldStatus} to {verificationStatus}");
+
+            client.VerificationStatus = verificationStatus;
+
+            // Set ApprovedBy when status is Verified
+            if (verificationStatus == "Verified")
+            {
+                client.ApprovedBy = verifiedBy;
+            }
+
+            client.BankUserId = verifiedBy; // Keep for backward compatibility
+
+            var result = await _bankUserRepository.UpdateClientAsync(client);
+
+            if (!result)
+                throw new InvalidOperationException("Failed to update client verification status");
+
+            var clientDTO = MapToClientDTO(client);
+            _logger.LogInformation("Client verification status updated: Client ID: {ClientId}, From: {OldStatus}, To: {NewStatus}, By: {BankUserId}",
+                clientId, oldStatus, verificationStatus, verifiedBy);
+
+            return clientDTO;
+        }
+
+        // Updated MapToClientDTO method
         private ClientDTO MapToClientDTO(Client client)
         {
             // Get counts for related entities
@@ -245,7 +375,8 @@ namespace Banking_Payments.Services
                 ClientVerificationStatus = client.VerificationStatus,
                 BankId = client.BankId,
                 BankUserId = client.BankUserId,
-                VerifiedBy = client.BankUserId, // Using BankUserId as VerifiedBy
+                ApprovedBy = client.ApprovedBy,
+                VerifiedBy = client.ApprovedBy ?? client.BankUserId, // Use ApprovedBy if available
                 VerifiedAt = client.VerificationStatus == "Verified" ? client.CreatedAt : null,
                 TotalEmployees = totalEmployees,
                 TotalBeneficiaries = totalBeneficiaries,

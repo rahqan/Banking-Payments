@@ -1605,37 +1605,33 @@
         "tags": [
           "Document"
         ],
-        "parameters": [
-          {
-            "name": "clientId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "docType",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "file": {
+                  "File": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "ClientId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "DocType": {
+                    "type": "string"
                   }
                 }
               },
               "encoding": {
-                "file": {
+                "File": {
+                  "style": "form"
+                },
+                "ClientId": {
+                  "style": "form"
+                },
+                "DocType": {
                   "style": "form"
                 }
               }
@@ -1967,6 +1963,32 @@
         },
         "additionalProperties": false
       },
+      "BeneficiaryDTO": {
+        "type": "object",
+        "properties": {
+          "beneficiaryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ifscCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Client": {
         "type": "object",
         "properties": {
@@ -2020,6 +2042,14 @@
           "bank": {
             "$ref": "#/components/schemas/Bank"
           },
+          "approvedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "approvedByBankUser": {
+            "$ref": "#/components/schemas/BankUser"
+          },
           "bankUserId": {
             "type": "integer",
             "format": "int32"
@@ -2066,33 +2096,37 @@
         "additionalProperties": false
       },
       "ClientCreationDTO": {
+        "required": [
+          "clientEmail",
+          "clientName",
+          "clientPassword"
+        ],
         "type": "object",
         "properties": {
           "clientName": {
-            "type": "string",
-            "nullable": true
-          },
-          "clientEmail": {
-            "type": "string",
-            "nullable": true
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
           },
           "clientPassword": {
+            "maxLength": 100,
+            "minLength": 6,
+            "type": "string"
+          },
+          "clientEmail": {
+            "minLength": 1,
             "type": "string",
-            "nullable": true
-          },
-          "bankId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "bankUserId": {
-            "type": "integer",
-            "format": "int32"
+            "format": "email"
           },
           "address": {
+            "maxLength": 200,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           },
           "clientBusinessType": {
+            "maxLength": 100,
+            "minLength": 0,
             "type": "string",
             "nullable": true
           }
@@ -2104,7 +2138,7 @@
         "properties": {
           "clientId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "clientCode": {
             "type": "string",
@@ -2118,6 +2152,18 @@
             "type": "string",
             "nullable": true
           },
+          "clientBusinessType": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientVerificationStatus": {
+            "type": "string",
+            "nullable": true
+          },
           "bankId": {
             "type": "integer",
             "format": "int32"
@@ -2126,21 +2172,18 @@
             "type": "integer",
             "format": "int32"
           },
-          "clientAddress": {
-            "type": "string",
-            "nullable": true
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
           },
-          "clientBusinessType": {
-            "type": "string",
-            "nullable": true
-          },
-          "clientVerificationStatus": {
-            "type": "string",
+          "approvedBy": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "verifiedBy": {
             "type": "integer",
-            "format": "int64",
+            "format": "int32",
             "nullable": true
           },
           "verifiedAt": {
@@ -2322,7 +2365,8 @@
           },
           "bankUserId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "approvedBy": {
             "$ref": "#/components/schemas/BankUser"
@@ -2355,17 +2399,20 @@
             "type": "integer",
             "format": "int32"
           },
-          "beneficiaryName": {
-            "type": "string",
-            "nullable": true
+          "beneficiary": {
+            "$ref": "#/components/schemas/BeneficiaryDTO"
           },
           "clientId": {
             "type": "integer",
             "format": "int32"
           },
-          "clientName": {
-            "type": "string",
+          "bankUserId": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
+          },
+          "client": {
+            "$ref": "#/components/schemas/ClientDTO"
           },
           "approvedById": {
             "type": "integer",
@@ -2381,11 +2428,12 @@
       },
       "PaymentType": {
         "enum": [
-          "RTGS",
-          "IMPS",
-          "NEFT"
+          0,
+          1,
+          2
         ],
-        "type": "string"
+        "type": "integer",
+        "format": "int32"
       },
       "RegisterAdminDTO": {
         "type": "object",
@@ -2475,11 +2523,12 @@
       },
       "Role": {
         "enum": [
-          "SuperAdmin",
-          "BankUser",
-          "Client"
+          1,
+          2,
+          3
         ],
-        "type": "string"
+        "type": "integer",
+        "format": "int32"
       },
       "SalaryDisbursement": {
         "type": "object",
@@ -2515,11 +2564,12 @@
       },
       "VerificationStatus": {
         "enum": [
-          "Pending",
-          "Verified",
-          "Rejected"
+          0,
+          1,
+          -1
         ],
-        "type": "string"
+        "type": "integer",
+        "format": "int32"
       },
       "WeatherForecast": {
         "type": "object",

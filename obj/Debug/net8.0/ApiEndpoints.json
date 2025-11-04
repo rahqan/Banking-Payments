@@ -265,7 +265,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Banking_Payments.Models.DTO.PaymentDTO",
+        "Type": "PaymentDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -296,7 +296,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Banking_Payments.Models.DTO.PaymentDTO",
+        "Type": "PaymentDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -327,7 +327,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Banking_Payments.Models.DTO.PaymentDTO",
+        "Type": "PaymentDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -347,7 +347,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Banking_Payments.Models.DTO.PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -367,7 +367,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Banking_Payments.Models.DTO.PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -393,7 +393,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Banking_Payments.Models.DTO.PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -460,17 +460,17 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "file",
+        "Name": "File",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
       },
       {
-        "Name": "clientId",
+        "Name": "ClientId",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "docType",
+        "Name": "DocType",
         "Type": "System.String",
         "IsRequired": false
       }
