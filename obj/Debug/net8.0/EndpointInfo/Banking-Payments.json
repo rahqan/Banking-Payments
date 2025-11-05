@@ -1974,6 +1974,29 @@
         }
       }
     },
+    "/api/Bank/{bankId}/users": {
+      "get": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "bankId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Dashboard/stats": {
       "get": {
         "tags": [

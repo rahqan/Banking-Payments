@@ -91,6 +91,22 @@
   },
   {
     "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetBankUsersByBankId",
+    "RelativePath": "api/Bank/{bankId}/users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bankId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
     "Method": "GetBankById",
     "RelativePath": "api/Bank/{id}",
     "HttpMethod": "GET",

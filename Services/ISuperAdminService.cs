@@ -5,8 +5,8 @@ namespace Banking_Payments.Services
 {
     public interface ISuperAdminService
     {
-        // BANK USER CRUD
         Task<IEnumerable<BankUserDTO>> GetAllBankUsersAsync();
+        Task<IEnumerable<BankUserDTO>> GetBankUsersByBankIdAsync(int bankId); // ✅ Add this
         Task<BankUserDTO?> GetBankUserByIdAsync(int id);
         Task<BankUserDTO> CreateBankUserAsync(CreateBankUserDTO dto);
         Task<bool> UpdateBankUserAsync(int id, UpdateBankUserDTO dto);

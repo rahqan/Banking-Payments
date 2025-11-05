@@ -142,7 +142,19 @@ namespace Banking_Payments.Controllers
             return Ok(new { message = "Bank user deleted successfully" });
         }
 
-       
+        [HttpGet("{bankId}/users")]
+        public async Task<IActionResult> GetBankUsersByBankId(int bankId)
+        {
+            // First check if bank exists
+            var bank = await _bankService.GetByIdAsync(bankId);
+            if (bank == null)
+                return NotFound(new { message = "Bank not found" });
+
+            var users = await _superAdminService.GetBankUsersByBankIdAsync(bankId);
+            return Ok(users);
+        }
+
+
 
         //[HttpGet("stats")]
         //public async Task<IActionResult> GetDashboardStats()

@@ -14,6 +14,11 @@ namespace Banking_Payments.Services
             _repo = repo;
         }
 
+        public async Task<IEnumerable<BankUserDTO>> GetBankUsersByBankIdAsync(int bankId)
+        {
+            return await _repo.GetBankUsersByBankIdAsync(bankId);
+        }
+
         public async Task<IEnumerable<BankUserDTO>> GetAllBankUsersAsync()
         {
             var users = await _repo.GetAllBankUsersAsync();

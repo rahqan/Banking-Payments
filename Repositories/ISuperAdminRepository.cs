@@ -1,4 +1,5 @@
 ﻿using Banking_Payments.Models;
+using Banking_Payments.Models.DTO;
 
 namespace Banking_Payments.Repositories
 {
@@ -11,5 +12,7 @@ namespace Banking_Payments.Repositories
         Task UpdateBankUserAsync(BankUser user);
         Task DeleteBankUserAsync(int id);
         Task SaveChangesAsync();
+
+        Task<IEnumerable<BankUserDTO>> GetBankUsersByBankIdAsync(int bankId);
     }
 }
