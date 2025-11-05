@@ -1,10 +1,11 @@
 ﻿using Banking_Payments.Models.DTO;
+using Banking_Payments.Models;
 
 namespace Banking_Payments.Services
 {
     public interface IBankUserService
     {
-        Task<ClientDTO> CreateClientAsync(ClientCreationDTO clientCreationDTO);
+        Task<ClientDTO> CreateClientAsync(Client client);
         Task<IEnumerable<ClientDTO>> GetAllClientsAsync(int bankId);
         Task<ClientDTO?> GetClientByIdAsync(int clientId, int bankId);
         Task<ClientDTO> UpdateClientAsync(int clientId, ClientDTO clientDTO, int bankId);

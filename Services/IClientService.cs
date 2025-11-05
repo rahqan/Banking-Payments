@@ -1,10 +1,12 @@
 ﻿using Banking_Payments.Models;
+using Banking_Payments.Models.DTO;
 
 namespace Banking_Payments.Services
 {
     public interface IClientService
     {
         Task<IEnumerable<Client>> GetAllClientByBankIdAsync(int bankId);
+        Task<ClientBankDetailsDTO> GetClientForBankDetailsAsync(int clientId);
         Task<IEnumerable<Client>> GetClientsAllAsync(int bankId);
         Task<Client> GetClientByRegisterationNumberAsync(string registerationNumber, int bankId);
         Task<IEnumerable<Client>> GetClientsWithStatusAsync(string status, int bankId);

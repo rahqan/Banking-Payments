@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Banking_Payments.Services;
 using Banking_Payments.Models;
+using Banking_Payments.Models.DTO;
 
 namespace Banking_Payments.Controllers
 {
@@ -20,6 +21,17 @@ namespace Banking_Payments.Controllers
         {
             var clients = await clientService.GetAllClientByBankIdAsync(id);
             return Ok(clients);
+        }
+
+        [HttpGet("get-client-for-bank/{clientId}")]
+        public async Task<ActionResult<ClientBankDetailsDTO>> GetClientForBankDetailsAsync(int clientId)
+        {
+            ClientBankDetailsDTO res = await clientService.GetClientForBankDetailsAsync(clientId);
+            if(res == null)
+            {
+                return BadRequest("Invalid id");
+            }
+            return Ok(res);
         }
 
         [HttpGet("get-clients-all")]
@@ -94,11 +106,14 @@ namespace Banking_Payments.Controllers
         [HttpPost("add-payment")]
         public async Task<ActionResult<Payment>> AddPaymentAsync(Payment payment)
         {
+
             if (ModelState.IsValid)
             {
+                Console.WriteLine("Inside if condition ::: ");
                 Payment res = await clientService.AddPaymentAsync(payment);
                 return CreatedAtAction("AddPayment", res);
             }
+            Console.WriteLine("Inside controller ::: ");
             return BadRequest();
         }
 
@@ -123,6 +138,7 @@ namespace Banking_Payments.Controllers
         [HttpPost("add-employee")]
         public async Task<ActionResult<Employee>> AddEmployeeAsync(Employee emp)
         {
+            Console.WriteLine("Inside 141 controller :: ");
             if (ModelState.IsValid)
             {
                 var res = await clientService.AddEmployeeAsync(emp);

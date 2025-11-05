@@ -4,7 +4,7 @@ namespace Banking_Payments.Repositories
 {
     public interface IBankUserRepository
     {
-        Task<Client> CreateClientAsync(Client clientModel);
+        Task<Client> CreateClientAsync(Client client);
         Task<IEnumerable<Client>> GetAllClientsAsync(int bankId);
         Task<Client?> GetClientByIdAsync(int clientId);
         Task<bool> UpdateClientAsync(Client client);

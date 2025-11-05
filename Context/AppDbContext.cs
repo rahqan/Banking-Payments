@@ -59,14 +59,14 @@ namespace Banking_Payments.Context
             // Beneficiary -> Client relationship (NO ACTION to break cascade cycle)
             modelBuilder.Entity<Beneficiary>()
                 .HasOne(b => b.Client)
-                .WithMany()
+                .WithMany(c => c.Beneficiaries)
                 .HasForeignKey(b => b.ClientId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             // Payment -> Beneficiary relationship (RESTRICT to break cascade cycle)
             modelBuilder.Entity<Payment>()
                 .HasOne(p => p.Beneficiary)
-                .WithMany()
+                .WithMany(b => b.Payments)
                 .HasForeignKey(p => p.BeneficiaryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -105,11 +105,53 @@ namespace Banking_Payments.Context
             );
 
             //modelBuilder.Entity<Client>().HasData(
-            //    new Client { ClientId = 1, Password = "client123", Code = "C001", Name = "TechWave Ltd", Email = "hr@techwave.com", BusinessType = "IT Services", Address = "12 Silicon Ave", VerificationStatus = "Verified", IsActive = true, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), BankId = 1, BankUserId = 1 },
-            //    new Client { ClientId = 2, Password = "client123", Code = "C002", Name = "GreenFoods Inc", Email = "admin@greenfoods.com", BusinessType = "Food Manufacturing", Address = "45 Organic Rd", VerificationStatus = "Pending", IsActive = true, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), BankId = 2, BankUserId = 2 },
-            //    new Client { ClientId = 3, Password = "client123", Code = "C003", Name = "Urban Builders", Email = "info@urbanbuilders.com", BusinessType = "Construction", Address = "78 Brick Lane", VerificationStatus = "Verified", IsActive = true, CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), BankId = 3, BankUserId = 3 }
+            //    new Client { 
+            //        ClientId = 1, 
+            //        Code = "CL001",
+            //        Name = "TechWave Ltd",
+            //        Email = "hr@techwave.com",
+            //        BusinessType = "IT Services",
+            //        Address = "12 Silicon Ave",
+            //        Password = "CL0001",
+            //        RegisterationNumber = "GIABC2910C",
+            //        VerificationStatus = "Verified",
+            //        AccountNumber="0909015102029166",
+            //        IfscCode="ICIC00192",
+            //        Balance = 53203920.2,
+            //        IsActive = true,
+            //        BankId = 1,
+            //        BankUserId = 1001
+            //    }
+            //    //new Client { 
+            //    //    ClientId = 2, 
+            //    //    Password = "CL0002", 
+            //    //    Code = "C002", 
+            //    //    Name = "GreenFoods Inc", 
+            //    //    Email = "admin@greenfoods.com", 
+            //    //    BusinessType = "Food Manufacturing", 
+            //    //    Address = "45 Organic Rd", 
+            //    //    VerificationStatus = "Pending", 
+            //    //    IsActive = true, 
+            //    //    CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), 
+            //    //    BankId = 2, 
+            //    //    BankUserId = 2 
+            //    //},
+            //    //new Client { 
+            //    //    ClientId = 3, 
+            //    //    Password = "client123", 
+            //    //    Code = "C003", 
+            //    //    Name = "Urban Builders", 
+            //    //    Email = "info@urbanbuilders.com", 
+            //    //    BusinessType = "Construction", 
+            //    //    Address = "78 Brick Lane", 
+            //    //    VerificationStatus = "Verified", 
+            //    //    IsActive = true, 
+            //    //    CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, DateTimeKind.Utc), 
+            //    //    BankId = 3, 
+            //    //    BankUserId = 3 
+            //    //}
             //);
-
+            
             //modelBuilder.Entity<Beneficiary>().HasData(
             //    new Beneficiary { BeneficiaryId = 1, Name = "John Doe", AccountNumber = "1234567890", IfscCode = "FNB0001", ClientId = 1 },
             //    new Beneficiary { BeneficiaryId = 2, Name = "Mary Jane", AccountNumber = "2345678901", IfscCode = "GTB0002", ClientId = 2 },

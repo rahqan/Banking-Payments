@@ -138,17 +138,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClientCreationDTO"
+                "$ref": "#/components/schemas/Client"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/ClientCreationDTO"
+                "$ref": "#/components/schemas/Client"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/ClientCreationDTO"
+                "$ref": "#/components/schemas/Client"
               }
             }
           }
@@ -778,6 +778,46 @@
                   "items": {
                     "$ref": "#/components/schemas/Client"
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/get-client-for-bank/{clientId}": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientBankDetailsDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientBankDetailsDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientBankDetailsDTO"
                 }
               }
             }
@@ -1716,6 +1756,54 @@
         }
       }
     },
+    "/api/Recaptcha/verify": {
+      "post": {
+        "tags": [
+          "Recaptcha"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecaptchaVerifyRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecaptchaVerifyRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecaptchaVerifyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanBaseResponseDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanBaseResponseDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanBaseResponseDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -1950,6 +2038,14 @@
             "type": "string",
             "nullable": true
           },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "relationShip": {
+            "type": "string",
+            "nullable": true
+          },
           "clientId": {
             "type": "integer",
             "format": "int32"
@@ -1961,6 +2057,29 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Payment"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BooleanBaseResponseDTO": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "boolean"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "string"
             },
             "nullable": true
           }
@@ -2005,6 +2124,18 @@
           "verificationStatus": {
             "type": "string",
             "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "ifscCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "balance": {
+            "type": "number",
+            "format": "double"
           },
           "createdAt": {
             "type": "string",
@@ -2065,34 +2196,34 @@
         },
         "additionalProperties": false
       },
-      "ClientCreationDTO": {
+      "ClientBankDetailsDTO": {
         "type": "object",
         "properties": {
-          "clientName": {
+          "accountHolder": {
             "type": "string",
             "nullable": true
           },
-          "clientEmail": {
+          "accountNumber": {
             "type": "string",
             "nullable": true
           },
-          "clientPassword": {
+          "bankName": {
             "type": "string",
             "nullable": true
           },
-          "bankId": {
-            "type": "integer",
-            "format": "int32"
+          "balance": {
+            "type": "number",
+            "format": "double"
           },
-          "bankUserId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "address": {
+          "ifscCode": {
             "type": "string",
             "nullable": true
           },
-          "clientBusinessType": {
+          "accountType": {
+            "type": "string",
+            "nullable": true
+          },
+          "branch": {
             "type": "string",
             "nullable": true
           }
@@ -2235,13 +2366,29 @@
             "type": "string",
             "nullable": true
           },
-          "address": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "position": {
+            "type": "string",
+            "nullable": true
+          },
+          "department": {
             "type": "string",
             "nullable": true
           },
           "salary": {
             "type": "number",
             "format": "double"
+          },
+          "joinDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
           },
           "accountNumber": {
             "type": "string",
@@ -2305,6 +2452,10 @@
           },
           "type": {
             "$ref": "#/components/schemas/PaymentType"
+          },
+          "remarks": {
+            "type": "string",
+            "nullable": true
           },
           "beneficiaryId": {
             "type": "integer",
@@ -2386,6 +2537,16 @@
           "NEFT"
         ],
         "type": "string"
+      },
+      "RecaptchaVerifyRequest": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "RegisterAdminDTO": {
         "type": "object",

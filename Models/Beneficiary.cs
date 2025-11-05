@@ -8,6 +8,8 @@ namespace Banking_Payments.Models
         public string Name { get; set; }
         public string AccountNumber { get; set; }
         public string IfscCode { get; set; }
+        public string BankName { get; set; }
+        public string RelationShip {  get; set; }
 
         [ForeignKey("Client")]
         public int ClientId { get; set; }

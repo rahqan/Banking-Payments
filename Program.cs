@@ -80,24 +80,6 @@ namespace Banking_Payments
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
             });
-            //builder.Services.AddAuthentication(options =>
-            //{
-            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //.AddJwtBearer(option =>
-            //{
-            //    option.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuer = true,
-            //        ValidateAudience = true,
-            //        ValidateLifetime = true,
-            //        ValidateIssuerSigningKey = true,
-            //        ValidIssuer = builder.Configuration["JWT:Issuer"],
-            //        ValidAudience = builder.Configuration["JWT:Audience"],
-            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:SecretKey"]))
-            //    };
-            //});
 
             builder.Services.AddControllers();
             builder.Services.AddControllers().AddJsonOptions(options =>

@@ -18,45 +18,60 @@ namespace Banking_Payments.Services
             _logger = logger;
         }
 
-        public async Task<ClientDTO> CreateClientAsync(ClientCreationDTO clientCreationDTO)
+        public async Task<ClientDTO> CreateClientAsync(Client client)
         {
-            if (clientCreationDTO == null)
-                throw new ArgumentNullException(nameof(clientCreationDTO), "Client data cannot be null");
+            //if (clientCreationDTO == null)
+            //    throw new ArgumentNullException(nameof(clientCreationDTO), "Client data cannot be null");
 
-            if (clientCreationDTO.BankId <= 0)
-                throw new ArgumentException("Valid Bank ID is required");
+            //if (clientCreationDTO.BankId <= 0)
+            //    throw new ArgumentException("Valid Bank ID is required");
 
-            if (clientCreationDTO.BankUserId <= 0)
-                throw new ArgumentException("Valid Bank User ID is required");
+            //if (clientCreationDTO.BankUserId <= 0)
+            //    throw new ArgumentException("Valid Bank User ID is required");
 
-            // Generate unique client code
-            var clientCode = await GenerateClientCodeAsync(clientCreationDTO.BankId);
+            //// Generate unique client code
+            //var clientCode = await GenerateClientCodeAsync(clientCreationDTO.BankId);
 
-            // Check if code already exists (unlikely but safety check)
-            var existingClient = await _bankUserRepository.GetClientByCodeAsync(clientCode);
-            if (existingClient != null)
-                throw new InvalidOperationException("Generated client code already exists");
+            //// Check if code already exists (unlikely but safety check)
+            //var existingClient = await _bankUserRepository.GetClientByCodeAsync(clientCode);
+            //if (existingClient != null)
+            //    throw new InvalidOperationException("Generated client code already exists");
 
-            var clientModel = new Client
-            {
-                Code = clientCode,
-                Name = clientCreationDTO.ClientName,
-                Password = clientCreationDTO.ClientPassword,
-                Email = clientCreationDTO.ClientEmail,
-                BankId = clientCreationDTO.BankId,
-                Address = clientCreationDTO.Address ?? string.Empty,
-                BusinessType = clientCreationDTO.ClientBusinessType ?? string.Empty,
-                VerificationStatus = "Pending",
-                IsActive = true,
-                CreatedAt = DateTime.UtcNow,
-                BankUserId = clientCreationDTO.BankUserId
-            };
+            //var clientModel = new Client
+            //{
+            //    Code = clientCode,
+            //    Name = clientCreationDTO.ClientName,
+            //    Email = clientCreationDTO.ClientEmail,
+            //    BusinessType = clientCreationDTO.ClientBusinessType,
+            //    Address = clientCreationDTO.Address,
+            //    Password = clientCreationDTO.ClientPassword,
+            //    RegisterationNumber = clientCreationDTO.RegisterationNumber,
+            //    VerificationStatus = "Approved",
+            //    AccountNumber = clientCreationDTO.AccountNumber,
+            //    IfscCode = clientCreationDTO.IfscCode,
+            //    Balance = clientCreationDTO.Balance,
+            //    CreatedAt = DateTime.UtcNow,
+            //    BankId = clientCreationDTO.BankId,
+            //    BankUserId = clientCreationDTO.BankUserId
+                
+                //Code = clientCode,
+                //Name = clientCreationDTO.ClientName,
+                //Password = clientCreationDTO.ClientPassword,
+                //Email = clientCreationDTO.ClientEmail,
+                //BankId = clientCreationDTO.BankId,
+                //Address = clientCreationDTO.Address ?? string.Empty,
+                //BusinessType = clientCreationDTO.ClientBusinessType ?? string.Empty,
+                //VerificationStatus = "Pending",
+                //IsActive = true,
+                //CreatedAt = DateTime.UtcNow,
+                //BankUserId = clientCreationDTO.BankUserId
+            //};
 
-            var createdClient = await _bankUserRepository.CreateClientAsync(clientModel);
+            var createdClient = await _bankUserRepository.CreateClientAsync(client);
 
             var clientDTO = MapToClientDTO(createdClient);
 
-            _logger.LogInformation("Client created successfully with Code: {ClientCode}", clientCode);
+            _logger.LogInformation("Client created successfully with Code: {ClientCode}", client.Code);
             return clientDTO;
         }
 

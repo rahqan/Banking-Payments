@@ -72,8 +72,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "clientCreationDTO",
-        "Type": "Banking_Payments.Models.DTO.ClientCreationDTO",
+        "Name": "client",
+        "Type": "Banking_Payments.Models.Client",
         "IsRequired": true
       }
     ],
@@ -478,6 +478,32 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Banking_Payments.Controllers.RecaptchaController",
+    "Method": "VerifyRecaptcha",
+    "RelativePath": "api/Recaptcha/verify",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Banking_Payments.Controllers.RecaptchaVerifyRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Banking_Payments.Models.DTO.BaseResponseDTO\u00601[[System.Boolean, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "Banking_Payments.Controllers.ClientController",
     "Method": "AddBeneficiaryAsync",
     "RelativePath": "api/v1/add-beneficiary",
@@ -743,6 +769,32 @@
     "ReturnTypes": [
       {
         "Type": "Banking_Payments.Models.Client",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.ClientController",
+    "Method": "GetClientForBankDetailsAsync",
+    "RelativePath": "api/v1/get-client-for-bank/{clientId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clientId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Banking_Payments.Models.DTO.ClientBankDetailsDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",

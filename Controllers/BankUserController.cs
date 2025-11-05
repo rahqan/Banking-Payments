@@ -1,6 +1,7 @@
-﻿using Banking_Payments.Services;
+﻿using Banking_Payments.Models;
 using Banking_Payments.Models.DTO;
 using Banking_Payments.Models.Enums;
+using Banking_Payments.Services;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -52,7 +53,7 @@ namespace Banking_Payments.Controllers
         // ==================== CLIENT ENDPOINTS ====================
 
         [HttpPost("clients")]
-        public async Task<ActionResult<ClientDTO>> CreateClientAsync([FromBody] ClientCreationDTO clientCreationDTO)
+        public async Task<ActionResult<ClientDTO>> CreateClientAsync([FromBody] Client client)
         {
             if (!ModelState.IsValid)
             {
@@ -64,12 +65,12 @@ namespace Banking_Payments.Controllers
                 var bankId = GetBankIdFromClaims();
 
                 // Ensure the client is being created for the bank user's bank
-                if (clientCreationDTO.BankId != bankId)
+                if (client.BankId != bankId)
                 {
                     return Forbid();
                 }
 
-                var createdClient = await _bankUserService.CreateClientAsync(clientCreationDTO);
+                var createdClient = await _bankUserService.CreateClientAsync(client);
                 _logger.LogInformation("Client created successfully: {ClientName}", createdClient.ClientName);
                 return Ok(createdClient);
             }

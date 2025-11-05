@@ -15,6 +15,9 @@ namespace Banking_Payments.Models
         public string Password { get; set; }
         public string RegisterationNumber { get; set; }
         public string VerificationStatus { get; set; } = "Pending";
+        public string AccountNumber { get; set; }
+        public string IfscCode { get; set; }
+        public double Balance { get; set; } = 0;
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public bool IsActive { get; set; }
 
@@ -24,7 +27,7 @@ namespace Banking_Payments.Models
 
         [ForeignKey("BankUser")]
         public int BankUserId { get; set; }
-        public virtual BankUser? BankUser { get; set; } = new BankUser();
+        public virtual BankUser? BankUser { get; set; }
         public virtual ICollection<Employee>? Employees { get; set; }
         public virtual ICollection<SalaryDisbursement>? SalaryDisbursement { get; set; }
         public virtual ICollection<Payment>? Payments { get; set; }

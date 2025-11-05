@@ -1,5 +1,6 @@
 ﻿using Banking_Payments.Context;
 using Banking_Payments.Models;
+using Banking_Payments.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace Banking_Payments.Repositories
@@ -22,6 +23,29 @@ namespace Banking_Payments.Repositories
 
             var res = await query.ToListAsync();
             return res;
+        }
+
+        public async Task<ClientBankDetailsDTO> GetClientForBankDetailsAsync(int clientId)
+        {
+            Client client = await _appDbContext.Clients
+                            .FirstOrDefaultAsync(c => c.ClientId == clientId);
+
+            if(client == null)
+            {
+                return null;
+            }
+            int bankId = client.BankId;
+            Bank bank = await _appDbContext.Banks.FirstOrDefaultAsync(b => b.BankId == bankId);
+            ClientBankDetailsDTO clientBankDetails = new ClientBankDetailsDTO
+            {
+                accountHolder = client.Name,
+                AccountNumber = client.AccountNumber,
+                BankName = bank.Name,
+                Balance = client.Balance,
+                IfscCode = client.IfscCode,
+                Branch = bank.Address
+            };
+            return clientBankDetails;
         }
 
         public async Task<IEnumerable<Client>> GetAllClientByBankIdAsync(int bankId)
@@ -109,6 +133,7 @@ namespace Banking_Payments.Repositories
 
         public async Task<Payment> AddPaymentAsync(Payment payment)
         {
+            Console.WriteLine("Inside => ");
             await _appDbContext.Payments.AddAsync(payment);
             await _appDbContext.SaveChangesAsync();
             return payment;

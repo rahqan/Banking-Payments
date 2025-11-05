@@ -1,10 +1,12 @@
 ﻿using Banking_Payments.Models;
+using Banking_Payments.Models.DTO;
 
 namespace Banking_Payments.Repositories
 {
     public interface IClientRepository
     {
         Task<IEnumerable<Client>> SearchClientAsync(string search = "");
+        Task<ClientBankDetailsDTO> GetClientForBankDetailsAsync(int clientId);
         Task<IEnumerable<Client>> GetAllClientByBankIdAsync(int id);
         Task<IEnumerable<Client>> GetClientsAllAsync(int id);
         Task<Client> GetClientByRegisterationNumberAsync(string registerationNumber, int bankId);

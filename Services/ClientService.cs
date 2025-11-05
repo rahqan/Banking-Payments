@@ -1,4 +1,5 @@
 ﻿using Banking_Payments.Models;
+using Banking_Payments.Models.DTO;
 using Banking_Payments.Repositories;
 using OfficeOpenXml.Core.ExcelPackage;
 
@@ -16,6 +17,11 @@ namespace Banking_Payments.Services
         public async Task<IEnumerable<Client>> GetAllClientByBankIdAsync(int id)
         {
             return await clientRepository.GetAllClientByBankIdAsync(id);
+        }
+
+        public async Task<ClientBankDetailsDTO> GetClientForBankDetailsAsync(int clientId)
+        {
+            return await clientRepository.GetClientForBankDetailsAsync(clientId);
         }
 
         public async Task<IEnumerable<Client>> GetClientsAllAsync(int id)
