@@ -222,6 +222,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetAllBanksWithClientCount",
+    "RelativePath": "api/Bank/with-clients",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Banking_Payments.Controllers.BankUserController",
     "Method": "CreateClientAsync",
     "RelativePath": "api/BankUser/clients",
@@ -560,6 +570,42 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminDashboardController",
+    "Method": "GetBankDistribution",
+    "RelativePath": "api/Dashboard/bank-distribution",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminDashboardController",
+    "Method": "GetRecentActivities",
+    "RelativePath": "api/Dashboard/recent-activities",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminDashboardController",
+    "Method": "GetDashboardStats",
+    "RelativePath": "api/Dashboard/stats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Banking_Payments.Controllers.DocumentController",

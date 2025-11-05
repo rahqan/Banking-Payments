@@ -1,4 +1,5 @@
-﻿using Banking_Payments.Models.DTOs;
+﻿using Banking_Payments.Models.DTO;
+using Banking_Payments.Models.DTOs;
 
 namespace Banking_Payments.Services
 {
@@ -10,5 +11,7 @@ namespace Banking_Payments.Services
 
         Task<bool> UpdateAsync(int id, UpdateBankDTO dto);
         Task<bool> SoftDeleteAsync(int id);
+
+        Task<List<BankWithClientsDTO>> GetAllWithClientCountAsync();
     }
 }

@@ -32,6 +32,8 @@ namespace Banking_Payments
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 
+            builder.Services.AddScoped<IDashboardService, DashboardService>();
+
             builder.Services.AddScoped<IBankRepository, BankRepository>();
             builder.Services.AddScoped<IBankService, BankService>();
 
@@ -104,7 +106,7 @@ namespace Banking_Payments
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = builder.Configuration["Jwt:Issuer"],
                     ValidAudience = builder.Configuration["Jwt:Audience"],
-
+                    ValidateLifetime = true,
                     IssuerSigningKey = new SymmetricSecurityKey(key)
                 };
             });
@@ -148,7 +150,20 @@ namespace Banking_Payments
                         .AllowCredentials());
             });
 
-             // Important to add cors when we have different url of frontend and backend.
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowAll", policy =>
+            //    {
+            //        policy.AllowAnyOrigin()
+            //              .AllowAnyHeader()
+            //              .AllowAnyMethod();
+            //    });
+            //});
+
+            
+
+
+            // Important to add cors when we have different url of frontend and backend.
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -199,11 +214,10 @@ namespace Banking_Payments
 
             app.UseHttpsRedirection();
 
-            app.UseAuthorization();
+            app.UseCors("AllowAngular");  // 1. CORS first
+            app.UseAuthentication();       // 2. Authentication 
+            app.UseAuthorization();        // 3. Authorization
 
-            app.UseCors("AllowAngular");
-
-            
 
             app.MapControllers();
 

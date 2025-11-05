@@ -1,4 +1,5 @@
 ﻿using Banking_Payments.Models;
+using Banking_Payments.Models.DTO;
 using Banking_Payments.Models.DTOs;
 using Banking_Payments.Repositories;
 
@@ -24,6 +25,8 @@ namespace Banking_Payments.Services
             var bank = await _repo.GetByIdAsync(id);
             return bank == null ? null : MapToDTO(bank);
         }
+
+
 
         //public async Task<BankDTO> CreateAsync(CreateBankDTO dto)
         //{
@@ -97,6 +100,11 @@ namespace Banking_Payments.Services
             await _repo.SoftDeleteAsync(id);
             await _repo.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<List<BankWithClientsDTO>> GetAllWithClientCountAsync()
+        {
+            return await _repo.GetAllWithClientCountAsync();
         }
 
         // 🧭 Mapping Method

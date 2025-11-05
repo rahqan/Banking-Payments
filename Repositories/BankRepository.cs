@@ -1,5 +1,6 @@
 ﻿using Banking_Payments.Context;
 using Banking_Payments.Models;
+using Banking_Payments.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace Banking_Payments.Repositories
@@ -18,6 +19,27 @@ namespace Banking_Payments.Repositories
             return await _context.Banks
                 .Where(b => b.IsActive)
                 .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<List<BankWithClientsDTO>> GetAllWithClientCountAsync()
+        {
+            return await _context.Banks
+                .Select(b => new BankWithClientsDTO
+                {
+                    BankId = b.BankId,
+                    Code = b.Code,
+                    Name = b.Name,
+                    Address = b.Address,
+                    PanNumber = b.PanNumber,
+                    RegistrationNumber = b.RegistrationNumber,
+                    ContactEmail = b.ContactEmail,
+                    ContactPhone = b.ContactPhone,
+                    IsActive = b.IsActive,
+                    CreatedAt = b.CreatedAt,
+                    CreatedByAdminId = b.CreatedByAdminId,
+                    ClientCount = b.Clients != null ? b.Clients.Count : 0
+                })
                 .ToListAsync();
         }
 

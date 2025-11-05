@@ -1,5 +1,6 @@
 ﻿using Banking_Payments.Models.DTO;
 using Banking_Payments.Models.DTOs;
+using Banking_Payments.Models.Enums;
 using Banking_Payments.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,15 +10,23 @@ namespace Banking_Payments.Controllers
     [Route("api/Bank")]
     [ApiController]
     [Authorize(Roles = "SuperAdmin")]
+    //[Authorize(Roles = nameof(Role.SuperAdmin))]
+    //[Authorize(Roles = "SuperAdmin,Role.SuperAdmin")]
+
     public class SuperAdminController : ControllerBase
     {
         private readonly IBankService _bankService;
         private readonly ISuperAdminService _superAdminService;
 
-        public SuperAdminController(IBankService bankService, ISuperAdminService superAdminService)
+        private readonly IDashboardService _dashboardService;
+
+       
+
+        public SuperAdminController(IBankService bankService, ISuperAdminService superAdminService, IDashboardService dashboardService)
         {
             _bankService = bankService;
             _superAdminService = superAdminService;
+            _dashboardService = dashboardService;
         }
 
         private int GetAdminIdFromClaims()
@@ -33,7 +42,12 @@ namespace Banking_Payments.Controllers
             return adminId;
         }
 
-
+        [HttpGet("with-clients")]
+        public async Task<IActionResult> GetAllBanksWithClientCount()
+        {
+            var banks = await _bankService.GetAllWithClientCountAsync();
+            return Ok(banks);
+        }
 
 
         [HttpGet]
@@ -127,6 +141,29 @@ namespace Banking_Payments.Controllers
 
             return Ok(new { message = "Bank user deleted successfully" });
         }
+
+       
+
+        //[HttpGet("stats")]
+        //public async Task<IActionResult> GetDashboardStats()
+        //{
+        //    var stats = await _dashboardService.GetDashboardStatsAsync();
+        //    return Ok(stats);
+        //}
+
+        //[HttpGet("bank-distribution")]
+        //public async Task<IActionResult> GetBankDistribution()
+        //{
+        //    var distribution = await _dashboardService.GetBankDistributionAsync();
+        //    return Ok(distribution);
+        //}
+
+        //[HttpGet("recent-activities")]
+        //public async Task<IActionResult> GetRecentActivities([FromQuery] int limit = 10)
+        //{
+        //    var activities = await _dashboardService.GetRecentActivitiesAsync(limit);
+        //    return Ok(activities);
+        //}
 
     }
 }
