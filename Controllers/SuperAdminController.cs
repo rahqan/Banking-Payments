@@ -1,4 +1,5 @@
-﻿using Banking_Payments.Models.DTOs;
+﻿using Banking_Payments.Models.DTO;
+using Banking_Payments.Models.DTOs;
 using Banking_Payments.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,12 @@ namespace Banking_Payments.Controllers
     public class SuperAdminController : ControllerBase
     {
         private readonly IBankService _bankService;
+        private readonly ISuperAdminService _superAdminService;
 
-        public SuperAdminController(IBankService bankService)
+        public SuperAdminController(IBankService bankService, ISuperAdminService superAdminService)
         {
             _bankService = bankService;
+            _superAdminService = superAdminService;
         }
 
         private int GetAdminIdFromClaims()
@@ -34,7 +37,7 @@ namespace Banking_Payments.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllBanks()
         {
             var banks = await _bankService.GetAllAsync();
             return Ok(banks);
@@ -51,7 +54,7 @@ namespace Banking_Payments.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateBankDTO dto)
+        public async Task<IActionResult> CreateBanks([FromBody] CreateBankDTO dto)
         {
             if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -80,6 +83,51 @@ namespace Banking_Payments.Controllers
 
             return Ok(new { message = "Bank soft deleted successfully" });
         }
+
+        [HttpGet("bankUsers")]
+        public async Task<IActionResult> GetAllBankUsers()
+        {
+            var users = await _superAdminService.GetAllBankUsersAsync();
+            return Ok(users);
+        }
+
+        [HttpGet("bankUsers/{id}")]
+        public async Task<IActionResult> GetBankUserById(int id)
+        {
+            var user = await _superAdminService.GetBankUserByIdAsync(id);
+            if (user == null) return NotFound(new { message = "Bank user not found" });
+            return Ok(user);
+        }
+
+        [HttpPost("bankUsers")]
+        public async Task<IActionResult> CreateBankUser([FromBody] CreateBankUserDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var created = await _superAdminService.CreateBankUserAsync(dto);
+            return CreatedAtAction(nameof(GetBankUserById), new { id = created.BankUserId }, created);
+        }
+
+        [HttpPut("bankUsers/{id}")]
+        public async Task<IActionResult> UpdateBankUser(int id, [FromBody] UpdateBankUserDTO dto)
+        {
+            if (!ModelState.IsValid) return BadRequest(ModelState);
+
+            var success = await _superAdminService.UpdateBankUserAsync(id, dto);
+            if (!success) return NotFound(new { message = "Bank user not found" });
+
+            return NoContent();
+        }
+
+        [HttpDelete("bankUsers/{id}")]
+        public async Task<IActionResult> DeleteBankUser(int id)
+        {
+            var success = await _superAdminService.DeleteBankUserAsync(id);
+            if (!success) return NotFound(new { message = "Bank user not found" });
+
+            return Ok(new { message = "Bank user deleted successfully" });
+        }
+
     }
 }
 

@@ -55,6 +55,12 @@ namespace Banking_Payments
             builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
             builder.Services.AddScoped<IBankUserService, BankUserService>();
 
+            builder.Services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
+            builder.Services.AddScoped<ISuperAdminService, SuperAdminService>();
+
+
+
+
             // Cloudinary config
             builder.Services.Configure<CloudinarySettings>(
                 builder.Configuration.GetSection("CloudinarySettings")

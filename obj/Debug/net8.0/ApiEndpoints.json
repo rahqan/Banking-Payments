@@ -65,7 +65,7 @@
   },
   {
     "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
-    "Method": "GetAll",
+    "Method": "GetAllBanks",
     "RelativePath": "api/Bank",
     "HttpMethod": "GET",
     "IsController": true,
@@ -75,7 +75,7 @@
   },
   {
     "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
-    "Method": "Create",
+    "Method": "CreateBanks",
     "RelativePath": "api/Bank",
     "HttpMethod": "POST",
     "IsController": true,
@@ -130,6 +130,85 @@
     "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
     "Method": "SoftDeleteBank",
     "RelativePath": "api/Bank/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetAllBankUsers",
+    "RelativePath": "api/Bank/bankUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "CreateBankUser",
+    "RelativePath": "api/Bank/bankUsers",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Banking_Payments.Models.DTO.CreateBankUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetBankUserById",
+    "RelativePath": "api/Bank/bankUsers/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "UpdateBankUser",
+    "RelativePath": "api/Bank/bankUsers/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Banking_Payments.Models.DTO.UpdateBankUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "DeleteBankUser",
+    "RelativePath": "api/Bank/bankUsers/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
