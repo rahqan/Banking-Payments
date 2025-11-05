@@ -16,6 +16,25 @@ namespace Banking_Payments.Services
             _logger = logger;
         }
 
+        //private static PaymentDTO MapToDto(Payment p)
+        //{
+        //    return new PaymentDTO
+        //    {
+        //        PaymentId = p.PaymentId,
+        //        Amount = p.Amount,
+        //        PaymentDate = p.PaymentDate,
+        //        Status = p.status,
+        //        Type = p.Type,
+        //        BeneficiaryId = p.BeneficiaryId,
+        //        BeneficiaryName = p.Beneficiary?.Name,
+        //        ClientId = p.ClientId,
+        //        ClientName = p.Client?.Name,
+        //        ApprovedById = p.BankUserId,
+        //        ApprovedByName = p.ApprovedBy?.Name
+        //    };
+        //}
+
+
         private static PaymentDTO MapToDto(Payment p)
         {
             return new PaymentDTO
@@ -26,9 +45,20 @@ namespace Banking_Payments.Services
                 Status = p.status,
                 Type = p.Type,
                 BeneficiaryId = p.BeneficiaryId,
-                BeneficiaryName = p.Beneficiary?.Name,
+                Beneficiary = p.Beneficiary == null ? null : new BeneficiaryDTO
+                {
+                    BeneficiaryId = p.Beneficiary.BeneficiaryId,
+                    Name = p.Beneficiary.Name,
+                    AccountNumber = p.Beneficiary.AccountNumber,
+                    IfscCode = p.Beneficiary.IfscCode,
+                },
                 ClientId = p.ClientId,
-                ClientName = p.Client?.Name,
+                Client = p.Client == null ? null : new ClientDTO
+                {
+                    ClientId = p.Client.ClientId,
+                    ClientName = p.Client.Name,
+                    ClientEmail = p.Client.Email
+                },
                 ApprovedById = p.BankUserId,
                 ApprovedByName = p.ApprovedBy?.Name
             };

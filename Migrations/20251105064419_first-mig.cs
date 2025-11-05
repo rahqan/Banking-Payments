@@ -3,8 +3,6 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace Banking_Payments.Migrations
 {
     /// <inheritdoc />
@@ -44,14 +42,14 @@ namespace Banking_Payments.Migrations
                     ContactPhone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AdminId = table.Column<int>(type: "int", nullable: false)
+                    CreatedByAdminId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Banks", x => x.BankId);
                     table.ForeignKey(
-                        name: "FK_Banks_Admins_AdminId",
-                        column: x => x.AdminId,
+                        name: "FK_Banks_Admins_CreatedByAdminId",
+                        column: x => x.CreatedByAdminId,
                         principalTable: "Admins",
                         principalColumn: "AdminId",
                         onDelete: ReferentialAction.Cascade);
@@ -93,25 +91,30 @@ namespace Banking_Payments.Migrations
                     BusinessType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RegisterationNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    VerificationStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IfscCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RegisterationNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AccountNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IfscCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Balance = table.Column<double>(type: "float", nullable: false),
+                    VerificationStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     BankId = table.Column<int>(type: "int", nullable: false),
+                    ApprovedBy = table.Column<int>(type: "int", nullable: true),
                     BankUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Clients", x => x.ClientId);
                     table.ForeignKey(
+                        name: "FK_Clients_BankUsers_ApprovedBy",
+                        column: x => x.ApprovedBy,
+                        principalTable: "BankUsers",
+                        principalColumn: "BankUserId");
+                    table.ForeignKey(
                         name: "FK_Clients_BankUsers_BankUserId",
                         column: x => x.BankUserId,
                         principalTable: "BankUsers",
-                        principalColumn: "BankUserId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "BankUserId");
                     table.ForeignKey(
                         name: "FK_Clients_Banks_BankId",
                         column: x => x.BankId,
@@ -130,8 +133,7 @@ namespace Banking_Payments.Migrations
                     IfscCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BankName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RelationShip = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false),
-                    ClientId1 = table.Column<int>(type: "int", nullable: true)
+                    ClientId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -139,11 +141,6 @@ namespace Banking_Payments.Migrations
                     table.ForeignKey(
                         name: "FK_Beneficiaries_Clients_ClientId",
                         column: x => x.ClientId,
-                        principalTable: "Clients",
-                        principalColumn: "ClientId");
-                    table.ForeignKey(
-                        name: "FK_Beneficiaries_Clients_ClientId1",
-                        column: x => x.ClientId1,
                         principalTable: "Clients",
                         principalColumn: "ClientId");
                 });
@@ -219,8 +216,7 @@ namespace Banking_Payments.Migrations
                     Remarks = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BeneficiaryId = table.Column<int>(type: "int", nullable: false),
                     ClientId = table.Column<int>(type: "int", nullable: false),
-                    BankUserId = table.Column<int>(type: "int", nullable: false),
-                    BeneficiaryId1 = table.Column<int>(type: "int", nullable: true)
+                    BankUserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -229,19 +225,13 @@ namespace Banking_Payments.Migrations
                         name: "FK_Payments_BankUsers_BankUserId",
                         column: x => x.BankUserId,
                         principalTable: "BankUsers",
-                        principalColumn: "BankUserId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "BankUserId");
                     table.ForeignKey(
                         name: "FK_Payments_Beneficiaries_BeneficiaryId",
                         column: x => x.BeneficiaryId,
                         principalTable: "Beneficiaries",
                         principalColumn: "BeneficiaryId",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Payments_Beneficiaries_BeneficiaryId1",
-                        column: x => x.BeneficiaryId1,
-                        principalTable: "Beneficiaries",
-                        principalColumn: "BeneficiaryId");
                     table.ForeignKey(
                         name: "FK_Payments_Clients_ClientId",
                         column: x => x.ClientId,
@@ -276,40 +266,10 @@ namespace Banking_Payments.Migrations
                         principalColumn: "EmployeeId");
                 });
 
-            migrationBuilder.InsertData(
-                table: "Admins",
-                columns: new[] { "AdminId", "Code", "Email", "Name", "Password" },
-                values: new object[,]
-                {
-                    { 1, "ADM001", "alice@banking.com", "Alice Johnson", "Pass@123" },
-                    { 2, "ADM002", "bob@banking.com", "Bob Smith", "Pass@123" },
-                    { 3, "ADM003", "charlie@banking.com", "Charlie Brown", "Pass@123" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Banks",
-                columns: new[] { "BankId", "Address", "AdminId", "Code", "ContactEmail", "ContactPhone", "CreatedAt", "IsActive", "Name", "PanNumber", "RegistrationNumber" },
-                values: new object[,]
-                {
-                    { 1, "123 Finance St", 1, "B001", "info@fnb.com", "1234567890", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), true, "First National Bank", "AAAPL1234C", "REG001" },
-                    { 2, "456 Trust Ave", 2, "B002", "contact@gtb.com", "9876543210", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), true, "Global Trust Bank", "BBBTY4567P", "REG002" },
-                    { 3, "789 Metro Rd", 3, "B003", "support@mfb.com", "5647382910", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), true, "Metro Finance Bank", "CCCXY7890K", "REG003" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "BankUsers",
-                columns: new[] { "BankUserId", "BankId", "Code", "Email", "Name", "Password", "PhoneNumber" },
-                values: new object[,]
-                {
-                    { 1, 1, "BU001", "emma@fnb.com", "Emma Green", "123456", "9876543210" },
-                    { 2, 2, "BU002", "liam@gtb.com", "Liam Gray", "123456", "8765432109" },
-                    { 3, 3, "BU003", "olivia@mfb.com", "Olivia White", "123456", "7654321098" }
-                });
-
             migrationBuilder.CreateIndex(
-                name: "IX_Banks_AdminId",
+                name: "IX_Banks_CreatedByAdminId",
                 table: "Banks",
-                column: "AdminId");
+                column: "CreatedByAdminId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_BankUsers_BankId",
@@ -322,9 +282,9 @@ namespace Banking_Payments.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Beneficiaries_ClientId1",
-                table: "Beneficiaries",
-                column: "ClientId1");
+                name: "IX_Clients_ApprovedBy",
+                table: "Clients",
+                column: "ApprovedBy");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clients_BankId",
@@ -360,11 +320,6 @@ namespace Banking_Payments.Migrations
                 name: "IX_Payments_BeneficiaryId",
                 table: "Payments",
                 column: "BeneficiaryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Payments_BeneficiaryId1",
-                table: "Payments",
-                column: "BeneficiaryId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Payments_ClientId",

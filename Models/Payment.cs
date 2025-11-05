@@ -25,7 +25,7 @@ namespace Banking_Payments.Models
         public Client? Client { get; set; }
 
         [ForeignKey("BankUser")]
-        public int BankUserId { get; set; }
+        public int? BankUserId { get; set; }
         public BankUser? ApprovedBy { get; set; }
     }
 }

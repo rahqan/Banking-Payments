@@ -2,7 +2,6 @@
 using Banking_Payments.Models.DTO;
 using Banking_Payments.Models.Enums;
 using Banking_Payments.Services;
-using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +24,7 @@ namespace Banking_Payments.Controllers
         {
             _bankUserService = bankUserService;
             _logger = logger;
-            _paymentService = paymentService; // Removed duplicate
+            _paymentService = paymentService;
         }
 
         // Helper method to get BankId from claims
@@ -53,7 +52,7 @@ namespace Banking_Payments.Controllers
         // ==================== CLIENT ENDPOINTS ====================
 
         [HttpPost("clients")]
-        public async Task<ActionResult<ClientDTO>> CreateClientAsync([FromBody] Client client)
+        public async Task<ActionResult<ClientDTO>> CreateClientAsync([FromBody] ClientCreationDTO clientCreationDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -63,14 +62,15 @@ namespace Banking_Payments.Controllers
             try
             {
                 var bankId = GetBankIdFromClaims();
+                var bankUserId = GetBankUserIdFromClaims();
 
                 // Ensure the client is being created for the bank user's bank
-                if (client.BankId != bankId)
-                {
-                    return Forbid();
-                }
+                //if (clientCreationDTO.BankId != bankId)
+                //{
+                //    return Forbid();
+                //}
 
-                var createdClient = await _bankUserService.CreateClientAsync(client);
+                var createdClient = await _bankUserService.CreateClientAsync(clientCreationDTO,bankId,bankUserId);
                 _logger.LogInformation("Client created successfully: {ClientName}", createdClient.ClientName);
                 return Ok(createdClient);
             }

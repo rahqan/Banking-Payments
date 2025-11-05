@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Banking_Payments.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251104164739_first-mig")]
+    [Migration("20251105064419_first-mig")]
     partial class firstmig
     {
         /// <inheritdoc />
@@ -52,32 +52,6 @@ namespace Banking_Payments.Migrations
                     b.HasKey("AdminId");
 
                     b.ToTable("Admins");
-
-                    b.HasData(
-                        new
-                        {
-                            AdminId = 1,
-                            Code = "ADM001",
-                            Email = "alice@banking.com",
-                            Name = "Alice Johnson",
-                            Password = "Pass@123"
-                        },
-                        new
-                        {
-                            AdminId = 2,
-                            Code = "ADM002",
-                            Email = "bob@banking.com",
-                            Name = "Bob Smith",
-                            Password = "Pass@123"
-                        },
-                        new
-                        {
-                            AdminId = 3,
-                            Code = "ADM003",
-                            Email = "charlie@banking.com",
-                            Name = "Charlie Brown",
-                            Password = "Pass@123"
-                        });
                 });
 
             modelBuilder.Entity("Banking_Payments.Models.Bank", b =>
@@ -91,9 +65,6 @@ namespace Banking_Payments.Migrations
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("AdminId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -109,6 +80,9 @@ namespace Banking_Payments.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedByAdminId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -127,53 +101,9 @@ namespace Banking_Payments.Migrations
 
                     b.HasKey("BankId");
 
-                    b.HasIndex("AdminId");
+                    b.HasIndex("CreatedByAdminId");
 
                     b.ToTable("Banks");
-
-                    b.HasData(
-                        new
-                        {
-                            BankId = 1,
-                            Address = "123 Finance St",
-                            AdminId = 1,
-                            Code = "B001",
-                            ContactEmail = "info@fnb.com",
-                            ContactPhone = "1234567890",
-                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "First National Bank",
-                            PanNumber = "AAAPL1234C",
-                            RegistrationNumber = "REG001"
-                        },
-                        new
-                        {
-                            BankId = 2,
-                            Address = "456 Trust Ave",
-                            AdminId = 2,
-                            Code = "B002",
-                            ContactEmail = "contact@gtb.com",
-                            ContactPhone = "9876543210",
-                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "Global Trust Bank",
-                            PanNumber = "BBBTY4567P",
-                            RegistrationNumber = "REG002"
-                        },
-                        new
-                        {
-                            BankId = 3,
-                            Address = "789 Metro Rd",
-                            AdminId = 3,
-                            Code = "B003",
-                            ContactEmail = "support@mfb.com",
-                            ContactPhone = "5647382910",
-                            CreatedAt = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
-                            IsActive = true,
-                            Name = "Metro Finance Bank",
-                            PanNumber = "CCCXY7890K",
-                            RegistrationNumber = "REG003"
-                        });
                 });
 
             modelBuilder.Entity("Banking_Payments.Models.BankUser", b =>
@@ -212,38 +142,6 @@ namespace Banking_Payments.Migrations
                     b.HasIndex("BankId");
 
                     b.ToTable("BankUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            BankUserId = 1,
-                            BankId = 1,
-                            Code = "BU001",
-                            Email = "emma@fnb.com",
-                            Name = "Emma Green",
-                            Password = "123456",
-                            PhoneNumber = "9876543210"
-                        },
-                        new
-                        {
-                            BankUserId = 2,
-                            BankId = 2,
-                            Code = "BU002",
-                            Email = "liam@gtb.com",
-                            Name = "Liam Gray",
-                            Password = "123456",
-                            PhoneNumber = "8765432109"
-                        },
-                        new
-                        {
-                            BankUserId = 3,
-                            BankId = 3,
-                            Code = "BU003",
-                            Email = "olivia@mfb.com",
-                            Name = "Olivia White",
-                            Password = "123456",
-                            PhoneNumber = "7654321098"
-                        });
                 });
 
             modelBuilder.Entity("Banking_Payments.Models.Beneficiary", b =>
@@ -265,9 +163,6 @@ namespace Banking_Payments.Migrations
                     b.Property<int>("ClientId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClientId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("IfscCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -284,8 +179,6 @@ namespace Banking_Payments.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.HasIndex("ClientId1");
-
                     b.ToTable("Beneficiaries");
                 });
 
@@ -298,12 +191,14 @@ namespace Banking_Payments.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientId"));
 
                     b.Property<string>("AccountNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ApprovedBy")
+                        .HasColumnType("int");
 
                     b.Property<double>("Balance")
                         .HasColumnType("float");
@@ -330,7 +225,6 @@ namespace Banking_Payments.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("IfscCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -345,7 +239,6 @@ namespace Banking_Payments.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RegisterationNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VerificationStatus")
@@ -353,6 +246,8 @@ namespace Banking_Payments.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ClientId");
+
+                    b.HasIndex("ApprovedBy");
 
                     b.HasIndex("BankId");
 
@@ -467,13 +362,10 @@ namespace Banking_Payments.Migrations
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("BankUserId")
+                    b.Property<int?>("BankUserId")
                         .HasColumnType("int");
 
                     b.Property<int>("BeneficiaryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("BeneficiaryId1")
                         .HasColumnType("int");
 
                     b.Property<int>("ClientId")
@@ -497,8 +389,6 @@ namespace Banking_Payments.Migrations
                     b.HasIndex("BankUserId");
 
                     b.HasIndex("BeneficiaryId");
-
-                    b.HasIndex("BeneficiaryId1");
 
                     b.HasIndex("ClientId");
 
@@ -539,7 +429,7 @@ namespace Banking_Payments.Migrations
                 {
                     b.HasOne("Banking_Payments.Models.Admin", "Admin")
                         .WithMany("Banks")
-                        .HasForeignKey("AdminId")
+                        .HasForeignKey("CreatedByAdminId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -560,20 +450,21 @@ namespace Banking_Payments.Migrations
             modelBuilder.Entity("Banking_Payments.Models.Beneficiary", b =>
                 {
                     b.HasOne("Banking_Payments.Models.Client", "Client")
-                        .WithMany()
+                        .WithMany("Beneficiaries")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("Banking_Payments.Models.Client", null)
-                        .WithMany("Beneficiaries")
-                        .HasForeignKey("ClientId1");
 
                     b.Navigation("Client");
                 });
 
             modelBuilder.Entity("Banking_Payments.Models.Client", b =>
                 {
+                    b.HasOne("Banking_Payments.Models.BankUser", "ApprovedByBankUser")
+                        .WithMany()
+                        .HasForeignKey("ApprovedBy")
+                        .OnDelete(DeleteBehavior.NoAction);
+
                     b.HasOne("Banking_Payments.Models.Bank", "Bank")
                         .WithMany("Clients")
                         .HasForeignKey("BankId")
@@ -583,8 +474,10 @@ namespace Banking_Payments.Migrations
                     b.HasOne("Banking_Payments.Models.BankUser", "BankUser")
                         .WithMany("Clients")
                         .HasForeignKey("BankUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("ApprovedByBankUser");
 
                     b.Navigation("Bank");
 
@@ -625,19 +518,13 @@ namespace Banking_Payments.Migrations
                 {
                     b.HasOne("Banking_Payments.Models.BankUser", "ApprovedBy")
                         .WithMany("Payments")
-                        .HasForeignKey("BankUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BankUserId");
 
                     b.HasOne("Banking_Payments.Models.Beneficiary", "Beneficiary")
-                        .WithMany()
+                        .WithMany("Payments")
                         .HasForeignKey("BeneficiaryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Banking_Payments.Models.Beneficiary", null)
-                        .WithMany("Payments")
-                        .HasForeignKey("BeneficiaryId1");
 
                     b.HasOne("Banking_Payments.Models.Client", "Client")
                         .WithMany("Payments")

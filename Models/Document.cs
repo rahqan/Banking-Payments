@@ -10,7 +10,7 @@ namespace Banking_Payments.Models
 
         [ForeignKey("BankUser")]
         public int BankUserId { get; set; }
-        public BankUser? UploadedBy { get; set; } = new BankUser();
+        public BankUser? UploadedBy { get; set; }
 
         [ForeignKey("Client")]
         public int ClientId { get; set; }

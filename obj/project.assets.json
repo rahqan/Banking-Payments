@@ -10766,11 +10766,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jatin.pandey\\Desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj",
+      "projectUniqueName": "C:\\Users\\jatin.pandey\\desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj",
       "projectName": "Banking-Payments",
-      "projectPath": "C:\\Users\\jatin.pandey\\Desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj",
+      "projectPath": "C:\\Users\\jatin.pandey\\desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj",
       "packagesPath": "C:\\Users\\jatin.pandey\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jatin.pandey\\Desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\obj\\",
+      "outputPath": "C:\\Users\\jatin.pandey\\desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

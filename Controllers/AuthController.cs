@@ -18,7 +18,9 @@ namespace Banking_Payments.Controllers
             _authService = authService;
         }
 
+
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
         {
             var result = await _authService.LoginAsync(request);

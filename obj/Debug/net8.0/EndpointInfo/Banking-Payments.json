@@ -138,17 +138,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Client"
+                "$ref": "#/components/schemas/ClientCreationDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Client"
+                "$ref": "#/components/schemas/ClientCreationDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Client"
+                "$ref": "#/components/schemas/ClientCreationDTO"
               }
             }
           }
@@ -1645,37 +1645,33 @@
         "tags": [
           "Document"
         ],
-        "parameters": [
-          {
-            "name": "clientId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "docType",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "file": {
+                  "File": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "ClientId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "DocType": {
+                    "type": "string"
                   }
                 }
               },
               "encoding": {
-                "file": {
+                "File": {
+                  "style": "form"
+                },
+                "ClientId": {
+                  "style": "form"
+                },
+                "DocType": {
                   "style": "form"
                 }
               }
@@ -1800,6 +1796,338 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/Bank/with-clients": {
+      "get": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Bank": {
+      "get": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Bank/{id}": {
+      "get": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBankDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBankDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBankDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Bank/bankUsers": {
+      "get": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankUserDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankUserDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBankUserDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Bank/bankUsers/{id}": {
+      "get": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBankUserDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBankUserDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBankUserDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Bank/{bankId}/users": {
+      "get": {
+        "tags": [
+          "SuperAdmin"
+        ],
+        "parameters": [
+          {
+            "name": "bankId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/stats": {
+      "get": {
+        "tags": [
+          "SuperAdminDashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/bank-distribution": {
+      "get": {
+        "tags": [
+          "SuperAdminDashboard"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Dashboard/recent-activities": {
+      "get": {
+        "tags": [
+          "SuperAdminDashboard"
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -1937,7 +2265,7 @@
             "type": "string",
             "format": "date-time"
           },
-          "adminId": {
+          "createdByAdminId": {
             "type": "integer",
             "format": "int32"
           },
@@ -2063,6 +2391,32 @@
         },
         "additionalProperties": false
       },
+      "BeneficiaryDTO": {
+        "type": "object",
+        "properties": {
+          "beneficiaryId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "accountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "ifscCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "BooleanBaseResponseDTO": {
         "type": "object",
         "properties": {
@@ -2121,10 +2475,6 @@
             "type": "string",
             "nullable": true
           },
-          "verificationStatus": {
-            "type": "string",
-            "nullable": true
-          },
           "accountNumber": {
             "type": "string",
             "nullable": true
@@ -2136,6 +2486,10 @@
           "balance": {
             "type": "number",
             "format": "double"
+          },
+          "verificationStatus": {
+            "type": "string",
+            "nullable": true
           },
           "createdAt": {
             "type": "string",
@@ -2150,6 +2504,14 @@
           },
           "bank": {
             "$ref": "#/components/schemas/Bank"
+          },
+          "approvedBy": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "approvedByBankUser": {
+            "$ref": "#/components/schemas/BankUser"
           },
           "bankUserId": {
             "type": "integer",
@@ -2230,12 +2592,50 @@
         },
         "additionalProperties": false
       },
+      "ClientCreationDTO": {
+        "required": [
+          "clientEmail",
+          "clientName",
+          "clientPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "clientName": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string"
+          },
+          "clientPassword": {
+            "maxLength": 100,
+            "minLength": 6,
+            "type": "string"
+          },
+          "clientEmail": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "address": {
+            "maxLength": 200,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "clientBusinessType": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ClientDTO": {
         "type": "object",
         "properties": {
           "clientId": {
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "clientCode": {
             "type": "string",
@@ -2249,6 +2649,18 @@
             "type": "string",
             "nullable": true
           },
+          "clientBusinessType": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientVerificationStatus": {
+            "type": "string",
+            "nullable": true
+          },
           "bankId": {
             "type": "integer",
             "format": "int32"
@@ -2257,21 +2669,18 @@
             "type": "integer",
             "format": "int32"
           },
-          "clientAddress": {
-            "type": "string",
-            "nullable": true
+          "createdBy": {
+            "type": "integer",
+            "format": "int32"
           },
-          "clientBusinessType": {
-            "type": "string",
-            "nullable": true
-          },
-          "clientVerificationStatus": {
-            "type": "string",
+          "approvedBy": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "verifiedBy": {
             "type": "integer",
-            "format": "int64",
+            "format": "int32",
             "nullable": true
           },
           "verifiedAt": {
@@ -2307,6 +2716,82 @@
             "maxLength": 500,
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateBankDTO": {
+        "required": [
+          "address",
+          "code",
+          "createdByAdminId",
+          "name",
+          "panNumber",
+          "registrationNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "address": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "panNumber": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "registrationNumber": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "contactEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdByAdminId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateBankUserDTO": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -2473,7 +2958,8 @@
           },
           "bankUserId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "approvedBy": {
             "$ref": "#/components/schemas/BankUser"
@@ -2506,17 +2992,20 @@
             "type": "integer",
             "format": "int32"
           },
-          "beneficiaryName": {
-            "type": "string",
-            "nullable": true
+          "beneficiary": {
+            "$ref": "#/components/schemas/BeneficiaryDTO"
           },
           "clientId": {
             "type": "integer",
             "format": "int32"
           },
-          "clientName": {
-            "type": "string",
+          "bankUserId": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
+          },
+          "client": {
+            "$ref": "#/components/schemas/ClientDTO"
           },
           "approvedById": {
             "type": "integer",
@@ -2532,11 +3021,12 @@
       },
       "PaymentType": {
         "enum": [
-          "RTGS",
-          "IMPS",
-          "NEFT"
+          0,
+          1,
+          2
         ],
-        "type": "string"
+        "type": "integer",
+        "format": "int32"
       },
       "RecaptchaVerifyRequest": {
         "type": "object",
@@ -2636,11 +3126,12 @@
       },
       "Role": {
         "enum": [
-          "SuperAdmin",
-          "BankUser",
-          "Client"
+          1,
+          2,
+          3
         ],
-        "type": "string"
+        "type": "integer",
+        "format": "int32"
       },
       "SalaryDisbursement": {
         "type": "object",
@@ -2674,13 +3165,79 @@
         },
         "additionalProperties": false
       },
+      "UpdateBankDTO": {
+        "required": [
+          "address",
+          "name",
+          "panNumber",
+          "registrationNumber"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "address": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "panNumber": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "registrationNumber": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "contactEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "contactPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateBankUserDTO": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "resetPassword": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "newPassword": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "VerificationStatus": {
         "enum": [
-          "Pending",
-          "Verified",
-          "Rejected"
+          0,
+          1,
+          -1
         ],
-        "type": "string"
+        "type": "integer",
+        "format": "int32"
       },
       "WeatherForecast": {
         "type": "object",

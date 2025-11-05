@@ -64,6 +64,190 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetAllBanks",
+    "RelativePath": "api/Bank",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "CreateBanks",
+    "RelativePath": "api/Bank",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Banking_Payments.Models.DTOs.CreateBankDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetBankUsersByBankId",
+    "RelativePath": "api/Bank/{bankId}/users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "bankId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetBankById",
+    "RelativePath": "api/Bank/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "UpdateBank",
+    "RelativePath": "api/Bank/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Banking_Payments.Models.DTOs.UpdateBankDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "SoftDeleteBank",
+    "RelativePath": "api/Bank/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetAllBankUsers",
+    "RelativePath": "api/Bank/bankUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "CreateBankUser",
+    "RelativePath": "api/Bank/bankUsers",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Banking_Payments.Models.DTO.CreateBankUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetBankUserById",
+    "RelativePath": "api/Bank/bankUsers/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "UpdateBankUser",
+    "RelativePath": "api/Bank/bankUsers/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "Banking_Payments.Models.DTO.UpdateBankUserDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "DeleteBankUser",
+    "RelativePath": "api/Bank/bankUsers/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminController",
+    "Method": "GetAllBanksWithClientCount",
+    "RelativePath": "api/Bank/with-clients",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Banking_Payments.Controllers.BankUserController",
     "Method": "CreateClientAsync",
     "RelativePath": "api/BankUser/clients",
@@ -72,8 +256,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "client",
-        "Type": "Banking_Payments.Models.Client",
+        "Name": "clientCreationDTO",
+        "Type": "Banking_Payments.Models.DTO.ClientCreationDTO",
         "IsRequired": true
       }
     ],
@@ -265,7 +449,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Banking_Payments.Models.DTO.PaymentDTO",
+        "Type": "PaymentDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -296,7 +480,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Banking_Payments.Models.DTO.PaymentDTO",
+        "Type": "PaymentDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -327,7 +511,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Banking_Payments.Models.DTO.PaymentDTO",
+        "Type": "PaymentDTO",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -347,7 +531,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Banking_Payments.Models.DTO.PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -367,7 +551,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Banking_Payments.Models.DTO.PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -393,7 +577,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Banking_Payments.Models.DTO.PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[PaymentDTO, Banking-Payments, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -402,6 +586,42 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminDashboardController",
+    "Method": "GetBankDistribution",
+    "RelativePath": "api/Dashboard/bank-distribution",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminDashboardController",
+    "Method": "GetRecentActivities",
+    "RelativePath": "api/Dashboard/recent-activities",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.SuperAdminDashboardController",
+    "Method": "GetDashboardStats",
+    "RelativePath": "api/Dashboard/stats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Banking_Payments.Controllers.DocumentController",
@@ -460,17 +680,17 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "file",
+        "Name": "File",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
       },
       {
-        "Name": "clientId",
+        "Name": "ClientId",
         "Type": "System.Int32",
         "IsRequired": false
       },
       {
-        "Name": "docType",
+        "Name": "DocType",
         "Type": "System.String",
         "IsRequired": false
       }
