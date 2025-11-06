@@ -29,6 +29,11 @@ namespace Banking_Payments.Services
             return await clientRepository.GetClientsAllAsync(id);
         }
 
+        public async Task<SalaryDisbursement> AddSalaryDisbursementIndividuallyAsync(SalaryDisbursement s)
+        {
+            return await clientRepository.AddSalaryDisbursementIndividuallyAsync(s);
+        }
+
         public async Task<Client> GetClientByRegisterationNumberAsync(string registerationNumber, int bankId)
         {
             return await clientRepository.GetClientByRegisterationNumberAsync(registerationNumber, bankId);
