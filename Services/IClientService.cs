@@ -23,6 +23,7 @@ namespace Banking_Payments.Services
         Task<Object> ShowAllEmployeeAsync(int clientId, int pageNumber, int pageSize);
         Task<IEnumerable<SalaryDisbursement>> ShowSalaryDisbursementByEmpIdAsync(int empId);
         Task<IEnumerable<SalaryDisbursement>> ShowSalaryDisbursementByClientIdAsync(int clientId);
+        Task<SalaryDisbursement> AddSalaryDisbursementIndividuallyAsync(SalaryDisbursement s);
         public Task<List<Employee>> ReadEmployeesFromExcel(Stream file);
         public Object SalaryDisbursementByBatch(List<Employee> employees, int batchNumber, int clientId);
     }

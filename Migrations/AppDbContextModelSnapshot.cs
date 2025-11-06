@@ -459,8 +459,7 @@ namespace Banking_Payments.Migrations
                 {
                     b.HasOne("Banking_Payments.Models.BankUser", "ApprovedByBankUser")
                         .WithMany()
-                        .HasForeignKey("ApprovedBy")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("ApprovedBy");
 
                     b.HasOne("Banking_Payments.Models.Bank", "Bank")
                         .WithMany("Clients")

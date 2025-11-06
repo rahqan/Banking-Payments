@@ -24,6 +24,7 @@ namespace Banking_Payments.Repositories
         Task<Object> ShowAllEmployeeAsync(int clientId, int pageNumber, int pageSize);
         Task<IEnumerable<SalaryDisbursement>> ShowSalaryDisbursementByEmpIdAsync(int empId);
         Task<IEnumerable<SalaryDisbursement>> ShowSalaryDisbursementByClientIdAsync(int clientId);
+        Task<SalaryDisbursement> AddSalaryDisbursementIndividuallyAsync(SalaryDisbursement s);
         bool CheckEmployeeExisById(int empId, int clientId);
         bool CheckEmployeeExisByCode(string empCode, int clientId);
         bool SalaryDisbursementByBatch(Employee emp, int clientId);

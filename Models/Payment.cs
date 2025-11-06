@@ -13,7 +13,7 @@ namespace Banking_Payments.Models
         public Decimal Amount { get; set; }
         public DateTime PaymentDate { get; set; } = DateTime.Now;
         public VerificationStatus status { get; set; } = 0;
-        public PaymentType Type { get; set; }
+        public PaymentType Type { get; set; } = PaymentType.RTGS;
         public string Remarks { get; set; }
 
         [ForeignKey("Beneficiary")]

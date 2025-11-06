@@ -103,7 +103,10 @@ namespace Banking_Payments.Services
         {
             return await clientRepository.ShowSalaryDisbursementByClientIdAsync(clientId);
         }
-
+        public async Task<SalaryDisbursement> AddSalaryDisbursementIndividuallyAsync(SalaryDisbursement s)
+        {
+            return await clientRepository.AddSalaryDisbursementIndividuallyAsync(s);
+        }
         public async Task<List<Employee>> ReadEmployeesFromExcel(Stream file)
         {
             var employees = new List<Employee>();

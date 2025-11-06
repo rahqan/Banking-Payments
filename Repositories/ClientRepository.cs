@@ -2,6 +2,7 @@
 using Banking_Payments.Models;
 using Banking_Payments.Models.DTO;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Banking_Payments.Repositories
 {
@@ -95,6 +96,7 @@ namespace Banking_Payments.Repositories
             Beneficiary ben = await _appDbContext.Beneficiaries.FirstOrDefaultAsync(b => b.BeneficiaryId == beneficiary.BeneficiaryId);
             if (ben != null)
             {
+                ben.RelationShip = beneficiary.RelationShip;
                 ben.Name = beneficiary.Name;
                 ben.AccountNumber = beneficiary.AccountNumber;
                 ben.IfscCode = beneficiary.IfscCode;
@@ -118,7 +120,6 @@ namespace Banking_Payments.Repositories
         public async Task<Beneficiary> ShowBeneficiaryByIdAsync(int id)
         {
             Beneficiary ben = await _appDbContext.Beneficiaries
-                        .Include(b => b.Client)
                         .FirstOrDefaultAsync(b => b.BeneficiaryId == id);
             return ben;
         }
@@ -127,7 +128,6 @@ namespace Banking_Payments.Repositories
         {
             return await _appDbContext.Beneficiaries
                         .Where(b => b.ClientId == clientId)
-                        .Include(b => b.Client)
                         .ToListAsync();
         }
 
@@ -135,7 +135,14 @@ namespace Banking_Payments.Repositories
         {
             Console.WriteLine("Inside => ");
             await _appDbContext.Payments.AddAsync(payment);
-            await _appDbContext.SaveChangesAsync();
+
+            var client = await _appDbContext.Clients.FirstOrDefaultAsync(c => c.ClientId == payment.ClientId);
+            if (client != null)
+            {
+                client.Balance -= Convert.ToDouble(payment.Amount);
+                await _appDbContext.SaveChangesAsync();
+            }
+
             return payment;
         }
 
@@ -148,8 +155,8 @@ namespace Banking_Payments.Repositories
         public async Task<IEnumerable<Payment>> ShowAllPaymentsAsync(int clientId)
         {
             return await _appDbContext.Payments
+                        .Include(b => b.Beneficiary)
                         .Where(p => p.ClientId == clientId)
-                        .Include(p => p.Beneficiary)
                         .ToListAsync();
         }
 
@@ -206,6 +213,19 @@ namespace Banking_Payments.Repositories
                             .Include(s => s.Client)
                             .OrderByDescending(s => s.CreatedAt)
                             .ToListAsync();
+        }
+
+        public async Task<SalaryDisbursement> AddSalaryDisbursementIndividuallyAsync(SalaryDisbursement s)
+        {
+            await _appDbContext.SalaryDisbursements.AddAsync(s);
+            var client = await _appDbContext.Clients.FirstOrDefaultAsync(c => c.ClientId == s.ClientId);
+            if(client != null)
+            {
+                client.Balance -= Convert.ToDouble(s.Amount);
+                await _appDbContext.SaveChangesAsync();
+            }
+            await _appDbContext.SaveChangesAsync();
+            return s;
         }
 
         public bool CheckEmployeeExisById(int empId, int clientId)

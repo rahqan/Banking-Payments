@@ -1588,6 +1588,54 @@
         }
       }
     },
+    "/api/v1/individual-salary-disbursement": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SalaryDisbursement"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SalaryDisbursement"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SalaryDisbursement"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalaryDisbursement"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalaryDisbursement"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SalaryDisbursement"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/salary-disbursement-by-batch/{clientId}": {
       "post": {
         "tags": [
@@ -3021,12 +3069,11 @@
       },
       "PaymentType": {
         "enum": [
-          0,
-          1,
-          2
+          "RTGS",
+          "IMPS",
+          "NEFT"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       },
       "RecaptchaVerifyRequest": {
         "type": "object",
@@ -3126,12 +3173,11 @@
       },
       "Role": {
         "enum": [
-          1,
-          2,
-          3
+          "SuperAdmin",
+          "BankUser",
+          "Client"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       },
       "SalaryDisbursement": {
         "type": "object",
@@ -3232,12 +3278,11 @@
       },
       "VerificationStatus": {
         "enum": [
-          0,
-          1,
-          -1
+          "Pending",
+          "Verified",
+          "Rejected"
         ],
-        "type": "integer",
-        "format": "int32"
+        "type": "string"
       },
       "WeatherForecast": {
         "type": "object",

@@ -1187,6 +1187,32 @@
   },
   {
     "ContainingType": "Banking_Payments.Controllers.ClientController",
+    "Method": "AddSalaryDisbursementIndividuallyAsync",
+    "RelativePath": "api/v1/individual-salary-disbursement",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "s",
+        "Type": "Banking_Payments.Models.SalaryDisbursement",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Banking_Payments.Models.SalaryDisbursement",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.ClientController",
     "Method": "SalaryDisbursement",
     "RelativePath": "api/v1/salary-disbursement-by-batch/{clientId}",
     "HttpMethod": "POST",

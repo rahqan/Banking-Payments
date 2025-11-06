@@ -138,7 +138,6 @@ namespace Banking_Payments.Controllers
         [HttpPost("add-employee")]
         public async Task<ActionResult<Employee>> AddEmployeeAsync(Employee emp)
         {
-            Console.WriteLine("Inside 141 controller :: ");
             if (ModelState.IsValid)
             {
                 var res = await clientService.AddEmployeeAsync(emp);
@@ -177,6 +176,17 @@ namespace Banking_Payments.Controllers
         {
             var res = await clientService.ShowSalaryDisbursementByClientIdAsync(clientId);
             return Ok(res);
+        }
+
+        [HttpPost("individual-salary-disbursement")]
+        public async Task<ActionResult<SalaryDisbursement>> AddSalaryDisbursementIndividuallyAsync(SalaryDisbursement s)
+        {
+            if (ModelState.IsValid)
+            {
+                var res = await clientService.AddSalaryDisbursementIndividuallyAsync(s);
+                return Ok(res);
+            }
+            return BadRequest();
         }
 
         [HttpPost("salary-disbursement-by-batch/{clientId}")]
