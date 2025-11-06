@@ -19,6 +19,8 @@
         public int VerifiedClients { get; set; }
         public int RejectedClients { get; set; }
         public int TotalDocuments { get; set; }
+
+
         public DateTime? LastActivityDate { get; set; }
     }
 }

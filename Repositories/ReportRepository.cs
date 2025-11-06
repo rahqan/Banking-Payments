@@ -142,6 +142,81 @@ namespace Banking_Payments.Repositories
             return reports.OrderByDescending(r => r.TotalPaymentValue);
         }
 
+        //public async Task<TransactionVolumeReportDTO> GetTransactionVolumeReportAsync(DateTime startDate, DateTime endDate)
+        //{
+        //    var payments = await _context.Payments
+        //        .Include(p => p.Client)
+        //            .ThenInclude(c => c.Bank)
+        //        .Where(p => p.PaymentDate >= startDate && p.PaymentDate <= endDate)
+        //        .ToListAsync();
+
+        //    var salaryDisbursements = await _context.SalaryDisbursements
+        //        .Where(s => s.CreatedAt >= startDate && s.CreatedAt <= endDate)
+        //        .ToListAsync();
+
+        //    // Payment Type Breakdown
+        //    var paymentTypeBreakdown = new PaymentTypeBreakdown
+        //    {
+        //        RTGSCount = payments.Count(p => p.Type == PaymentType.RTGS),
+        //        RTGSAmount = payments.Where(p => p.Type == PaymentType.RTGS && p.status == VerificationStatus.Verified).Sum(p => p.Amount),
+        //        IMPSCount = payments.Count(p => p.Type == PaymentType.IMPS),
+        //        IMPSAmount = payments.Where(p => p.Type == PaymentType.IMPS && p.status == VerificationStatus.Verified).Sum(p => p.Amount),
+        //        NEFTCount = payments.Count(p => p.Type == PaymentType.NEFT),
+        //        NEFTAmount = payments.Where(p => p.Type == PaymentType.NEFT && p.status == VerificationStatus.Verified).Sum(p => p.Amount)
+        //    };
+
+        //    // Payment Status Breakdown
+        //    var paymentStatusBreakdown = new PaymentStatusBreakdown
+        //    {
+        //        PendingCount = payments.Count(p => p.status == VerificationStatus.Pending),
+        //        PendingAmount = payments.Where(p => p.status == VerificationStatus.Pending).Sum(p => p.Amount),
+        //        ApprovedCount = payments.Count(p => p.status == VerificationStatus.Verified),
+        //        ApprovedAmount = payments.Where(p => p.status == VerificationStatus.Verified).Sum(p => p.Amount),
+        //        RejectedCount = payments.Count(p => p.status == VerificationStatus.Rejected),
+        //        RejectedAmount = payments.Where(p => p.status == VerificationStatus.Rejected).Sum(p => p.Amount)
+        //    };
+
+        //    // Bank-wise Transactions
+        //    var bankWiseTransactions = payments
+        //        .Where(p => p.status == VerificationStatus.Verified)
+        //        .GroupBy(p => new { p.Client.Bank.BankId, p.Client.Bank.Name })
+        //        .Select(g => new BankTransactionSummary
+        //        {
+        //            BankId = g.Key.BankId,
+        //            BankName = g.Key.Name,
+        //            TransactionCount = g.Count(),
+        //            TotalAmount = g.Sum(p => p.Amount)
+        //        })
+        //        .OrderByDescending(b => b.TotalAmount)
+        //        .ToList();
+
+        //    // Daily Trends
+        //    var dailyTrends = payments
+        //        .Where(p => p.status == VerificationStatus.Verified)
+        //        .GroupBy(p => p.PaymentDate.Date)
+        //        .Select(g => new DailyTransactionTrend
+        //        {
+        //            Date = g.Key,
+        //            TransactionCount = g.Count(),
+        //            TotalAmount = g.Sum(p => p.Amount)
+        //        })
+        //        .OrderBy(d => d.Date)
+        //        .ToList();
+
+        //    return new TransactionVolumeReportDTO
+        //    {
+        //        StartDate = startDate,
+        //        EndDate = endDate,
+        //        TotalPayments = payments.Count,
+        //        TotalPaymentAmount = payments.Where(p => p.status == VerificationStatus.Verified).Sum(p => p.Amount),
+        //        TotalSalaryDisbursements = salaryDisbursements.Count,
+        //        TotalSalaryAmount = salaryDisbursements.Sum(s => s.Amount),
+        //        PaymentTypeBreakdown = paymentTypeBreakdown,
+        //        PaymentStatusBreakdown = paymentStatusBreakdown,
+        //        BankWiseTransactions = bankWiseTransactions,
+        //        DailyTrends = dailyTrends
+        //    };
+        //}
         public async Task<TransactionVolumeReportDTO> GetTransactionVolumeReportAsync(DateTime startDate, DateTime endDate)
         {
             var payments = await _context.Payments
@@ -154,15 +229,20 @@ namespace Banking_Payments.Repositories
                 .Where(s => s.CreatedAt >= startDate && s.CreatedAt <= endDate)
                 .ToListAsync();
 
-            // Payment Type Breakdown
+            // Get the correct status value - CHANGE THIS based on your enum
+            var approvedStatus = VerificationStatus.Verified; // or VerificationStatus.Verified?
+
+            // Payment Type Breakdown - Count ALL, Amount only APPROVED
             var paymentTypeBreakdown = new PaymentTypeBreakdown
             {
                 RTGSCount = payments.Count(p => p.Type == PaymentType.RTGS),
-                RTGSAmount = payments.Where(p => p.Type == PaymentType.RTGS && p.status == VerificationStatus.Verified).Sum(p => p.Amount),
+                RTGSAmount = payments.Where(p => p.Type == PaymentType.RTGS && p.status == approvedStatus).Sum(p => p.Amount),
+
                 IMPSCount = payments.Count(p => p.Type == PaymentType.IMPS),
-                IMPSAmount = payments.Where(p => p.Type == PaymentType.IMPS && p.status == VerificationStatus.Verified).Sum(p => p.Amount),
+                IMPSAmount = payments.Where(p => p.Type == PaymentType.IMPS && p.status == approvedStatus).Sum(p => p.Amount),
+
                 NEFTCount = payments.Count(p => p.Type == PaymentType.NEFT),
-                NEFTAmount = payments.Where(p => p.Type == PaymentType.NEFT && p.status == VerificationStatus.Verified).Sum(p => p.Amount)
+                NEFTAmount = payments.Where(p => p.Type == PaymentType.NEFT && p.status == approvedStatus).Sum(p => p.Amount)
             };
 
             // Payment Status Breakdown
@@ -170,15 +250,17 @@ namespace Banking_Payments.Repositories
             {
                 PendingCount = payments.Count(p => p.status == VerificationStatus.Pending),
                 PendingAmount = payments.Where(p => p.status == VerificationStatus.Pending).Sum(p => p.Amount),
-                ApprovedCount = payments.Count(p => p.status == VerificationStatus.Verified),
-                ApprovedAmount = payments.Where(p => p.status == VerificationStatus.Verified).Sum(p => p.Amount),
+
+                ApprovedCount = payments.Count(p => p.status == approvedStatus),
+                ApprovedAmount = payments.Where(p => p.status == approvedStatus).Sum(p => p.Amount),
+
                 RejectedCount = payments.Count(p => p.status == VerificationStatus.Rejected),
                 RejectedAmount = payments.Where(p => p.status == VerificationStatus.Rejected).Sum(p => p.Amount)
             };
 
-            // Bank-wise Transactions
+            // Bank-wise Transactions - Use approved status
             var bankWiseTransactions = payments
-                .Where(p => p.status == VerificationStatus.Verified)
+                .Where(p => p.status == approvedStatus)
                 .GroupBy(p => new { p.Client.Bank.BankId, p.Client.Bank.Name })
                 .Select(g => new BankTransactionSummary
                 {
@@ -190,9 +272,9 @@ namespace Banking_Payments.Repositories
                 .OrderByDescending(b => b.TotalAmount)
                 .ToList();
 
-            // Daily Trends
+            // Daily Trends - Use approved status
             var dailyTrends = payments
-                .Where(p => p.status == VerificationStatus.Verified)
+                .Where(p => p.status == approvedStatus)
                 .GroupBy(p => p.PaymentDate.Date)
                 .Select(g => new DailyTransactionTrend
                 {
@@ -207,8 +289,8 @@ namespace Banking_Payments.Repositories
             {
                 StartDate = startDate,
                 EndDate = endDate,
-                TotalPayments = payments.Count,
-                TotalPaymentAmount = payments.Where(p => p.status == VerificationStatus.Verified).Sum(p => p.Amount),
+                TotalPayments = payments.Count, // ALL payments
+                TotalPaymentAmount = payments.Where(p => p.status == approvedStatus).Sum(p => p.Amount), // Only approved
                 TotalSalaryDisbursements = salaryDisbursements.Count,
                 TotalSalaryAmount = salaryDisbursements.Sum(s => s.Amount),
                 PaymentTypeBreakdown = paymentTypeBreakdown,
@@ -217,7 +299,6 @@ namespace Banking_Payments.Repositories
                 DailyTrends = dailyTrends
             };
         }
-
         public async Task<FinancialSummaryReportDTO> GetFinancialSummaryReportAsync(DateTime startDate, DateTime endDate)
         {
             var payments = await _context.Payments
