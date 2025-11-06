@@ -7,15 +7,18 @@ namespace Banking_Payments.Services
 {
     public class BankUserService : IBankUserService
     {
+        private readonly IEmailService _emailService;
         private readonly IBankUserRepository _bankUserRepository;
         private readonly ILogger<BankUserService> _logger;
 
         public BankUserService(
             IBankUserRepository bankUserRepository,
-            ILogger<BankUserService> logger)
+            ILogger<BankUserService> logger,
+            IEmailService emailService)
         {
             _bankUserRepository = bankUserRepository;
             _logger = logger;
+            _emailService = emailService;
         }
 
         //public async Task<ClientDTO> CreateClientAsync(ClientCreationDTO clientCreationDTO)
@@ -329,10 +332,34 @@ namespace Banking_Payments.Services
 
             client.VerificationStatus = verificationStatus;
 
+            var bank = await _bankUserRepository.GetBankByIdAsync(bankId);
+
             // Set ApprovedBy when status is Verified
             if (verificationStatus == "Verified")
             {
                 client.ApprovedBy = verifiedBy;
+                try
+                {
+                    Console.WriteLine("Sending approval email...");
+                    await _emailService.SendClientApprovalEmailAsync(client.Email, client.Name,bank.Name);
+                    Console.WriteLine("Sent Approval Email");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to send approval email to client {ClientId}", clientId);
+                }
+            }
+            else if (verificationStatus == "Rejected")
+            {
+                client.ApprovedBy = null; // Clear ApprovedBy on rejection
+                try
+                {
+                    await _emailService.SendClientRejectionEmailAsync(client.Email, client.Name, bank.Name, notes);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, "Failed to send rejection email to client {ClientId}", clientId);
+                }
             }
 
             client.BankUserId = verifiedBy; // Keep for backward compatibility

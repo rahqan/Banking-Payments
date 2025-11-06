@@ -737,6 +737,448 @@
         }
       }
     },
+    "/api/BankUserReport/transactions/client/{clientId}": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionReportDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionReportDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionReportDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUserReport/transactions/all": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionReportDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionReportDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TransactionReportDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUserReport/customer-onboarding": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOnboardingReportDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOnboardingReportDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerOnboardingReportDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUserReport/payment-approval": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentApprovalReportDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentApprovalReportDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaymentApprovalReportDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUserReport/client-activity": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientActivityReportDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientActivityReportDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClientActivityReportDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUserReport/dashboard-stats": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/BankUserReport/transactions/client/{clientId}/pdf": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "parameters": [
+          {
+            "name": "clientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/BankUserReport/transactions/all/pdf": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/BankUserReport/customer-onboarding/pdf": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/BankUserReport/payment-approval/pdf": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/BankUserReport/client-activity/pdf": {
+      "get": {
+        "tags": [
+          "BankUserReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/get-all-client-by-id": {
       "get": {
         "tags": [
@@ -2180,6 +2622,299 @@
         }
       }
     },
+    "/api/SuperAdminReport/system-overview": {
+      "get": {
+        "tags": [
+          "SuperAdminReport"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemOverviewReportDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemOverviewReportDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SystemOverviewReportDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SuperAdminReport/bank-performance": {
+      "get": {
+        "tags": [
+          "SuperAdminReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankPerformanceReportDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankPerformanceReportDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BankPerformanceReportDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SuperAdminReport/transaction-volume": {
+      "get": {
+        "tags": [
+          "SuperAdminReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionVolumeReportDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionVolumeReportDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionVolumeReportDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SuperAdminReport/financial-summary": {
+      "get": {
+        "tags": [
+          "SuperAdminReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinancialSummaryReportDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinancialSummaryReportDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FinancialSummaryReportDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/SuperAdminReport/quick-stats": {
+      "get": {
+        "tags": [
+          "SuperAdminReport"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/SuperAdminReport/system-overview/pdf": {
+      "get": {
+        "tags": [
+          "SuperAdminReport"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/SuperAdminReport/bank-performance/pdf": {
+      "get": {
+        "tags": [
+          "SuperAdminReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/SuperAdminReport/transaction-volume/pdf": {
+      "get": {
+        "tags": [
+          "SuperAdminReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/SuperAdminReport/financial-summary/pdf": {
+      "get": {
+        "tags": [
+          "SuperAdminReport"
+        ],
+        "parameters": [
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/WeatherForecast": {
       "get": {
         "tags": [
@@ -2337,6 +3072,141 @@
         },
         "additionalProperties": false
       },
+      "BankFinancialSummary": {
+        "type": "object",
+        "properties": {
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPaymentValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalSalaryValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "averageTransactionValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalClientBalance": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BankPerformanceReportDTO": {
+        "type": "object",
+        "properties": {
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "activeClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "inactiveClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalBankUsers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pendingPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "approvedPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rejectedPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPaymentValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "pendingVerifications": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "verifiedClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rejectedClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalDocuments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "lastActivityDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BankTransactionSummary": {
+        "type": "object",
+        "properties": {
+          "bankId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "BankUser": {
         "type": "object",
         "properties": {
@@ -2391,6 +3261,32 @@
               "$ref": "#/components/schemas/Document"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BankUserApprovalPerformance": {
+        "type": "object",
+        "properties": {
+          "bankUserId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bankUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "totalApproved": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalRejected": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAmountApproved": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -2606,6 +3502,63 @@
         },
         "additionalProperties": false
       },
+      "ClientActivityReportDTO": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "totalPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPaymentValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalEmployees": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalBeneficiaries": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalSalaryDisbursements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalSalaryValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "lastActivityDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "currentBalance": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "ClientBankDetailsDTO": {
         "type": "object",
         "properties": {
@@ -2751,6 +3704,52 @@
         },
         "additionalProperties": false
       },
+      "ClientOnboardingDetail": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "businessType": {
+            "type": "string",
+            "nullable": true
+          },
+          "verificationStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "approvedByName": {
+            "type": "string",
+            "nullable": true
+          },
+          "documentCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "daysToVerify": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "ClientVerificationRequestDTO": {
         "required": [
           "verificationStatus"
@@ -2840,6 +3839,69 @@
           "bankId": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CustomerOnboardingReportDTO": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "totalOnboarded": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pendingVerifications": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "approvedClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rejectedClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "averageOnboardingDays": {
+            "type": "number",
+            "format": "double"
+          },
+          "documentsUploaded": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clientDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientOnboardingDetail"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DailyTransactionTrend": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "transactionCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalAmount": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -2948,6 +4010,83 @@
         },
         "additionalProperties": false
       },
+      "FinancialSummaryReportDTO": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "totalMoneyFlow": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalPaymentsValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalSalariesValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalClientBalance": {
+            "type": "number",
+            "format": "double"
+          },
+          "bankWiseFinancials": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankFinancialSummary"
+            },
+            "nullable": true
+          },
+          "topClientsByVolume": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TopClient"
+            },
+            "nullable": true
+          },
+          "monthlyTrend": {
+            "$ref": "#/components/schemas/MonthlyFinancialTrend"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HighValueTransaction": {
+        "type": "object",
+        "properties": {
+          "paymentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "clientName": {
+            "type": "string",
+            "nullable": true
+          },
+          "beneficiaryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginRequestDTO": {
         "type": "object",
         "properties": {
@@ -2961,6 +4100,28 @@
           },
           "role": {
             "$ref": "#/components/schemas/Role"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MonthlyFinancialTrend": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPayments": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalSalaries": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -3015,6 +4176,62 @@
         },
         "additionalProperties": false
       },
+      "PaymentApprovalReportDTO": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "totalPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pendingApprovals": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "approvedPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rejectedPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalApprovedAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalRejectedAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "averageApprovalTimeHours": {
+            "type": "number",
+            "format": "double"
+          },
+          "bankUserPerformance": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankUserApprovalPerformance"
+            },
+            "nullable": true
+          },
+          "highValueTransactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/HighValueTransaction"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "PaymentDTO": {
         "type": "object",
         "properties": {
@@ -3052,6 +4269,10 @@
             "format": "int32",
             "nullable": true
           },
+          "remarks": {
+            "type": "string",
+            "nullable": true
+          },
           "client": {
             "$ref": "#/components/schemas/ClientDTO"
           },
@@ -3067,6 +4288,36 @@
         },
         "additionalProperties": false
       },
+      "PaymentStatusBreakdown": {
+        "type": "object",
+        "properties": {
+          "pendingCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pendingAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "approvedCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "approvedAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "rejectedCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rejectedAmount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "PaymentType": {
         "enum": [
           "RTGS",
@@ -3074,6 +4325,36 @@
           "NEFT"
         ],
         "type": "string"
+      },
+      "PaymentTypeBreakdown": {
+        "type": "object",
+        "properties": {
+          "rtgsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rtgsAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "impsCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "impsAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "neftCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "neftAmount": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
       },
       "RecaptchaVerifyRequest": {
         "type": "object",
@@ -3207,6 +4488,210 @@
           },
           "client": {
             "$ref": "#/components/schemas/Client"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SystemOverviewReportDTO": {
+        "type": "object",
+        "properties": {
+          "totalBanks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "activeBanks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "inactiveBanks": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalBankUsers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalEmployees": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalBeneficiaries": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pendingPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "approvedPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rejectedPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPaymentValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalSalaryDisbursements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalSalaryValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "pendingVerifications": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "verifiedClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rejectedClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "generatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TopClient": {
+        "type": "object",
+        "properties": {
+          "clientId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "clientCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientName": {
+            "type": "string",
+            "nullable": true
+          },
+          "bankName": {
+            "type": "string",
+            "nullable": true
+          },
+          "transactionCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalTransactionValue": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionReportDTO": {
+        "type": "object",
+        "properties": {
+          "paymentId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paymentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "clientName": {
+            "type": "string",
+            "nullable": true
+          },
+          "beneficiaryName": {
+            "type": "string",
+            "nullable": true
+          },
+          "beneficiaryAccountNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "approvedByName": {
+            "type": "string",
+            "nullable": true
+          },
+          "remarks": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TransactionVolumeReportDTO": {
+        "type": "object",
+        "properties": {
+          "startDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "totalPayments": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPaymentAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalSalaryDisbursements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalSalaryAmount": {
+            "type": "number",
+            "format": "double"
+          },
+          "paymentTypeBreakdown": {
+            "$ref": "#/components/schemas/PaymentTypeBreakdown"
+          },
+          "paymentStatusBreakdown": {
+            "$ref": "#/components/schemas/PaymentStatusBreakdown"
+          },
+          "bankWiseTransactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BankTransactionSummary"
+            },
+            "nullable": true
+          },
+          "dailyTrends": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DailyTransactionTrend"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false

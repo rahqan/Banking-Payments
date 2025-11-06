@@ -372,7 +372,6 @@ namespace Banking_Payments.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Remarks")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")

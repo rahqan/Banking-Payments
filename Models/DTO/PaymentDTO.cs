@@ -37,6 +37,8 @@ public class PaymentDTO
 
     public int? BankUserId { get; set; }
 
+    public string? Remarks { get; set; }
+
     public ClientDTO? Client { get; set; }             // ✅ nested object
     public int? ApprovedById { get; set; }
     public string? ApprovedByName { get; set; }
