@@ -29,6 +29,11 @@ namespace Banking_Payments
             builder.Services.AddScoped<IClientService, ClientService>();
             builder.Services.AddScoped<IBankUserRepository, BankUserRepository>();
             builder.Services.AddScoped<IBankUserService, BankUserService>();
+
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+            builder.Services.AddScoped<IEmailService, EmailService>();
+
+
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             builder.Services.AddScoped<IAuthService, AuthService>();
 
@@ -61,7 +66,10 @@ namespace Banking_Payments
             builder.Services.AddScoped<ISuperAdminService, SuperAdminService>();
 
 
+            builder.Services.AddScoped<IReportRepository, ReportRepository>();
+            builder.Services.AddScoped<IReportService, ReportService>();
 
+            builder.Services.AddScoped<IPdfExportService, PdfExportService>();
 
             // Cloudinary config
             builder.Services.Configure<CloudinarySettings>(

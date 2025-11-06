@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\jatin.pandey\\Desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj": {}
+    "C:\\Users\\rahqan.shaikh\\Desktop\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj": {}
   },
   "projects": {
-    "C:\\Users\\jatin.pandey\\Desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj": {
+    "C:\\Users\\rahqan.shaikh\\Desktop\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\jatin.pandey\\Desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj",
+        "projectUniqueName": "C:\\Users\\rahqan.shaikh\\Desktop\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj",
         "projectName": "Banking-Payments",
-        "projectPath": "C:\\Users\\jatin.pandey\\Desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj",
-        "packagesPath": "C:\\Users\\jatin.pandey\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\jatin.pandey\\Desktop\\swabhav-dotnet\\dotnet\\Banking-Payments\\Banking-Payments\\obj\\",
+        "projectPath": "C:\\Users\\rahqan.shaikh\\Desktop\\Banking-Payments\\Banking-Payments\\Banking-Payments.csproj",
+        "packagesPath": "C:\\Users\\rahqan.shaikh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\rahqan.shaikh\\Desktop\\Banking-Payments\\Banking-Payments\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\jatin.pandey\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\rahqan.shaikh\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -88,9 +88,21 @@
               "target": "Package",
               "version": "[1.0.0, )"
             },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2025.7.4, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
+            },
+            "iTextSharp": {
+              "target": "Package",
+              "version": "[5.5.13.4, )"
+            },
+            "itext": {
+              "target": "Package",
+              "version": "[9.3.0, )"
             }
           },
           "imports": [
@@ -112,7 +124,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -49,6 +49,16 @@ namespace Banking_Payments.Migrations
                     b.HasKey("AdminId");
 
                     b.ToTable("Admins");
+
+                    b.HasData(
+                        new
+                        {
+                            AdminId = 1,
+                            Code = "ADM001",
+                            Email = "admin@bankingsys.com",
+                            Name = "Super Admin",
+                            Password = "admin123"
+                        });
                 });
 
             modelBuilder.Entity("Banking_Payments.Models.Bank", b =>
@@ -101,6 +111,148 @@ namespace Banking_Payments.Migrations
                     b.HasIndex("CreatedByAdminId");
 
                     b.ToTable("Banks");
+
+                    b.HasData(
+                        new
+                        {
+                            BankId = 1,
+                            Address = "Headquarters Tower 1, Connaught Place, New Delhi",
+                            Code = "BNK001",
+                            ContactEmail = "info1@globalbank.com",
+                            ContactPhone = "987650001",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2386),
+                            CreatedByAdminId = 1,
+                            IsActive = true,
+                            Name = "Global Bank 1",
+                            PanNumber = "PANBANK1XYZ",
+                            RegistrationNumber = "REG1BANK2025"
+                        },
+                        new
+                        {
+                            BankId = 2,
+                            Address = "Headquarters Tower 2, Connaught Place, New Delhi",
+                            Code = "BNK002",
+                            ContactEmail = "info2@globalbank.com",
+                            ContactPhone = "987650002",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2749),
+                            CreatedByAdminId = 1,
+                            IsActive = true,
+                            Name = "Global Bank 2",
+                            PanNumber = "PANBANK2XYZ",
+                            RegistrationNumber = "REG2BANK2025"
+                        },
+                        new
+                        {
+                            BankId = 3,
+                            Address = "Headquarters Tower 3, Connaught Place, New Delhi",
+                            Code = "BNK003",
+                            ContactEmail = "info3@globalbank.com",
+                            ContactPhone = "987650003",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2831),
+                            CreatedByAdminId = 1,
+                            IsActive = true,
+                            Name = "Global Bank 3",
+                            PanNumber = "PANBANK3XYZ",
+                            RegistrationNumber = "REG3BANK2025"
+                        },
+                        new
+                        {
+                            BankId = 4,
+                            Address = "Headquarters Tower 4, Connaught Place, New Delhi",
+                            Code = "BNK004",
+                            ContactEmail = "info4@globalbank.com",
+                            ContactPhone = "987650004",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2838),
+                            CreatedByAdminId = 1,
+                            IsActive = true,
+                            Name = "Global Bank 4",
+                            PanNumber = "PANBANK4XYZ",
+                            RegistrationNumber = "REG4BANK2025"
+                        },
+                        new
+                        {
+                            BankId = 5,
+                            Address = "Headquarters Tower 5, Connaught Place, New Delhi",
+                            Code = "BNK005",
+                            ContactEmail = "info5@globalbank.com",
+                            ContactPhone = "987650005",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2844),
+                            CreatedByAdminId = 1,
+                            IsActive = true,
+                            Name = "Global Bank 5",
+                            PanNumber = "PANBANK5XYZ",
+                            RegistrationNumber = "REG5BANK2025"
+                        },
+                        new
+                        {
+                            BankId = 6,
+                            Address = "Headquarters Tower 6, Connaught Place, New Delhi",
+                            Code = "BNK006",
+                            ContactEmail = "info6@globalbank.com",
+                            ContactPhone = "987650006",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2857),
+                            CreatedByAdminId = 1,
+                            IsActive = true,
+                            Name = "Global Bank 6",
+                            PanNumber = "PANBANK6XYZ",
+                            RegistrationNumber = "REG6BANK2025"
+                        },
+                        new
+                        {
+                            BankId = 7,
+                            Address = "Headquarters Tower 7, Connaught Place, New Delhi",
+                            Code = "BNK007",
+                            ContactEmail = "info7@globalbank.com",
+                            ContactPhone = "987650007",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2940),
+                            CreatedByAdminId = 1,
+                            IsActive = true,
+                            Name = "Global Bank 7",
+                            PanNumber = "PANBANK7XYZ",
+                            RegistrationNumber = "REG7BANK2025"
+                        },
+                        new
+                        {
+                            BankId = 8,
+                            Address = "Headquarters Tower 8, Connaught Place, New Delhi",
+                            Code = "BNK008",
+                            ContactEmail = "info8@globalbank.com",
+                            ContactPhone = "987650008",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2948),
+                            CreatedByAdminId = 1,
+                            IsActive = true,
+                            Name = "Global Bank 8",
+                            PanNumber = "PANBANK8XYZ",
+                            RegistrationNumber = "REG8BANK2025"
+                        },
+                        new
+                        {
+                            BankId = 9,
+                            Address = "Headquarters Tower 9, Connaught Place, New Delhi",
+                            Code = "BNK009",
+                            ContactEmail = "info9@globalbank.com",
+                            ContactPhone = "987650009",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2954),
+                            CreatedByAdminId = 1,
+                            IsActive = true,
+                            Name = "Global Bank 9",
+                            PanNumber = "PANBANK9XYZ",
+                            RegistrationNumber = "REG9BANK2025"
+                        },
+                        new
+                        {
+                            BankId = 10,
+                            Address = "Headquarters Tower 10, Connaught Place, New Delhi",
+                            Code = "BNK0010",
+                            ContactEmail = "info10@globalbank.com",
+                            ContactPhone = "9876500010",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2964),
+                            CreatedByAdminId = 1,
+                            IsActive = true,
+                            Name = "Global Bank 10",
+                            PanNumber = "PANBANK10XYZ",
+                            RegistrationNumber = "REG10BANK2025"
+                        });
                 });
 
             modelBuilder.Entity("Banking_Payments.Models.BankUser", b =>
@@ -139,6 +291,88 @@ namespace Banking_Payments.Migrations
                     b.HasIndex("BankId");
 
                     b.ToTable("BankUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            BankUserId = 1,
+                            BankId = 1,
+                            Code = "BU001",
+                            Email = "alice.kumar@globalbank1.com",
+                            Name = "Alice Kumar",
+                            Password = "alice123",
+                            PhoneNumber = "9000010001"
+                        },
+                        new
+                        {
+                            BankUserId = 2,
+                            BankId = 1,
+                            Code = "BU002",
+                            Email = "ravi.singh@globalbank1.com",
+                            Name = "Ravi Singh",
+                            Password = "ravi123",
+                            PhoneNumber = "9000010002"
+                        },
+                        new
+                        {
+                            BankUserId = 3,
+                            BankId = 1,
+                            Code = "BU003",
+                            Email = "meena.das@globalbank1.com",
+                            Name = "Meena Das",
+                            Password = "meena123",
+                            PhoneNumber = "9000010003"
+                        },
+                        new
+                        {
+                            BankUserId = 4,
+                            BankId = 1,
+                            Code = "BU004",
+                            Email = "suresh.nair@globalbank1.com",
+                            Name = "Suresh Nair",
+                            Password = "suresh123",
+                            PhoneNumber = "9000010004"
+                        },
+                        new
+                        {
+                            BankUserId = 5,
+                            BankId = 1,
+                            Code = "BU005",
+                            Email = "tanya.joseph@globalbank1.com",
+                            Name = "Tanya Joseph",
+                            Password = "tanya123",
+                            PhoneNumber = "9000010005"
+                        },
+                        new
+                        {
+                            BankUserId = 6,
+                            BankId = 1,
+                            Code = "BU006",
+                            Email = "neeraj.chauhan@globalbank1.com",
+                            Name = "Neeraj Chauhan",
+                            Password = "neeraj123",
+                            PhoneNumber = "9000010006"
+                        },
+                        new
+                        {
+                            BankUserId = 7,
+                            BankId = 1,
+                            Code = "BU007",
+                            Email = "rohini.sharma@globalbank1.com",
+                            Name = "Rohini Sharma",
+                            Password = "rohini123",
+                            PhoneNumber = "9000010007"
+                        },
+                        new
+                        {
+                            BankUserId = 8,
+                            BankId = 1,
+                            Code = "BU008",
+                            Email = "irfan.malik@globalbank1.com",
+                            Name = "Irfan Malik",
+                            Password = "irfan123",
+                            PhoneNumber = "9000010008"
+                        });
                 });
 
             modelBuilder.Entity("Banking_Payments.Models.Beneficiary", b =>
@@ -177,6 +411,98 @@ namespace Banking_Payments.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Beneficiaries");
+
+                    b.HasData(
+                        new
+                        {
+                            BeneficiaryId = 1,
+                            AccountNumber = "1212121212",
+                            BankName = "Global Bank 1",
+                            ClientId = 1,
+                            IfscCode = "GBNK0010001",
+                            Name = "Rohit Sharma",
+                            RelationShip = "Supplier"
+                        },
+                        new
+                        {
+                            BeneficiaryId = 2,
+                            AccountNumber = "1313131313",
+                            BankName = "Global Bank 1",
+                            ClientId = 1,
+                            IfscCode = "GBNK0010002",
+                            Name = "Sneha Gupta",
+                            RelationShip = "Contractor"
+                        },
+                        new
+                        {
+                            BeneficiaryId = 3,
+                            AccountNumber = "1414141414",
+                            BankName = "Global Bank 1",
+                            ClientId = 2,
+                            IfscCode = "GBNK0010003",
+                            Name = "Vikram Iyer",
+                            RelationShip = "Farmer"
+                        },
+                        new
+                        {
+                            BeneficiaryId = 4,
+                            AccountNumber = "1515151515",
+                            BankName = "Global Bank 1",
+                            ClientId = 2,
+                            IfscCode = "GBNK0010004",
+                            Name = "Megha Tiwari",
+                            RelationShip = "Vendor"
+                        },
+                        new
+                        {
+                            BeneficiaryId = 5,
+                            AccountNumber = "1616161616",
+                            BankName = "Global Bank 1",
+                            ClientId = 3,
+                            IfscCode = "GBNK0010005",
+                            Name = "Aditi Bose",
+                            RelationShip = "Teacher"
+                        },
+                        new
+                        {
+                            BeneficiaryId = 6,
+                            AccountNumber = "1717171717",
+                            BankName = "Global Bank 1",
+                            ClientId = 4,
+                            IfscCode = "GBNK0010006",
+                            Name = "Manish Goel",
+                            RelationShip = "Supplier"
+                        },
+                        new
+                        {
+                            BeneficiaryId = 7,
+                            AccountNumber = "1818181818",
+                            BankName = "Global Bank 1",
+                            ClientId = 4,
+                            IfscCode = "GBNK0010007",
+                            Name = "Rahul Prasad",
+                            RelationShip = "Consultant"
+                        },
+                        new
+                        {
+                            BeneficiaryId = 8,
+                            AccountNumber = "1919191919",
+                            BankName = "Global Bank 1",
+                            ClientId = 5,
+                            IfscCode = "GBNK0010008",
+                            Name = "Priya Nair",
+                            RelationShip = "Doctor"
+                        },
+                        new
+                        {
+                            BeneficiaryId = 9,
+                            AccountNumber = "2020202020",
+                            BankName = "Global Bank 1",
+                            ClientId = 5,
+                            IfscCode = "GBNK0010009",
+                            Name = "Dr. Arvind Rao",
+                            RelationShip = "Supplier"
+                        });
                 });
 
             modelBuilder.Entity("Banking_Payments.Models.Client", b =>
@@ -251,6 +577,136 @@ namespace Banking_Payments.Migrations
                     b.HasIndex("BankUserId");
 
                     b.ToTable("Clients");
+
+                    b.HasData(
+                        new
+                        {
+                            ClientId = 1,
+                            Address = "Gurgaon, Haryana",
+                            Balance = 480000.0,
+                            BankId = 1,
+                            BankUserId = 1,
+                            BusinessType = "IT Services",
+                            Code = "CL001",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(5409),
+                            Email = "info@technova.com",
+                            IsActive = true,
+                            Name = "TechNova Pvt Ltd",
+                            Password = "tech123",
+                            VerificationStatus = "Verified"
+                        },
+                        new
+                        {
+                            ClientId = 2,
+                            Address = "Noida Sector 5",
+                            Balance = 210000.0,
+                            BankId = 1,
+                            BankUserId = 2,
+                            BusinessType = "Food Supply Chain",
+                            Code = "CL002",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7386),
+                            Email = "contact@greenfoods.com",
+                            IsActive = true,
+                            Name = "GreenFoods Ltd",
+                            Password = "green123",
+                            VerificationStatus = "Verified"
+                        },
+                        new
+                        {
+                            ClientId = 3,
+                            Address = "Kolkata, West Bengal",
+                            Balance = 75000.0,
+                            BankId = 1,
+                            BankUserId = 3,
+                            BusinessType = "Educational NGO",
+                            Code = "CL003",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7392),
+                            Email = "hello@edusmart.org",
+                            IsActive = true,
+                            Name = "EduSmart Foundation",
+                            Password = "edu123",
+                            VerificationStatus = "Pending"
+                        },
+                        new
+                        {
+                            ClientId = 4,
+                            Address = "Pune, Maharashtra",
+                            Balance = 325000.0,
+                            BankId = 1,
+                            BankUserId = 4,
+                            BusinessType = "Automotive Parts",
+                            Code = "CL004",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7394),
+                            Email = "sales@autoworks.com",
+                            IsActive = true,
+                            Name = "AutoWorks India",
+                            Password = "auto123",
+                            VerificationStatus = "Verified"
+                        },
+                        new
+                        {
+                            ClientId = 5,
+                            Address = "Hyderabad, Telangana",
+                            Balance = 455000.0,
+                            BankId = 1,
+                            BankUserId = 5,
+                            BusinessType = "Healthcare",
+                            Code = "CL005",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7396),
+                            Email = "admin@medcare.com",
+                            IsActive = true,
+                            Name = "MedCare Diagnostics",
+                            Password = "med123",
+                            VerificationStatus = "Verified"
+                        },
+                        new
+                        {
+                            ClientId = 6,
+                            Address = "Bangalore, Karnataka",
+                            Balance = 180000.0,
+                            BankId = 1,
+                            BankUserId = 6,
+                            BusinessType = "Retail Chain",
+                            Code = "CL006",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7398),
+                            Email = "support@quickmart.in",
+                            IsActive = true,
+                            Name = "QuickMart Retail",
+                            Password = "mart123",
+                            VerificationStatus = "Verified"
+                        },
+                        new
+                        {
+                            ClientId = 7,
+                            Address = "Mumbai, Maharashtra",
+                            Balance = 650000.0,
+                            BankId = 1,
+                            BankUserId = 7,
+                            BusinessType = "Real Estate",
+                            Code = "CL007",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7400),
+                            Email = "contact@urbanspaces.in",
+                            IsActive = true,
+                            Name = "UrbanSpaces Realty",
+                            Password = "urban123",
+                            VerificationStatus = "Verified"
+                        },
+                        new
+                        {
+                            ClientId = 8,
+                            Address = "Chennai, Tamil Nadu",
+                            Balance = 275000.0,
+                            BankId = 1,
+                            BankUserId = 8,
+                            BusinessType = "Software Services",
+                            Code = "CL008",
+                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7402),
+                            Email = "hr@brightware.com",
+                            IsActive = true,
+                            Name = "BrightWare Solutions",
+                            Password = "bright123",
+                            VerificationStatus = "Pending"
+                        });
                 });
 
             modelBuilder.Entity("Banking_Payments.Models.Document", b =>
@@ -372,7 +828,6 @@ namespace Banking_Payments.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Remarks")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
@@ -390,6 +845,92 @@ namespace Banking_Payments.Migrations
                     b.HasIndex("ClientId");
 
                     b.ToTable("Payments");
+
+                    b.HasData(
+                        new
+                        {
+                            PaymentId = 1,
+                            Amount = 12500m,
+                            BankUserId = 1,
+                            BeneficiaryId = 1,
+                            ClientId = 1,
+                            PaymentDate = new DateTime(2025, 10, 27, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(9664),
+                            Remarks = "Monthly IT Contract",
+                            Type = 2,
+                            status = 1
+                        },
+                        new
+                        {
+                            PaymentId = 2,
+                            Amount = 7500m,
+                            BankUserId = 1,
+                            BeneficiaryId = 2,
+                            ClientId = 1,
+                            PaymentDate = new DateTime(2025, 11, 1, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(776),
+                            Remarks = "Hardware Purchase",
+                            Type = 1,
+                            status = 0
+                        },
+                        new
+                        {
+                            PaymentId = 3,
+                            Amount = 34000m,
+                            BankUserId = 2,
+                            BeneficiaryId = 3,
+                            ClientId = 2,
+                            PaymentDate = new DateTime(2025, 10, 30, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(784),
+                            Remarks = "Raw Material Payment",
+                            Type = 0,
+                            status = 1
+                        },
+                        new
+                        {
+                            PaymentId = 4,
+                            Amount = 15000m,
+                            BankUserId = 4,
+                            BeneficiaryId = 7,
+                            ClientId = 4,
+                            PaymentDate = new DateTime(2025, 11, 4, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(787),
+                            Remarks = "Consultant Fees",
+                            Type = 2,
+                            status = 1
+                        },
+                        new
+                        {
+                            PaymentId = 5,
+                            Amount = 9800m,
+                            BankUserId = 5,
+                            BeneficiaryId = 9,
+                            ClientId = 5,
+                            PaymentDate = new DateTime(2025, 11, 5, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(790),
+                            Remarks = "Doctor Honorarium",
+                            Type = 1,
+                            status = 0
+                        },
+                        new
+                        {
+                            PaymentId = 6,
+                            Amount = 18500m,
+                            BankUserId = 5,
+                            BeneficiaryId = 9,
+                            ClientId = 5,
+                            PaymentDate = new DateTime(2025, 11, 3, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(792),
+                            Remarks = "Supplier Settlement",
+                            Type = 0,
+                            status = 1
+                        },
+                        new
+                        {
+                            PaymentId = 7,
+                            Amount = 5600m,
+                            BankUserId = 3,
+                            BeneficiaryId = 5,
+                            ClientId = 3,
+                            PaymentDate = new DateTime(2025, 11, 2, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(794),
+                            Remarks = "Teacher Stipend",
+                            Type = 2,
+                            status = 1
+                        });
                 });
 
             modelBuilder.Entity("Banking_Payments.Models.SalaryDisbursement", b =>
