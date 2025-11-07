@@ -59,10 +59,15 @@ namespace Banking_Payments.Services
             };
             message.To.Add(to);
 
-            using var smtp = new SmtpClient(_settings.SmtpHost, _settings.SmtpPort)
+            using var smtp = new SmtpClient(_settings.SmtpHost)  // ✅ Correct
             {
-                Credentials = new NetworkCredential(_settings.Username, _settings.Password),
-                EnableSsl = _settings.EnableSsl
+                Port = _settings.SmtpPort,
+                Credentials = new NetworkCredential(
+        _settings.Username,  // ✅ Correct
+        _settings.Password   // ✅ Correct
+    ),
+                EnableSsl = _settings.EnableSsl,
+                UseDefaultCredentials = false
             };
 
             try
