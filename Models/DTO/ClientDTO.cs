@@ -39,7 +39,7 @@ namespace Banking_Payments.Models.DTO
         public int? ApprovedBy { get; set; }
 
         public int? VerifiedBy { get; set; }
-        public DateTime? VerifiedAt { get; set; }
+        public DateTime? CreatedAt { get; set; }
         public int TotalEmployees { get; set; }
         public int TotalBeneficiaries { get; set; }
         public int TotalPayments { get; set; }

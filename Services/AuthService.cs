@@ -89,8 +89,7 @@ namespace Banking_Payments.Services
             if (admin == null || !BCrypt.Net.BCrypt.Verify(request.Password, admin.Password))
                 return null;
 
-            // Add AdminId claim explicitly
-            //var token = _jwtService.GenerateToken(admin.AdminId, Role.SuperAdmin.ToString(), null);
+            
 
             var token = _jwtService.GenerateToken(admin.AdminId, Role.SuperAdmin.ToString());
 

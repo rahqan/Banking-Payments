@@ -294,7 +294,11 @@ namespace Banking_Payments.Services
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow,
                 BankUserId = bankUserId, // Keep for backward compatibility
-                ApprovedBy = null // Will be set during verification
+                ApprovedBy = null, // Will be set during verification
+
+                  AccountNumber = clientCreationDTO.BankDetails.AccountNumber,
+                IfscCode = clientCreationDTO.BankDetails.IfscCode,
+                Balance = clientCreationDTO.BankDetails.Balance
             };
 
             var createdClient = await _bankUserRepository.CreateClientAsync(clientModel);
@@ -407,7 +411,7 @@ namespace Banking_Payments.Services
                 BankUserId = client.BankUserId,
                 ApprovedBy = client.ApprovedBy,
                 VerifiedBy = client.ApprovedBy ?? client.BankUserId, // Use ApprovedBy if available
-                VerifiedAt = client.VerificationStatus == "Verified" ? client.CreatedAt : null,
+                CreatedAt = client.CreatedAt,
                 TotalEmployees = totalEmployees,
                 TotalBeneficiaries = totalBeneficiaries,
                 TotalPayments = totalPayments

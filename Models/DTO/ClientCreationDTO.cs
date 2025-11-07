@@ -39,5 +39,7 @@ namespace Banking_Payments.Models.DTO
 
         [StringLength(100, ErrorMessage = "Business type cannot exceed 100 characters")]
         public string? ClientBusinessType { get; set; }
+
+        public ClientBankDetailsDTO? BankDetails { get; set; }
     }
 }

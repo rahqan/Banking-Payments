@@ -3627,6 +3627,9 @@
             "minLength": 0,
             "type": "string",
             "nullable": true
+          },
+          "bankDetails": {
+            "$ref": "#/components/schemas/ClientBankDetailsDTO"
           }
         },
         "additionalProperties": false
@@ -3684,7 +3687,7 @@
             "format": "int32",
             "nullable": true
           },
-          "verifiedAt": {
+          "createdAt": {
             "type": "string",
             "format": "date-time",
             "nullable": true
