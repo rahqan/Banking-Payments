@@ -25,18 +25,23 @@ namespace Banking_Payments.Services
         {
             try
             {
-                _logger.LogInformation("Using reCAPTCHA secret key: {SecretKey}", _settings.SecretKey);
-
                 var client = _httpClientFactory.CreateClient();
-                var url = $"https://www.google.com/recaptcha/api/siteverify?secret={_settings.SecretKey}&response={token}";
 
-                _logger.LogInformation("Calling reCAPTCHA API: {Url}", url);
+                var content = new FormUrlEncodedContent(new[]
+                {
+            new KeyValuePair<string, string>("secret", _settings.SecretKey),
+            new KeyValuePair<string, string>("response", token)
+        });
 
-                var response = await client.GetStringAsync(url);
-                var reCaptchaResponse = System.Text.Json.JsonSerializer.Deserialize<ReCaptchaResponse>(response);
+                var response = await client.PostAsync("https://www.google.com/recaptcha/api/siteverify", content);
+                var responseString = await response.Content.ReadAsStringAsync();
 
-                _logger.LogInformation("ReCAPTCHA verification response: {Response}",
-                    System.Text.Json.JsonSerializer.Serialize(reCaptchaResponse));
+                _logger.LogInformation("Full reCAPTCHA response: {Response}", responseString);
+
+                var reCaptchaResponse = System.Text.Json.JsonSerializer.Deserialize<ReCaptchaResponse>(responseString, new System.Text.Json.JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
 
                 return reCaptchaResponse?.Success ?? false;
             }

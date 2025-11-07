@@ -150,13 +150,18 @@ namespace Banking_Payments
             //    });
             //});
 
-            
 
+            builder.Services.Configure<ReCaptchaSettings>(
+                builder.Configuration.GetSection("ReCaptcha"));
+
+            builder.Services.AddScoped<IReCaptchaService, ReCaptchaService>();
+            builder.Services.AddHttpClient();
 
             // Important to add cors when we have different url of frontend and backend.
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
+            
             builder.Services.AddSwaggerGen();
             builder.Services.AddSwaggerGen(options =>
             {
