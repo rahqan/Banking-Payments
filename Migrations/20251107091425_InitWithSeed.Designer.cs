@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Banking_Payments.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251106023617_InitWithSeed")]
+    [Migration("20251107091425_InitWithSeed")]
     partial class InitWithSeed
     {
         /// <inheritdoc />
@@ -123,7 +123,7 @@ namespace Banking_Payments.Migrations
                             Code = "BNK001",
                             ContactEmail = "info1@globalbank.com",
                             ContactPhone = "987650001",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2386),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(4954),
                             CreatedByAdminId = 1,
                             IsActive = true,
                             Name = "Global Bank 1",
@@ -137,7 +137,7 @@ namespace Banking_Payments.Migrations
                             Code = "BNK002",
                             ContactEmail = "info2@globalbank.com",
                             ContactPhone = "987650002",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2749),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(5496),
                             CreatedByAdminId = 1,
                             IsActive = true,
                             Name = "Global Bank 2",
@@ -151,7 +151,7 @@ namespace Banking_Payments.Migrations
                             Code = "BNK003",
                             ContactEmail = "info3@globalbank.com",
                             ContactPhone = "987650003",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2831),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(5580),
                             CreatedByAdminId = 1,
                             IsActive = true,
                             Name = "Global Bank 3",
@@ -165,7 +165,7 @@ namespace Banking_Payments.Migrations
                             Code = "BNK004",
                             ContactEmail = "info4@globalbank.com",
                             ContactPhone = "987650004",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2838),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(5586),
                             CreatedByAdminId = 1,
                             IsActive = true,
                             Name = "Global Bank 4",
@@ -179,7 +179,7 @@ namespace Banking_Payments.Migrations
                             Code = "BNK005",
                             ContactEmail = "info5@globalbank.com",
                             ContactPhone = "987650005",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2844),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(5592),
                             CreatedByAdminId = 1,
                             IsActive = true,
                             Name = "Global Bank 5",
@@ -193,7 +193,7 @@ namespace Banking_Payments.Migrations
                             Code = "BNK006",
                             ContactEmail = "info6@globalbank.com",
                             ContactPhone = "987650006",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2857),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(5601),
                             CreatedByAdminId = 1,
                             IsActive = true,
                             Name = "Global Bank 6",
@@ -207,7 +207,7 @@ namespace Banking_Payments.Migrations
                             Code = "BNK007",
                             ContactEmail = "info7@globalbank.com",
                             ContactPhone = "987650007",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2940),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(5608),
                             CreatedByAdminId = 1,
                             IsActive = true,
                             Name = "Global Bank 7",
@@ -221,7 +221,7 @@ namespace Banking_Payments.Migrations
                             Code = "BNK008",
                             ContactEmail = "info8@globalbank.com",
                             ContactPhone = "987650008",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2948),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(5613),
                             CreatedByAdminId = 1,
                             IsActive = true,
                             Name = "Global Bank 8",
@@ -235,7 +235,7 @@ namespace Banking_Payments.Migrations
                             Code = "BNK009",
                             ContactEmail = "info9@globalbank.com",
                             ContactPhone = "987650009",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2954),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(5619),
                             CreatedByAdminId = 1,
                             IsActive = true,
                             Name = "Global Bank 9",
@@ -249,7 +249,7 @@ namespace Banking_Payments.Migrations
                             Code = "BNK0010",
                             ContactEmail = "info10@globalbank.com",
                             ContactPhone = "9876500010",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(2964),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(5629),
                             CreatedByAdminId = 1,
                             IsActive = true,
                             Name = "Global Bank 10",
@@ -275,7 +275,7 @@ namespace Banking_Payments.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -292,6 +292,9 @@ namespace Banking_Payments.Migrations
                     b.HasKey("BankUserId");
 
                     b.HasIndex("BankId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("BankUsers");
 
@@ -401,6 +404,9 @@ namespace Banking_Payments.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -423,6 +429,7 @@ namespace Banking_Payments.Migrations
                             BankName = "Global Bank 1",
                             ClientId = 1,
                             IfscCode = "GBNK0010001",
+                            IsActive = true,
                             Name = "Rohit Sharma",
                             RelationShip = "Supplier"
                         },
@@ -433,6 +440,7 @@ namespace Banking_Payments.Migrations
                             BankName = "Global Bank 1",
                             ClientId = 1,
                             IfscCode = "GBNK0010002",
+                            IsActive = true,
                             Name = "Sneha Gupta",
                             RelationShip = "Contractor"
                         },
@@ -443,6 +451,7 @@ namespace Banking_Payments.Migrations
                             BankName = "Global Bank 1",
                             ClientId = 2,
                             IfscCode = "GBNK0010003",
+                            IsActive = true,
                             Name = "Vikram Iyer",
                             RelationShip = "Farmer"
                         },
@@ -453,6 +462,7 @@ namespace Banking_Payments.Migrations
                             BankName = "Global Bank 1",
                             ClientId = 2,
                             IfscCode = "GBNK0010004",
+                            IsActive = true,
                             Name = "Megha Tiwari",
                             RelationShip = "Vendor"
                         },
@@ -463,6 +473,7 @@ namespace Banking_Payments.Migrations
                             BankName = "Global Bank 1",
                             ClientId = 3,
                             IfscCode = "GBNK0010005",
+                            IsActive = true,
                             Name = "Aditi Bose",
                             RelationShip = "Teacher"
                         },
@@ -473,6 +484,7 @@ namespace Banking_Payments.Migrations
                             BankName = "Global Bank 1",
                             ClientId = 4,
                             IfscCode = "GBNK0010006",
+                            IsActive = true,
                             Name = "Manish Goel",
                             RelationShip = "Supplier"
                         },
@@ -483,6 +495,7 @@ namespace Banking_Payments.Migrations
                             BankName = "Global Bank 1",
                             ClientId = 4,
                             IfscCode = "GBNK0010007",
+                            IsActive = true,
                             Name = "Rahul Prasad",
                             RelationShip = "Consultant"
                         },
@@ -493,6 +506,7 @@ namespace Banking_Payments.Migrations
                             BankName = "Global Bank 1",
                             ClientId = 5,
                             IfscCode = "GBNK0010008",
+                            IsActive = true,
                             Name = "Priya Nair",
                             RelationShip = "Doctor"
                         },
@@ -503,6 +517,7 @@ namespace Banking_Payments.Migrations
                             BankName = "Global Bank 1",
                             ClientId = 5,
                             IfscCode = "GBNK0010009",
+                            IsActive = true,
                             Name = "Dr. Arvind Rao",
                             RelationShip = "Supplier"
                         });
@@ -548,7 +563,7 @@ namespace Banking_Payments.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("IfscCode")
                         .HasColumnType("nvarchar(max)");
@@ -579,6 +594,9 @@ namespace Banking_Payments.Migrations
 
                     b.HasIndex("BankUserId");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.ToTable("Clients");
 
                     b.HasData(
@@ -591,7 +609,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 1,
                             BusinessType = "IT Services",
                             Code = "CL001",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(5409),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 165, DateTimeKind.Local).AddTicks(9116),
                             Email = "info@technova.com",
                             IsActive = true,
                             Name = "TechNova Pvt Ltd",
@@ -607,7 +625,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 2,
                             BusinessType = "Food Supply Chain",
                             Code = "CL002",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7386),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(2964),
                             Email = "contact@greenfoods.com",
                             IsActive = true,
                             Name = "GreenFoods Ltd",
@@ -623,7 +641,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 3,
                             BusinessType = "Educational NGO",
                             Code = "CL003",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7392),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(2970),
                             Email = "hello@edusmart.org",
                             IsActive = true,
                             Name = "EduSmart Foundation",
@@ -639,7 +657,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 4,
                             BusinessType = "Automotive Parts",
                             Code = "CL004",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7394),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(2972),
                             Email = "sales@autoworks.com",
                             IsActive = true,
                             Name = "AutoWorks India",
@@ -655,7 +673,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 5,
                             BusinessType = "Healthcare",
                             Code = "CL005",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7396),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(2974),
                             Email = "admin@medcare.com",
                             IsActive = true,
                             Name = "MedCare Diagnostics",
@@ -671,7 +689,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 6,
                             BusinessType = "Retail Chain",
                             Code = "CL006",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7398),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(2976),
                             Email = "support@quickmart.in",
                             IsActive = true,
                             Name = "QuickMart Retail",
@@ -687,7 +705,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 7,
                             BusinessType = "Real Estate",
                             Code = "CL007",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7400),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(3025),
                             Email = "contact@urbanspaces.in",
                             IsActive = true,
                             Name = "UrbanSpaces Realty",
@@ -703,7 +721,7 @@ namespace Banking_Payments.Migrations
                             BankUserId = 8,
                             BusinessType = "Software Services",
                             Code = "CL008",
-                            CreatedAt = new DateTime(2025, 11, 6, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(7402),
+                            CreatedAt = new DateTime(2025, 11, 7, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(3027),
                             Email = "hr@brightware.com",
                             IsActive = true,
                             Name = "BrightWare Solutions",
@@ -784,6 +802,9 @@ namespace Banking_Payments.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("JoinDate")
                         .HasColumnType("datetime2");
 
@@ -830,7 +851,12 @@ namespace Banking_Payments.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("RejectionRemark")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Remarks")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Type")
@@ -857,10 +883,11 @@ namespace Banking_Payments.Migrations
                             BankUserId = 1,
                             BeneficiaryId = 1,
                             ClientId = 1,
-                            PaymentDate = new DateTime(2025, 10, 27, 8, 6, 16, 437, DateTimeKind.Local).AddTicks(9664),
+                            PaymentDate = new DateTime(2025, 10, 28, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(7290),
+                            RejectionRemark = "KYC required",
                             Remarks = "Monthly IT Contract",
                             Type = 2,
-                            status = 1
+                            status = -1
                         },
                         new
                         {
@@ -869,7 +896,8 @@ namespace Banking_Payments.Migrations
                             BankUserId = 1,
                             BeneficiaryId = 2,
                             ClientId = 1,
-                            PaymentDate = new DateTime(2025, 11, 1, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(776),
+                            PaymentDate = new DateTime(2025, 11, 2, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(9915),
+                            RejectionRemark = "",
                             Remarks = "Hardware Purchase",
                             Type = 1,
                             status = 0
@@ -881,7 +909,8 @@ namespace Banking_Payments.Migrations
                             BankUserId = 2,
                             BeneficiaryId = 3,
                             ClientId = 2,
-                            PaymentDate = new DateTime(2025, 10, 30, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(784),
+                            PaymentDate = new DateTime(2025, 10, 31, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(9922),
+                            RejectionRemark = "",
                             Remarks = "Raw Material Payment",
                             Type = 0,
                             status = 1
@@ -893,7 +922,8 @@ namespace Banking_Payments.Migrations
                             BankUserId = 4,
                             BeneficiaryId = 7,
                             ClientId = 4,
-                            PaymentDate = new DateTime(2025, 11, 4, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(787),
+                            PaymentDate = new DateTime(2025, 11, 5, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(9925),
+                            RejectionRemark = "",
                             Remarks = "Consultant Fees",
                             Type = 2,
                             status = 1
@@ -905,7 +935,8 @@ namespace Banking_Payments.Migrations
                             BankUserId = 5,
                             BeneficiaryId = 9,
                             ClientId = 5,
-                            PaymentDate = new DateTime(2025, 11, 5, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(790),
+                            PaymentDate = new DateTime(2025, 11, 6, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(9927),
+                            RejectionRemark = "",
                             Remarks = "Doctor Honorarium",
                             Type = 1,
                             status = 0
@@ -917,7 +948,8 @@ namespace Banking_Payments.Migrations
                             BankUserId = 5,
                             BeneficiaryId = 9,
                             ClientId = 5,
-                            PaymentDate = new DateTime(2025, 11, 3, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(792),
+                            PaymentDate = new DateTime(2025, 11, 4, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(9929),
+                            RejectionRemark = "",
                             Remarks = "Supplier Settlement",
                             Type = 0,
                             status = 1
@@ -929,7 +961,8 @@ namespace Banking_Payments.Migrations
                             BankUserId = 3,
                             BeneficiaryId = 5,
                             ClientId = 3,
-                            PaymentDate = new DateTime(2025, 11, 2, 8, 6, 16, 438, DateTimeKind.Local).AddTicks(794),
+                            PaymentDate = new DateTime(2025, 11, 3, 14, 44, 25, 166, DateTimeKind.Local).AddTicks(9931),
+                            RejectionRemark = "",
                             Remarks = "Teacher Stipend",
                             Type = 2,
                             status = 1

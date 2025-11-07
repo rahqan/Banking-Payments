@@ -10,10 +10,18 @@ namespace Banking_Payments.Controllers
     public class ClientController : ControllerBase
     {
         public readonly IClientService clientService;
-
-        public ClientController(IClientService clientService)
+        private readonly ILogger<ClientController> logger;
+        public ClientController(IClientService clientService, ILogger<ClientController> logger)
         {
             this.clientService = clientService;
+            this.logger = logger;
+        }
+
+        [HttpDelete("delete-employee-by-id/{employeeId}")]
+        public async Task<ActionResult> DeleteEmployeeByEmployeeId(int employeeId)
+        {
+            var res = await clientService.DeleteEmployeeByEmployeeId(employeeId);
+            return Ok();
         }
 
         [HttpGet("get-all-client-by-id")]
@@ -182,47 +190,83 @@ namespace Banking_Payments.Controllers
         [HttpPost("individual-salary-disbursement")]
         public async Task<ActionResult<SalaryDisbursement>> AddSalaryDisbursementIndividuallyAsync(SalaryDisbursement s)
         {
+
             if (ModelState.IsValid)
             {
                 var res = await clientService.AddSalaryDisbursementIndividuallyAsync(s);
+                if (res == null)
+                {
+                    return Conflict("Salary already given this month.");
+                }
                 return Ok(res);
             }
             return BadRequest();
         }
 
-        [HttpPost("salary-disbursement-by-batch/{clientId}")]
-        public async Task<ActionResult> SalaryDisbursement(IFormFile file, int clientId, [FromQuery] int batchSize = 10)
+        [HttpPost("salary-disbursement-by-batch")]
+        public async Task<IActionResult> SalaryDisbursement([FromForm] SalaryDisbursementForm form)
         {
             try
             {
-                if (file == null || file.Length == 0)
+                logger.LogInformation("Starting salary disbursement process for ClientId: {ClientId}", form.ClientId);
+
+                if (form.File == null || form.File.Length == 0)
                 {
-                    return BadRequest("Please upload a valid Excel file");
+                    return BadRequest("No file uploaded");
                 }
 
-                if (!file.FileName.EndsWith(".xlsx") && !file.FileName.EndsWith(".xls"))
+                // Validate file extension
+                var fileExtension = Path.GetExtension(form.File.FileName).ToLower();
+                if (fileExtension != ".xlsx" && fileExtension != ".xls" && fileExtension != ".csv")
                 {
-                    return BadRequest("Only Excel files are supported");
+                    return BadRequest("Invalid file format. Please upload an Excel file (.xlsx or .xls)");
                 }
 
-                List<Employee> employees = new List<Employee>();
-                using (var stream = file.OpenReadStream())
+                logger.LogInformation("Received file: {FileName}, Size: {FileSize} bytes", form.File.FileName, form.File.Length);
+
+                // Validate batch size
+                if (form.BatchSize <= 0)
                 {
-                    employees = await clientService.ReadEmployeesFromExcel(stream);
+                    form.BatchSize = 10;
                 }
 
-                if (employees.Count == 0)
+                // Copy the stream to a MemoryStream first
+                List<Employee> employees;
+                using (var memoryStream = new MemoryStream())
                 {
-                    return BadRequest("No employee records found in the file");
+                    await form.File.CopyToAsync(memoryStream);
+                    memoryStream.Position = 0; // Reset position to beginning
+
+                    employees = await clientService.ReadEmployeesFromExcel(memoryStream);
+
+                    foreach (var emp in employees)
+                    {
+                        logger.LogInformation("Employee read from file: {EmployeeCode}, Name: {Name}, Salary: {Salary}",
+                            emp.EmployeeCode, emp.Name, emp.Salary);
+                    }
                 }
 
-                var res = clientService.SalaryDisbursementByBatch(employees, batchSize, clientId);
+                if (employees == null || !employees.Any())
+                {
+                    return BadRequest("No valid employees found in the file");
+                }
 
-                return Ok(res);
+                logger.LogInformation("Number of employees read from file: {Count}", employees.Count);
+
+                // FIXED: Removed 'await' since method is synchronous
+                var result = clientService.SalaryDisbursementByBatch(employees, form.BatchSize, form.ClientId);
+
+                return Ok(result);
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("Something went wrong in controller at 80");
+                logger.LogError(ex, "Error during salary disbursement");
+                return StatusCode(500, new
+                {
+                    message = "Something went wrong",
+                    error = ex.Message,
+                    innerError = ex.InnerException?.Message
+                });
             }
         }
     }

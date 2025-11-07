@@ -1,4 +1,3 @@
-
 using Banking_Payments.Context;
 using Banking_Payments.Custom;
 using Banking_Payments.Models;
@@ -8,10 +7,10 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System;
+using OfficeOpenXml;
+using QuestPDF.Infrastructure;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Banking_Payments
 {
@@ -19,90 +18,69 @@ namespace Banking_Payments
     {
         public static void Main(string[] args)
         {
+            //var builder = WebApplication.CreateBuilder(args);
+
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+           
+            // Add DbContext
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("myconnection")));
 
+            // Register repositories and services
             builder.Services.AddScoped<IClientRepository, ClientRepository>();
             builder.Services.AddScoped<IClientService, ClientService>();
             builder.Services.AddScoped<IBankUserRepository, BankUserRepository>();
             builder.Services.AddScoped<IBankUserService, BankUserService>();
-
-            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
-            builder.Services.AddScoped<IEmailService, EmailService>();
-
-
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             builder.Services.AddScoped<IAuthService, AuthService>();
-
             builder.Services.AddScoped<IDashboardService, DashboardService>();
-
             builder.Services.AddScoped<IBankRepository, BankRepository>();
             builder.Services.AddScoped<IBankService, BankService>();
-
-
-            //builder.Services.AddScoped<IAuthService, AuthService>();
-            //builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             builder.Services.AddScoped<IJwtService, JwtService>();
-
-            builder.Services.AddScoped<IClientService, ClientService>();
-            builder.Services.AddScoped<IClientRepository, ClientRepository>();
-
-
-            builder.Services.AddScoped<IBankUserService, BankUserService>();
-            builder.Services.AddScoped<IBankUserRepository, BankUserRepository>();
-
-
             builder.Services.AddScoped<IPaymentService, PaymentService>();
             builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
-
             builder.Services.AddScoped<IDocumentService, DocumentService>();
             builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
-            builder.Services.AddScoped<IBankUserService, BankUserService>();
-
             builder.Services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
             builder.Services.AddScoped<ISuperAdminService, SuperAdminService>();
-
-
             builder.Services.AddScoped<IReportRepository, ReportRepository>();
             builder.Services.AddScoped<IReportService, ReportService>();
-
             builder.Services.AddScoped<IPdfExportService, PdfExportService>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
+            builder.Services.AddScoped<IReCaptchaService, ReCaptchaService>();
 
-            // Cloudinary config
-            builder.Services.Configure<CloudinarySettings>(
-                builder.Configuration.GetSection("CloudinarySettings")
-            );
+            // Configure settings
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+            builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+            builder.Services.Configure<ReCaptchaSettings>(builder.Configuration.GetSection("ReCaptcha"));
 
+            builder.Services.AddHttpClient();
 
-            //builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JWT"));
-
+            // Add logging
             builder.Services.AddLogging(builder =>
             {
                 builder.AddConsole();
                 builder.SetMinimumLevel(LogLevel.Error);
             });
+
+            // Add controllers with JSON options
             builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    });
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+                });
 
-
+            // Add exception handling
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             builder.Services.AddProblemDetails();
-            // Add Authentication Services.
 
+            // Add Authentication
             builder.Services.AddAuthentication(opt =>
             {
-
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
-
-
             })
             .AddJwtBearer(options =>
             {
@@ -119,17 +97,7 @@ namespace Banking_Payments
                 };
             });
 
-            builder.Services.AddControllers();
-            //builder.Services.AddControllers().AddJsonOptions(options =>
-            //{
-            //    options.JsonSerializerOptions.ReferenceHandler =
-            //        System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
-            //    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            //}); 
-
-
-            // Whenever we do pipeline, in that case we have to add this line so that does not get any error.
-
+            // Add CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowAngular",
@@ -140,37 +108,16 @@ namespace Banking_Payments
                         .AllowCredentials());
             });
 
-            //builder.Services.AddCors(options =>
-            //{
-            //    options.AddPolicy("AllowAll", policy =>
-            //    {
-            //        policy.AllowAnyOrigin()
-            //              .AllowAnyHeader()
-            //              .AllowAnyMethod();
-            //    });
-            //});
-
-
-            builder.Services.Configure<ReCaptchaSettings>(
-                builder.Configuration.GetSection("ReCaptcha"));
-
-            builder.Services.AddScoped<IReCaptchaService, ReCaptchaService>();
-            builder.Services.AddHttpClient();
-
-            // Important to add cors when we have different url of frontend and backend.
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            // Add Swagger
             builder.Services.AddEndpointsApiExplorer();
-            
-            builder.Services.AddSwaggerGen();
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "First Api"
+                    Title = "Banking Payments API"
                 });
-                //Define Security Scheme for JWT BEarer Tokens
+
                 var securityScheme = new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
@@ -186,8 +133,6 @@ namespace Banking_Payments
                     }
                 };
                 options.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
-
-                //Add Security Requirement
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                     { securityScheme, new string[]{ } }
@@ -196,24 +141,21 @@ namespace Banking_Payments
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // Configure the HTTP request pipeline
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "First API");
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Banking Payments API");
                     options.EnablePersistAuthorization();
                 });
             }
 
             app.UseHttpsRedirection();
-
-            app.UseCors("AllowAngular");  // 1. CORS first
-            app.UseAuthentication();       // 2. Authentication 
-            app.UseAuthorization();        // 3. Authorization
-
-
+            app.UseCors("AllowAngular");
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.MapControllers();
 
             app.Run();

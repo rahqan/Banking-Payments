@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "First Api",
+    "title": "Banking Payments API",
     "version": "v1"
   },
   "paths": {
@@ -1179,6 +1179,29 @@
         }
       }
     },
+    "/api/v1/delete-employee-by-id/{employeeId}": {
+      "delete": {
+        "tags": [
+          "Client"
+        ],
+        "parameters": [
+          {
+            "name": "employeeId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/get-all-client-by-id": {
       "get": {
         "tags": [
@@ -2078,30 +2101,10 @@
         }
       }
     },
-    "/api/v1/salary-disbursement-by-batch/{clientId}": {
+    "/api/v1/salary-disbursement-by-batch": {
       "post": {
         "tags": [
           "Client"
-        ],
-        "parameters": [
-          {
-            "name": "clientId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "batchSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 10
-            }
-          }
         ],
         "requestBody": {
           "content": {
@@ -2112,11 +2115,25 @@
                   "file": {
                     "type": "string",
                     "format": "binary"
+                  },
+                  "clientId": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "batchSize": {
+                    "type": "integer",
+                    "format": "int32"
                   }
                 }
               },
               "encoding": {
                 "file": {
+                  "style": "form"
+                },
+                "clientId": {
+                  "style": "form"
+                },
+                "batchSize": {
                   "style": "form"
                 }
               }
@@ -3208,6 +3225,9 @@
         "additionalProperties": false
       },
       "BankUser": {
+        "required": [
+          "email"
+        ],
         "type": "object",
         "properties": {
           "bankUserId": {
@@ -3223,8 +3243,9 @@
             "nullable": true
           },
           "email": {
+            "minLength": 1,
             "type": "string",
-            "nullable": true
+            "format": "email"
           },
           "password": {
             "type": "string",
@@ -3318,6 +3339,9 @@
             "type": "string",
             "nullable": true
           },
+          "isActive": {
+            "type": "boolean"
+          },
           "clientId": {
             "type": "integer",
             "format": "int32"
@@ -3385,6 +3409,9 @@
         "additionalProperties": false
       },
       "Client": {
+        "required": [
+          "email"
+        ],
         "type": "object",
         "properties": {
           "clientId": {
@@ -3400,8 +3427,9 @@
             "nullable": true
           },
           "email": {
+            "minLength": 1,
             "type": "string",
-            "nullable": true
+            "format": "email"
           },
           "businessType": {
             "type": "string",
@@ -3996,6 +4024,9 @@
             "type": "string",
             "nullable": true
           },
+          "isActive": {
+            "type": "boolean"
+          },
           "clientId": {
             "type": "integer",
             "format": "int32"
@@ -4154,6 +4185,10 @@
             "type": "string",
             "nullable": true
           },
+          "rejectionRemark": {
+            "type": "string",
+            "nullable": true
+          },
           "beneficiaryId": {
             "type": "integer",
             "format": "int32"
@@ -4259,6 +4294,10 @@
           "beneficiaryId": {
             "type": "integer",
             "format": "int32"
+          },
+          "rejectionRemark": {
+            "type": "string",
+            "nullable": true
           },
           "beneficiary": {
             "$ref": "#/components/schemas/BeneficiaryDTO"

@@ -59,6 +59,8 @@ namespace Banking_Payments.Services
                     ClientName = p.Client.Name,
                     ClientEmail = p.Client.Email
                 },
+                Remarks = p.Remarks,
+                RejectionRemark = p.RejectionRemark,
                 ApprovedById = p.BankUserId,
                 ApprovedByName = p.ApprovedBy?.Name
             };
@@ -142,6 +144,42 @@ namespace Banking_Payments.Services
             return MapToDto(payment);
         }
 
+        //public async Task<PaymentDTO> RejectPaymentAsync(int paymentId, int bankUserId, int bankId, string? notes)
+        //{
+        //    if (paymentId <= 0 || bankUserId <= 0)
+        //        throw new ArgumentException("Invalid payment or bank user ID");
+
+        //    var payment = await _paymentRepo.GetPaymentByIdAsync(paymentId);
+
+        //    if (payment == null)
+        //        throw new KeyNotFoundException($"Payment with ID {paymentId} not found");
+
+        //    // Authorization check: Payment's client must belong to the same bank as the bank user
+        //    if (payment.Client?.BankId != bankId)
+        //        throw new UnauthorizedAccessException("You can only reject payments from your own bank");
+
+        //    // CRITICAL: Check current status
+        //    if (payment.status == VerificationStatus.Rejected)
+        //        throw new InvalidOperationException("Payment is already rejected");
+
+        //    if (payment.status == VerificationStatus.Verified)
+        //        throw new InvalidOperationException("Cannot reject an approved payment");
+
+        //    payment.status = VerificationStatus.Rejected;
+        //    payment.BankUserId = bankUserId;
+
+        //    if (!string.IsNullOrWhiteSpace(notes))
+        //        _logger.LogInformation("Rejection notes for payment {PaymentId}: {Notes}", paymentId, notes);
+
+        //    await _paymentRepo.UpdatePaymentAsync(payment);
+
+        //    _logger.LogInformation("Payment rejected successfully: {PaymentId}, RejectedBy: {BankUserId}, Bank: {BankId}",
+        //        paymentId, bankUserId, bankId);
+
+        //    return MapToDto(payment);
+        //}
+
+
         public async Task<PaymentDTO> RejectPaymentAsync(int paymentId, int bankUserId, int bankId, string? notes)
         {
             if (paymentId <= 0 || bankUserId <= 0)
@@ -163,16 +201,18 @@ namespace Banking_Payments.Services
             if (payment.status == VerificationStatus.Verified)
                 throw new InvalidOperationException("Cannot reject an approved payment");
 
+            // Validate that rejection reason is provided
+            if (string.IsNullOrWhiteSpace(notes))
+                throw new ArgumentException("Rejection reason is required");
+
             payment.status = VerificationStatus.Rejected;
             payment.BankUserId = bankUserId;
+            payment.RejectionRemark = notes; // Store the rejection reason
 
-            if (!string.IsNullOrWhiteSpace(notes))
-                _logger.LogInformation("Rejection notes for payment {PaymentId}: {Notes}", paymentId, notes);
+            _logger.LogInformation("Payment rejected: {PaymentId}, RejectedBy: {BankUserId}, Bank: {BankId}, Reason: {Reason}",
+                paymentId, bankUserId, bankId, notes);
 
             await _paymentRepo.UpdatePaymentAsync(payment);
-
-            _logger.LogInformation("Payment rejected successfully: {PaymentId}, RejectedBy: {BankUserId}, Bank: {BankId}",
-                paymentId, bankUserId, bankId);
 
             return MapToDto(payment);
         }

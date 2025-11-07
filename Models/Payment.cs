@@ -16,6 +16,10 @@ namespace Banking_Payments.Models
         public PaymentType Type { get; set; } = PaymentType.RTGS;
         public string Remarks { get; set; }
 
+
+
+        public string RejectionRemark { get; set; }=string.Empty;
+
         [ForeignKey("Beneficiary")]
         public int BeneficiaryId { get; set; }
         public Beneficiary? Beneficiary { get; set; }

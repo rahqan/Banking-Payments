@@ -1,13 +1,18 @@
 ﻿using Banking_Payments.Models;
 using Banking_Payments.Models.DTO;
 using Banking_Payments.Repositories;
-using OfficeOpenXml.Core.ExcelPackage;
+using CsvHelper;
+using CsvHelper.Configuration;
+using OfficeOpenXml;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 
 namespace Banking_Payments.Services
 {
     public class ClientService : IClientService
     {
-        public readonly IClientRepository clientRepository;
+        private readonly IClientRepository clientRepository;
 
         public ClientService(IClientRepository clientRepository)
         {
@@ -17,6 +22,11 @@ namespace Banking_Payments.Services
         public async Task<IEnumerable<Client>> GetAllClientByBankIdAsync(int id)
         {
             return await clientRepository.GetAllClientByBankIdAsync(id);
+        }
+
+        public async Task<bool> DeleteEmployeeByEmployeeId(int employeeId)
+        {
+            return await clientRepository.DeleteEmployeeByEmployeeId(employeeId);
         }
 
         public async Task<ClientBankDetailsDTO> GetClientForBankDetailsAsync(int clientId)
@@ -109,39 +119,45 @@ namespace Banking_Payments.Services
             return await clientRepository.ShowSalaryDisbursementByClientIdAsync(clientId);
         }
 
+       
+
         public async Task<List<Employee>> ReadEmployeesFromExcel(Stream file)
         {
             var employees = new List<Employee>();
 
-            using (var package = new ExcelPackage(file))
+            using (var reader = new StreamReader(file))
+            using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
             {
-                if (package.Workbook.Worksheets.Count == 0)
-                {
-                    throw new Exception("No worksheet found in the Excel file.");
-                }
-                var worksheet = package.Workbook.Worksheets[0];
-                int row = 2, maxRows = 10000, emptyRowCount = 0;
+                HasHeaderRecord = true,
+                TrimOptions = TrimOptions.Trim,
+                MissingFieldFound = null,
+                BadDataFound = null
+            }))
+            {
+                await csv.ReadAsync();
+                csv.ReadHeader();
 
-                while (row <= maxRows)
+                int row = 2;
+
+                while (await csv.ReadAsync())
                 {
-                    var employeeCode = worksheet.Cell(row, 1).Value?.ToString()?.Trim();
-                    if (string.IsNullOrEmpty(employeeCode))
-                    {
-                        emptyRowCount++;
-                        if (emptyRowCount >= 5) break;
-                        row++;
-                        continue;
-                    }
-                    emptyRowCount = 0;
                     try
                     {
-                        var salaryValue = worksheet.Cell(row, 3).Value?.ToString()?.Trim();
+                        var employeeCode = csv.GetField<string>(0)?.Trim();
+
+                        if (string.IsNullOrEmpty(employeeCode))
+                        {
+                            row++;
+                            continue;
+                        }
+
+                        var salaryValue = csv.GetField<string>(2)?.Trim();
                         if (string.IsNullOrEmpty(salaryValue))
                         {
                             throw new Exception($"Invalid salary value at row {row}");
                         }
-                        decimal salary = 0;
-                        if (!decimal.TryParse(salaryValue, out salary))
+
+                        if (!decimal.TryParse(salaryValue, out var salary))
                         {
                             throw new Exception($"Invalid salary value at row {row}");
                         }
@@ -149,10 +165,10 @@ namespace Banking_Payments.Services
                         var emp = new Employee
                         {
                             EmployeeCode = employeeCode,
-                            Name = worksheet.Cell(row, 2).Value?.ToString()?.Trim(),
+                            Name = csv.GetField<string>(1)?.Trim(),
                             Salary = salary,
-                            AccountNumber = worksheet.Cell(row, 4).Value?.ToString()?.Trim(),
-                            IfscCode = worksheet.Cell(row, 5).Value?.ToString().Trim()
+                            AccountNumber = csv.GetField<string>(3)?.Trim(),
+                            IfscCode = csv.GetField<string>(4)?.Trim()
                         };
 
                         employees.Add(emp);
@@ -164,7 +180,15 @@ namespace Banking_Payments.Services
 
                     row++;
                 }
+            }
+           
 
+            foreach (var emp in employees)
+            {
+                if (string.IsNullOrEmpty(emp.EmployeeCode) || string.IsNullOrEmpty(emp.Name) || emp.Salary <= 0)
+                {
+                    throw new Exception("EmployeeCode, Name, and Salary are required fields and must be valid.");
+                }
             }
             return employees;
         }
@@ -175,25 +199,52 @@ namespace Banking_Payments.Services
             {
                 int totalEmployee = employees.Count;
                 int start = 0;
+                int processedCount = 0;
+                int skippedCount = 0;
+                List<string> errors = new List<string>();
+
                 while (start < totalEmployee)
                 {
                     for (int i = 0; i < batchNumber && start < totalEmployee; i++)
                     {
-                        if (!clientRepository.CheckEmployeeExisByCode(employees.ElementAt(start).EmployeeCode, clientId))
+                        var employee = employees.ElementAt(start);
+
+                        try
                         {
-                            throw new Exception("Invalid Employee code.");
+                            if (!clientRepository.CheckEmployeeExisByCode(employee.EmployeeCode, clientId))
+                            {
+                                employee.ClientId = clientId;
+                                var addedEmployee = clientRepository.AddEmployeeAsync(employee).Result;
+                                employee.EmployeeId = addedEmployee.EmployeeId;
+                            }
+
+                            clientRepository.SalaryDisbursementByBatch(employee, clientId);
+                            processedCount++;
                         }
-                        clientRepository.SalaryDisbursementByBatch(employees.ElementAt(start), clientId);
+                        catch (Exception ex)
+                        {
+                            errors.Add($"Employee {employee.EmployeeCode}: {ex.Message}");
+                            skippedCount++;
+                        }
+
                         start++;
                     }
                 }
 
-                var res = new { Success = true, TotalEmployees = totalEmployee, TotalBatches = (totalEmployee / batchNumber) + 1 };
+                var res = new
+                {
+                    Success = errors.Count == 0,
+                    TotalEmployees = totalEmployee,
+                    ProcessedCount = processedCount,
+                    SkippedCount = skippedCount,
+                    TotalBatches = (totalEmployee / batchNumber) + 1,
+                    Errors = errors
+                };
                 return res;
             }
             catch (Exception ex)
             {
-                throw new Exception($"Something went wrong {ex}");
+                throw new Exception($"Something went wrong in batch processing: {ex.Message}", ex);
             }
         }
     }

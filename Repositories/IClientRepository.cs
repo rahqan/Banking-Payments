@@ -9,7 +9,7 @@ namespace Banking_Payments.Repositories
         Task<ClientBankDetailsDTO> GetClientForBankDetailsAsync(int clientId);
         Task<IEnumerable<Client>> GetAllClientByBankIdAsync(int id);
         Task<IEnumerable<Client>> GetClientsAllAsync(int id);
-
+        Task<bool> DeleteEmployeeByEmployeeId(int employeeId);
         Task<SalaryDisbursement> AddSalaryDisbursementIndividuallyAsync(SalaryDisbursement s);
         Task<Client> GetClientByRegisterationNumberAsync(string registerationNumber, int bankId);
         Task<IEnumerable<Client>> GetClientsWithStatusAsync(string status, int bankId);

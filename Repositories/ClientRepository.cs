@@ -26,6 +26,17 @@ namespace Banking_Payments.Repositories
             return res;
         }
 
+        public async Task<bool> DeleteEmployeeByEmployeeId(int employeeId)
+        {
+            var employee = await _appDbContext.Employees.FirstOrDefaultAsync(e => e.EmployeeId == employeeId);
+            if (employee != null)
+            {
+                employee.IsActive = false;
+                await _appDbContext.SaveChangesAsync();
+            }
+            return true;
+        }
+
         public async Task<ClientBankDetailsDTO> GetClientForBankDetailsAsync(int clientId)
         {
             Client client = await _appDbContext.Clients
@@ -220,17 +231,34 @@ namespace Banking_Payments.Repositories
 
         public async Task<SalaryDisbursement> AddSalaryDisbursementIndividuallyAsync(SalaryDisbursement s)
         {
-            await _appDbContext.SalaryDisbursements.AddAsync(s);
-            var client = await _appDbContext.Clients.FirstOrDefaultAsync(c => c.ClientId == s.ClientId);
-            if (client != null)
+            var lastSalary = await _appDbContext.SalaryDisbursements
+                .Where(s1 => s1.EmployeeId == s.EmployeeId)
+                .OrderByDescending(s1 => s.CreatedAt)
+                .FirstOrDefaultAsync();
+
+            if (lastSalary != null)
             {
-                client.Balance -= Convert.ToDouble(s.Amount);
-                await _appDbContext.SaveChangesAsync();
+                // Check if salary already disbursed for the same month and year
+                if (lastSalary.CreatedAt.Month == s.CreatedAt.Month &&
+                    lastSalary.CreatedAt.Year == s.CreatedAt.Year)
+                {
+                    return null; // Salary already given this month
+                }
+                return null;
             }
+
+            // Add the salary disbursement
+            await _appDbContext.SalaryDisbursements.AddAsync(s);
+
+            var c = await _appDbContext.Clients.FirstOrDefaultAsync(c => c.ClientId == s.ClientId);
+            if (c != null)
+            {
+                c.Balance -= Convert.ToDouble(s.Amount);
+            }
+
             await _appDbContext.SaveChangesAsync();
             return s;
         }
-
         public bool CheckEmployeeExisById(int empId, int clientId)
         {
             var emp = _appDbContext.Employees.FirstOrDefaultAsync(e => e.EmployeeId == empId && e.ClientId == clientId);

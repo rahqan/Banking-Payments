@@ -17,6 +17,7 @@ namespace Banking_Payments.Models
         public string Address { get; set; }
         public string AccountNumber { get; set; }
         public string IfscCode { get; set; }
+        public bool IsActive { get; set; } = true;
 
         [ForeignKey("Client")]
         public int ClientId { get; set; }

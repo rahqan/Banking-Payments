@@ -1305,6 +1305,22 @@
   },
   {
     "ContainingType": "Banking_Payments.Controllers.ClientController",
+    "Method": "DeleteEmployeeByEmployeeId",
+    "RelativePath": "api/v1/delete-employee-by-id/{employeeId}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "employeeId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Banking_Payments.Controllers.ClientController",
     "Method": "ShowBeneficiariesAsync",
     "RelativePath": "api/v1/get-all-beneficiaries/{clientId}",
     "HttpMethod": "GET",
@@ -1690,7 +1706,7 @@
   {
     "ContainingType": "Banking_Payments.Controllers.ClientController",
     "Method": "SalaryDisbursement",
-    "RelativePath": "api/v1/salary-disbursement-by-batch/{clientId}",
+    "RelativePath": "api/v1/salary-disbursement-by-batch",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -1703,7 +1719,7 @@
       {
         "Name": "clientId",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
       },
       {
         "Name": "batchSize",

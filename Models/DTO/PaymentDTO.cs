@@ -32,6 +32,8 @@ public class PaymentDTO
     public VerificationStatus Status { get; set; }
     public PaymentType Type { get; set; }
     public int BeneficiaryId { get; set; }
+
+    public string? RejectionRemark { get; set; }
     public BeneficiaryDTO? Beneficiary { get; set; }   // ✅ nested object
     public int ClientId { get; set; }
 

@@ -12,6 +12,7 @@ namespace Banking_Payments.Services
         Task<SalaryDisbursement> AddSalaryDisbursementIndividuallyAsync(SalaryDisbursement s);
         Task<IEnumerable<Client>> GetClientsWithStatusAsync(string status, int bankId);
         Task<Beneficiary> AddBeneficiaryAsync(Beneficiary beneficiary);
+        Task<bool> DeleteEmployeeByEmployeeId(int employeeId);
         Task<Beneficiary> UpdateBeneficiaryAsync(Beneficiary beneficiary);
         Task<bool> DeleteBeneficiaryAsync(int id);
         Task<Beneficiary> ShowBeneficiaryByIdAsync(int id);

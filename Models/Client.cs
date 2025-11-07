@@ -80,11 +80,13 @@
 //}
 
 
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Banking_Payments.Models
 {
+    [Index(nameof(Email), IsUnique = true)]
     public class Client
     {
         [Key]
@@ -92,6 +94,9 @@ namespace Banking_Payments.Models
 
         public string Code { get; set; }
         public string Name { get; set; }
+
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
         public string BusinessType { get; set; }
         public string Address { get; set; }
@@ -107,7 +112,7 @@ namespace Banking_Payments.Models
 
         public string VerificationStatus { get; set; } = "Pending";
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
 
         [ForeignKey("Bank")]
         public int BankId { get; set; }

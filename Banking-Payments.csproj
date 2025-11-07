@@ -10,8 +10,10 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="CloudinaryDotNet" Version="1.27.8" />
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
     <PackageReference Include="DNTCaptcha.Core" Version="5.3.1" />
     <PackageReference Include="DocumentFormat.OpenXml" Version="3.3.0" />
+    <PackageReference Include="EPPlus" Version="8.2.1" />
     <PackageReference Include="Google.Cloud.RecaptchaEnterprise.V1" Version="2.18.0" />
     <PackageReference Include="itext" Version="9.3.0" />
     <PackageReference Include="iTextSharp" Version="5.5.13.4" />

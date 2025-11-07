@@ -10,7 +10,7 @@ namespace Banking_Payments.Models
 
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        public Employee? Employee { get; set; }
 
         [ForeignKey("Client")]
         public int ClientId { get; set; }

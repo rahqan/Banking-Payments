@@ -4,6 +4,8 @@ using Banking_Payments.Models.Enums;
 using Banking_Payments.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace Banking_Payments.Controllers
 {
@@ -51,6 +53,41 @@ namespace Banking_Payments.Controllers
 
         // ==================== CLIENT ENDPOINTS ====================
 
+        //[HttpPost("clients")]
+        //public async Task<ActionResult<ClientDTO>> CreateClientAsync([FromBody] ClientCreationDTO clientCreationDTO)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
+        //    }
+
+        //    try
+        //    {
+        //        var bankId = GetBankIdFromClaims();
+        //        var bankUserId = GetBankUserIdFromClaims();
+
+        //        // Ensure the client is being created for the bank user's bank
+        //        //if (clientCreationDTO.BankId != bankId)
+        //        //{
+        //        //    return Forbid();
+        //        //}
+
+        //        var createdClient = await _bankUserService.CreateClientAsync(clientCreationDTO,bankId,bankUserId);
+        //        _logger.LogInformation("Client created successfully: {ClientName}", createdClient.ClientName);
+        //        return Ok(createdClient);
+        //    }
+        //    catch (UnauthorizedAccessException ex)
+        //    {
+        //        return Unauthorized(new { message = ex.Message });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Client creation failed");
+        //        return BadRequest(new { message = ex.Message });
+        //    }
+        //}
+
+
         [HttpPost("clients")]
         public async Task<ActionResult<ClientDTO>> CreateClientAsync([FromBody] ClientCreationDTO clientCreationDTO)
         {
@@ -64,15 +101,35 @@ namespace Banking_Payments.Controllers
                 var bankId = GetBankIdFromClaims();
                 var bankUserId = GetBankUserIdFromClaims();
 
-                // Ensure the client is being created for the bank user's bank
-                //if (clientCreationDTO.BankId != bankId)
-                //{
-                //    return Forbid();
-                //}
-
-                var createdClient = await _bankUserService.CreateClientAsync(clientCreationDTO,bankId,bankUserId);
+                var createdClient = await _bankUserService.CreateClientAsync(clientCreationDTO, bankId, bankUserId);
                 _logger.LogInformation("Client created successfully: {ClientName}", createdClient.ClientName);
-                return Ok(createdClient);
+
+                return Ok(new
+                {
+                    message = "Client created successfully",
+                    clientId = createdClient.ClientId,
+                    clientName = createdClient.ClientName
+                });
+            }
+            catch (DbUpdateException ex) when (ex.InnerException is SqlException sqlEx)
+            {
+                // Handle duplicate key error (Error Number: 2601 or 2627)
+                if (sqlEx.Number == 2601 || sqlEx.Number == 2627)
+                {
+                    _logger.LogWarning($"Duplicate client email: {clientCreationDTO.ClientEmail}");
+
+                    return Conflict(new
+                    {
+                        message = "A client with this email address already exists. Please use a different email.",
+                        error = "DUPLICATE_EMAIL"
+                    });
+                }
+
+                _logger.LogError(ex, "Database error during client creation");
+                return StatusCode(500, new
+                {
+                    message = "An error occurred while creating the client. Please try again."
+                });
             }
             catch (UnauthorizedAccessException ex)
             {
@@ -81,7 +138,10 @@ namespace Banking_Payments.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Client creation failed");
-                return BadRequest(new { message = ex.Message });
+                return StatusCode(500, new
+                {
+                    message = "An unexpected error occurred. Please try again or contact support."
+                });
             }
         }
 
