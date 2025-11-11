@@ -54,8 +54,8 @@ namespace Banking_Payments.Services
             if (bankId.HasValue)
                 claims.Add(new Claim("BankId", bankId.Value.ToString()));
 
-            if (role == "SuperAdmin")
-                claims.Add(new Claim("AdminId", userId.ToString()));
+           // if (role == "SuperAdmin")
+             //   claims.Add(new Claim("AdminId", userId.ToString()));
 
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));

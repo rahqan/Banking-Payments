@@ -3289,9 +3289,9 @@
       "BankUserApprovalPerformance": {
         "type": "object",
         "properties": {
-          "bankUserId": {
-            "type": "integer",
-            "format": "int32"
+          "bankUserCode": {
+            "type": "string",
+            "nullable": true
           },
           "bankUserName": {
             "type": "string",

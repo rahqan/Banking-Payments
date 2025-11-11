@@ -10,8 +10,7 @@ namespace Banking_Payments.Controllers
     [Route("api/Bank")]
     [ApiController]
     [Authorize(Roles = "SuperAdmin")]
-    //[Authorize(Roles = nameof(Role.SuperAdmin))]
-    //[Authorize(Roles = "SuperAdmin,Role.SuperAdmin")]
+    
 
     public class SuperAdminController : ControllerBase
     {

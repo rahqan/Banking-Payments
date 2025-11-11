@@ -2,6 +2,7 @@
 using Banking_Payments.Models;
 using Banking_Payments.Models.DTO.Reports;
 using Banking_Payments.Models.Enums;
+using Banking_Payments.Services;
 using Google;
 using Microsoft.EntityFrameworkCore;
 
@@ -462,6 +463,7 @@ namespace Banking_Payments.Repositories
         {
             var query = _context.Payments
                 .Include(p => p.Client)
+                //.Include(p => p.ApprovedBy)
                 .Include(p => p.Beneficiary)
                 .Include(p => p.ApprovedBy)
                 .Where(p => p.Client.BankId == bankId);
@@ -474,19 +476,35 @@ namespace Banking_Payments.Repositories
 
             var payments = await query.ToListAsync();
 
+            var bankUsers = await _context.BankUsers.ToListAsync();
+
             // Bank User Performance
             var bankUserPerformance = payments
                 .Where(p => p.BankUserId.HasValue)
-                .GroupBy(p => new { p.BankUserId, p.ApprovedBy.Name })
+                .Join(
+                    bankUsers,                              // second table
+                    p => p.BankUserId,                      // key from payments
+                    b => b.BankUserId,                      // key from bankUsers
+                    (p, b) => new { Payment = p, BankUser = b } // result selector
+                )
+                .GroupBy(x => new
+                {
+                    x.BankUser.BankUserId,
+                    x.BankUser.Name,
+                    x.BankUser.Code
+                })
                 .Select(g => new BankUserApprovalPerformance
                 {
-                    BankUserId = g.Key.BankUserId.Value,
                     BankUserName = g.Key.Name ?? "Unknown",
-                    TotalApproved = g.Count(p => p.status == VerificationStatus.Verified),
-                    TotalRejected = g.Count(p => p.status == VerificationStatus.Rejected),
-                    TotalAmountApproved = g.Where(p => p.status == VerificationStatus.Verified).Sum(p => p.Amount)
+                    BankUserCode = g.Key.Code ?? "N/A",   
+                    TotalApproved = g.Count(x => x.Payment.status == VerificationStatus.Verified),
+                    TotalRejected = g.Count(x => x.Payment.status == VerificationStatus.Rejected),
+                    TotalAmountApproved = g
+                        .Where(x => x.Payment.status == VerificationStatus.Verified)
+                        .Sum(x => x.Payment.Amount)
                 })
                 .ToList();
+
 
             // High Value Transactions (>100000)
             var highValueTransactions = payments

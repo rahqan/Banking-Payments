@@ -17,7 +17,8 @@
 
     public class BankUserApprovalPerformance
     {
-        public int BankUserId { get; set; }
+        //public int BankUserId { get; set; }
+        public string BankUserCode { get; set; } 
         public string BankUserName { get; set; }
         public int TotalApproved { get; set; }
         public int TotalRejected { get; set; }
