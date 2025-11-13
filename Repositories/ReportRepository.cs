@@ -230,10 +230,8 @@ namespace Banking_Payments.Repositories
                 .Where(s => s.CreatedAt >= startDate && s.CreatedAt <= endDate)
                 .ToListAsync();
 
-            // Get the correct status value - CHANGE THIS based on your enum
-            var approvedStatus = VerificationStatus.Verified; // or VerificationStatus.Verified?
+            var approvedStatus = VerificationStatus.Verified;
 
-            // Payment Type Breakdown - Count ALL, Amount only APPROVED
             var paymentTypeBreakdown = new PaymentTypeBreakdown
             {
                 RTGSCount = payments.Count(p => p.Type == PaymentType.RTGS),
@@ -246,7 +244,6 @@ namespace Banking_Payments.Repositories
                 NEFTAmount = payments.Where(p => p.Type == PaymentType.NEFT && p.status == approvedStatus).Sum(p => p.Amount)
             };
 
-            // Payment Status Breakdown
             var paymentStatusBreakdown = new PaymentStatusBreakdown
             {
                 PendingCount = payments.Count(p => p.status == VerificationStatus.Pending),
@@ -259,21 +256,26 @@ namespace Banking_Payments.Repositories
                 RejectedAmount = payments.Where(p => p.status == VerificationStatus.Rejected).Sum(p => p.Amount)
             };
 
-            // Bank-wise Transactions - Use approved status
-            var bankWiseTransactions = payments
-                .Where(p => p.status == approvedStatus)
-                .GroupBy(p => new { p.Client.Bank.BankId, p.Client.Bank.Name })
-                .Select(g => new BankTransactionSummary
-                {
-                    BankId = g.Key.BankId,
-                    BankName = g.Key.Name,
-                    TransactionCount = g.Count(),
-                    TotalAmount = g.Sum(p => p.Amount)
-                })
-                .OrderByDescending(b => b.TotalAmount)
-                .ToList();
+            
+           
 
-            // Daily Trends - Use approved status
+            var bankWiseTransactions=payments.Where(p=>p.status==approvedStatus).
+                GroupBy(p=>new {p.Client.Bank.BankId,p.Client.Bank.Name})
+                 .Select(g => new BankTransactionSummary
+                 {
+                     BankId = g.Key.BankId,
+                     BankName = g.Key.Name,
+                     TransactionCount = g.Count(),
+                     TotalAmount = g.Sum(p => p.Amount)
+                 })
+                .OrderByDescending(b => b.TotalAmount).
+                ToList();
+
+            
+
+
+
+
             var dailyTrends = payments
                 .Where(p => p.status == approvedStatus)
                 .GroupBy(p => p.PaymentDate.Date)
@@ -286,10 +288,13 @@ namespace Banking_Payments.Repositories
                 .OrderBy(d => d.Date)
                 .ToList();
 
+            int approvedPayments=payments.Count(p=>p.status==approvedStatus);
+
             return new TransactionVolumeReportDTO
             {
                 StartDate = startDate,
                 EndDate = endDate,
+                // can add approved only payments count if needed
                 TotalPayments = payments.Count, // ALL payments
                 TotalPaymentAmount = payments.Where(p => p.status == approvedStatus).Sum(p => p.Amount), // Only approved
                 TotalSalaryDisbursements = salaryDisbursements.Count,
@@ -463,7 +468,7 @@ namespace Banking_Payments.Repositories
         {
             var query = _context.Payments
                 .Include(p => p.Client)
-                //.Include(p => p.ApprovedBy)
+                
                 .Include(p => p.Beneficiary)
                 .Include(p => p.ApprovedBy)
                 .Where(p => p.Client.BankId == bankId);
@@ -506,7 +511,7 @@ namespace Banking_Payments.Repositories
                 .ToList();
 
 
-            // High Value Transactions (>100000)
+            // High Value Transactions (above 100,000)
             var highValueTransactions = payments
                 .Where(p => p.Amount > 100000)
                 .OrderByDescending(p => p.Amount)
@@ -522,6 +527,11 @@ namespace Banking_Payments.Repositories
                 })
                 .ToList();
 
+
+
+           
+
+
             return new PaymentApprovalReportDTO
             {
                 StartDate = startDate ?? DateTime.MinValue,
@@ -532,7 +542,6 @@ namespace Banking_Payments.Repositories
                 RejectedPayments = payments.Count(p => p.status == VerificationStatus.Rejected),
                 TotalApprovedAmount = payments.Where(p => p.status == VerificationStatus.Verified).Sum(p => p.Amount),
                 TotalRejectedAmount = payments.Where(p => p.status == VerificationStatus.Rejected).Sum(p => p.Amount),
-                AverageApprovalTimeHours = 24.5, // TODO: Calculate this when we have timestamps
                 BankUserPerformance = bankUserPerformance,
                 HighValueTransactions = highValueTransactions
             };

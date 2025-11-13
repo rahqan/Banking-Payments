@@ -145,13 +145,34 @@ namespace Banking_Payments.Controllers
             }
         }
 
-        [HttpGet("clients")]
-        public async Task<ActionResult<IEnumerable<ClientDTO>>> GetAllClients()
+        [HttpGet("stats")]
+        public async Task<ActionResult<ClientStatsDTO>> GetClientStats()
         {
             try
             {
                 var bankId = GetBankIdFromClaims();
-                var result = await _bankUserService.GetAllClientsAsync(bankId);
+                var stats = await _bankUserService.GetClientStatsAsync(bankId);
+                return Ok(stats);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to retrieve client stats");
+                return StatusCode(500, new { message = "An error occurred while retrieving stats." });
+            }
+        }
+
+        [HttpGet("clients")]
+        public async Task<ActionResult<PagedResult<ClientDTO>>> GetAllClients(
+     int pageNumber = 1,
+     int pageSize = 10,
+     string? status = null,
+     string? searchTerm = null)
+        {
+            try
+            {
+                var bankId = GetBankIdFromClaims();
+                var result = await _bankUserService.GetAllClientsAsync(
+                    bankId, pageNumber, pageSize, status, searchTerm);
                 return Ok(result);
             }
             catch (UnauthorizedAccessException ex)
@@ -164,6 +185,7 @@ namespace Banking_Payments.Controllers
                 return StatusCode(500, new { message = "An error occurred while retrieving clients." });
             }
         }
+
 
         [HttpGet("clients/{clientId}")]
         public async Task<ActionResult<ClientDTO>> GetClientById(int clientId)

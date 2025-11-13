@@ -20,7 +20,7 @@ namespace Banking_Payments.Services
             var activeBanks = await _context.Banks.CountAsync(b => b.IsActive);
             var activeBankUsers = await _context.BankUsers.CountAsync();
 
-            // Reports - placeholder for future implementation
+            
             var reportsGenerated = 0;
 
             return new DashboardStatsDTO

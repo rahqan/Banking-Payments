@@ -180,32 +180,86 @@
         "tags": [
           "BankUser"
         ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "searchTerm",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientDTO"
-                  }
+                  "$ref": "#/components/schemas/ClientDTOPagedResult"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientDTO"
-                  }
+                  "$ref": "#/components/schemas/ClientDTOPagedResult"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ClientDTO"
-                  }
+                  "$ref": "#/components/schemas/ClientDTOPagedResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BankUser/stats": {
+      "get": {
+        "tags": [
+          "BankUser"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientStatsDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientStatsDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClientStatsDTO"
                 }
               }
             }
@@ -3735,6 +3789,31 @@
         },
         "additionalProperties": false
       },
+      "ClientDTOPagedResult": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClientDTO"
+            },
+            "nullable": true
+          },
+          "totalRecords": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "ClientOnboardingDetail": {
         "type": "object",
         "properties": {
@@ -3775,6 +3854,28 @@
             "format": "int32"
           },
           "daysToVerify": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientStatsDTO": {
+        "type": "object",
+        "properties": {
+          "totalClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pendingOnboard": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "verifiedClients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "rejectedClients": {
             "type": "integer",
             "format": "int32"
           }
@@ -4246,10 +4347,6 @@
             "format": "double"
           },
           "totalRejectedAmount": {
-            "type": "number",
-            "format": "double"
-          },
-          "averageApprovalTimeHours": {
             "type": "number",
             "format": "double"
           },

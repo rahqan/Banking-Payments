@@ -10,7 +10,6 @@
         public int RejectedPayments { get; set; }
         public decimal TotalApprovedAmount { get; set; }
         public decimal TotalRejectedAmount { get; set; }
-        public double AverageApprovalTimeHours { get; set; }
         public List<BankUserApprovalPerformance> BankUserPerformance { get; set; }
         public List<HighValueTransaction> HighValueTransactions { get; set; }
     }
